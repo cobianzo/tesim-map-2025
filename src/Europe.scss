@@ -1,0 +1,102 @@
+@import './styles/custom.scss';
+
+.cls-2 {
+	stroke:        #000;
+	fill:           $primary;
+	stroke-linecap: round;
+	stroke-linejoin: bevel;
+	stroke-width: 0.25px;
+    cursor:         pointer;
+    &:hover{
+        fill:           $info;
+    }
+}
+
+.cls-1 {
+	fill: #fff;
+	stroke: #000;
+	stroke-miterlimit: 10;
+	stroke-width: 0.5px;
+}
+.cls-14 {
+	fill: #fff;
+	stroke: #000;
+	stroke-linecap: round;
+	stroke-linejoin: bevel;
+}
+.cls-5 {
+	fill: #fff;
+	stroke: #000;
+	stroke-width: 0.5px;
+	stroke-linecap: round;
+	stroke-linejoin: bevel;
+}
+.cls-10 {
+	stroke: #000;
+	stroke-linecap: round;
+	stroke-linejoin: bevel;
+	stroke-width: 0.25px;
+	fill: none;
+	isolation: isolate;
+	font-size: 12px;
+	font-family: ArialMT, Arial;
+}
+.cls-12 {
+	stroke: #000;
+	stroke-linecap: round;
+	stroke-linejoin: bevel;
+	stroke-width: 0.25px;
+	fill: none;
+	isolation: isolate;
+	font-family: OpenSans-Italic, Open Sans;
+	font-style: italic;
+	font-size: 5px;
+}
+.cls-13 {
+	stroke: #000;
+	stroke-linecap: round;
+	stroke-linejoin: bevel;
+	fill: none;
+}
+
+.cls-4 {
+	stroke: #000;
+	stroke-width: 0.5px;
+	stroke-linecap: round;
+	stroke-linejoin: bevel;
+	fill: none;
+}
+.cls-7 {
+	stroke: #000;
+	stroke-linecap: round;
+	stroke-linejoin: bevel;
+	stroke-width: 0.25px;
+	fill: none;
+	isolation: isolate;
+	font-size: 12px;
+	font-family: OpenSans-Italic, Open Sans;
+	font-style: italic;
+}
+.cls-3 {
+	opacity: 0.69;
+}
+.cls-11 {
+	isolation: isolate;
+	font-family: OpenSans-Italic, Open Sans;
+	font-style: italic;
+	font-size: 5px;
+}
+.cls-6 {
+	isolation: isolate;
+	font-size: 12px;
+	font-family: OpenSans-Italic, Open Sans;
+	font-style: italic;
+}
+.cls-8 {
+	isolation: isolate;
+}
+.cls-9 {
+	isolation: isolate;
+	font-size: 12px;
+	font-family: ArialMT, Arial;
+}
