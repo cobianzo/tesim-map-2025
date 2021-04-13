@@ -5,6 +5,7 @@ import ProjectInfo from './ProjectInfo';
 //import Brazil from "@svg-maps/brazil";
 // import "react-svg-map/lib/index.css";
 import './Map.scss';
+import SearchByRegion from './SearchByRegion';
 
 
 export default function Map( { allProgrammes, allProjects, regionsToProgrammes, allRegionsInfo } ) {
@@ -54,12 +55,20 @@ export default function Map( { allProgrammes, allProjects, regionsToProgrammes, 
             // when selected region
             const programmesBien = [];
             regionsToProgrammes[selected].forEach( progID => programmesBien.push(allProgrammes[progID]) );
+            // add classes to DOM svg els
             refContainer.current.classList.add('is-showing-programmes', 'is-selected-map');
+            let path = refContainer.current.querySelector('.selected');
+            if (path) path.classList.remove('selected');
+            path = refContainer.current.querySelector('#'+selected);
+            if (path) path.classList.add('selected');
+
             setShowingProgramme_s(programmesBien);
             return;
         }
         // CLEANUP: when selected region
         refContainer.current.classList.remove('is-showing-programmes', 'is-selected-map');
+        const path = refContainer.current.querySelector('.selected');
+        if (path) path.classList.remove('selected');
         setShowingProgramme_s(null);
     }, [selected]); // selected is a region ID
 
@@ -82,8 +91,6 @@ export default function Map( { allProgrammes, allProjects, regionsToProgrammes, 
     }
 
     // **** FUNCTIONS *****
-
-
     // TODO: apply on resize
     function adjustMapResolution() {
         refSVG.current.setAttribute('height', refSVG.current.clientWidth * 7/12 + 'px');
@@ -91,9 +98,21 @@ export default function Map( { allProgrammes, allProjects, regionsToProgrammes, 
     }
     
 
+    // *** T E M P L A T E ******    JXS    *******************************
+    /**********************************************************************/ 
     return (
         <div className="container" ref={refContainer}>
+
+            <div className='row'>
+                <div className='col-6 col-md-4'>
+                    <SearchByRegion allProgrammes={allProgrammes} allProjects={allProjects} regionsToProgrammes={regionsToProgrammes} allRegionsInfo={allRegionsInfo} 
+                                    hovered={hovered} selected={selected} setSelected={setSelected}
+                                    allRegionsInfo={allRegionsInfo} />
+                </div>
+            </div>
+
             <div className="row border">
+                
                 <div className="col-4 border">
                     <div className="card">
                         <div className="card-header">
@@ -102,6 +121,7 @@ export default function Map( { allProgrammes, allProjects, regionsToProgrammes, 
                             {process.env.REACT_APP_PUBLIC_URL}
                         </div>
                         <div className="card-body">
+                            {/* TODO: all this in a new component <ProgrammesPanel> */}
                             Hovered: {hovered}, { allRegionsInfo[hovered]?.title } <br/>
                             Selected: {selected}
 
@@ -121,7 +141,7 @@ export default function Map( { allProgrammes, allProjects, regionsToProgrammes, 
                                         </span>
 
                                         { showingProgramme_s[programmeSlug].projects.map( ID => (
-                                            <ProjectInfo ID={ID} allProjects={allProjects} />
+                                            <ProjectInfo ID={ID} allProjects={allProjects} key={`pi-${ID}`}/>
                                         )) }
                                     </div>
                                 )}

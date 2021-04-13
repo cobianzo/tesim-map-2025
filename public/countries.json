@@ -1,0 +1,612 @@
+{
+    "al": {
+        "id": "al",
+        "title": "Albania",
+        "description": "<p>SHQIP\u00cbRI<\/p>",
+        "x": "0.7435",
+        "y": "0.8039",
+        "category": "non-eu-but-candidates",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "ad": {
+        "id": "ad",
+        "title": "Andorra",
+        "description": "",
+        "x": "0.49",
+        "y": "0.78",
+        "category": "non-eu-but-candidates",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "at": {
+        "id": "at",
+        "title": "Austria",
+        "description": "<p>\u00d6STERREICH<\/p>",
+        "x": "0.6310",
+        "y": "0.6920",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 4
+    },
+    "by": {
+        "id": "by",
+        "title": "Belarus",
+        "description": "<p><\/p>",
+        "x": "0.7881",
+        "y": "0.5385",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "be": {
+        "id": "be",
+        "title": "Belgium",
+        "description": "<p>BELGIQUE-BELGI\u00cb<\/p>",
+        "x": "0.5508",
+        "y": "0.5976",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "ba": {
+        "id": "ba",
+        "title": "Bosnia and Herzegovina",
+        "description": "<p><\/p>",
+        "x": "0.7080",
+        "y": "0.7480",
+        "category": "non-eu-but-candidates",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "bg": {
+        "id": "bg",
+        "title": "Bulgaria",
+        "description": "<p>\u0411\u042a\u041b\u0413\u0410\u0420\u0418\u042f (BULGARIA)<\/p>",
+        "x": "0.8051",
+        "y": "0.7927",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "hr": {
+        "id": "hr",
+        "title": "Croatia",
+        "description": "<p>HRVATSKA<\/p>",
+        "x": "0.6818",
+        "y": "0.7063",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "cy": {
+        "id": "cy",
+        "title": "Cyprus",
+        "description": "<p>\u039a\u03a5\u03a0\u03a1\u039f\u03a3 (KYPROS)<\/p>",
+        "x": "0.9468",
+        "y": "0.9046",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 6
+    },
+    "cz": {
+        "id": "cz",
+        "title": "Czech Republic",
+        "description": "<p>\u010cESK\u00c1 REPUBLIKA<\/p>",
+        "x": "0.6541",
+        "y": "0.6445",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "dk": {
+        "id": "dk",
+        "title": "Denmark",
+        "description": "<p>DANMARK<\/p>",
+        "x": "0.6002",
+        "y": "0.4805",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "ee": {
+        "id": "ee",
+        "title": "Estonia",
+        "description": "<p>EESTI<\/p>",
+        "x": "0.7542",
+        "y": "0.3919",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 4
+    },
+    "fo": {
+        "id": "fo",
+        "title": "Faroe Islands",
+        "description": "",
+        "x": "0.46",
+        "y": "0.26",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 5
+    },
+    "fi": {
+        "id": "fi",
+        "title": "Finland",
+        "description": "<p>SUOMI \/ FINLAND<\/p>",
+        "x": "0.7419",
+        "y": "0.2737",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 2
+    },
+    "fr": {
+        "id": "fr",
+        "title": "France",
+        "description": "<p>FRANCE<\/p>",
+        "x": "0.5092",
+        "y": "0.7510",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 2
+    },
+    "de": {
+        "id": "de",
+        "title": "Germany",
+        "description": "<p>DEUTSCHLAND<\/p>",
+        "x": "0.6079",
+        "y": "0.6486",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 2
+    },
+    "el": {
+        "id": "el",
+        "title": "Greece",
+        "description": "<p>\u0395\u039b\u039b\u0391\u0394\u0391 (ELLADA)<\/p>",
+        "x": "0.7712",
+        "y": "0.9013",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "gn": {
+        "id": "gn",
+        "title": "Greenland",
+        "description": "<p>GREENLAND<\/p>",
+        "x": "0.25",
+        "y": "0.14",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 2
+    },
+    "hu": {
+        "id": "hu",
+        "title": "Hungary",
+        "description": "<p>MAGYARORSZ\u00c1G<\/p>",
+        "x": "0.7034",
+        "y": "0.6873",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "is": {
+        "id": "is",
+        "title": "Iceland",
+        "description": "<p>\u00cdSLAND<\/p>",
+        "x": "0.3952",
+        "y": "0.1841",
+        "category": "eu-partners",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "ie": {
+        "id": "ie",
+        "title": "Ireland",
+        "description": "<p>IRELAND<\/p>",
+        "x": "0.4199",
+        "y": "0.4990",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "it": {
+        "id": "it",
+        "title": "Italy",
+        "description": "<p>ITALIA<\/p>",
+        "x": "0.6479",
+        "y": "0.8718",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 2
+    },
+    "lv": {
+        "id": "lv",
+        "title": "Latvia",
+        "description": "<p>LATVIJA<\/p>",
+        "x": "0.7327",
+        "y": "0.4425",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "li": {
+        "id": "li",
+        "title": "Liechtenstein",
+        "description": "",
+        "x": "0.60",
+        "y": "0.67",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 6
+    },
+    "lt": {
+        "id": "lt",
+        "title": "Lithuania",
+        "description": "<p>LIETUVA<\/p>",
+        "x": "0.7365",
+        "y": "0.4647",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "lu": {
+        "id": "lu",
+        "title": "Luxembourg",
+        "description": "<p>LUXEMBOURG<\/p>",
+        "x": "0.56",
+        "y": "0.62",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 4
+    },
+    "mk": {
+        "id": "mk",
+        "title": "Republic of North Macedonia",
+        "description": "<p>\u0420\u0415\u041f\u0423\u0411\u041b\u0418\u041a\u0410 \u041c\u0410\u041a\u0415\u0414\u041e\u041d\u0418\u0408\u0410<\/p>",
+        "x": "0.7611",
+        "y": "0.7926",
+        "category": "non-eu-but-candidates",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "mt": {
+        "id": "mt",
+        "title": "Malta",
+        "description": "<p>MALTA<\/p>",
+        "x": "0.72",
+        "y": "0.9653",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 4
+    },
+    "md": {
+        "id": "md",
+        "title": "Moldova",
+        "description": "<p><\/p>",
+        "x": "0.8220",
+        "y": "0.6762",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "ar": {
+        "id": "ar",
+        "title": "Armenia",
+        "description": "<p><\/p>",
+        "x": "0.9",
+        "y": "0.7",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "az": {
+        "id": "az",
+        "title": "Azerbaijan",
+        "description": "<p><\/p>",
+        "x": "0.9",
+        "y": "0.7",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "ge": {
+        "id": "ge",
+        "title": "Georgia",
+        "description": "<p><\/p>",
+        "x": "0.9",
+        "y": "0.8",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "mc": {
+        "id": "mc",
+        "title": "Monaco",
+        "description": "<p><\/p>",
+        "x": "0.57",
+        "y": "0.75",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 6
+    },
+    "me": {
+        "id": "me",
+        "title": "Montenegro",
+        "description": "<p><\/p>",
+        "x": "0.7219",
+        "y": "0.7875",
+        "category": "non-eu-but-candidates",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "nl": {
+        "id": "nl",
+        "title": "Nederlands",
+        "description": "<p>NEDERLAND<\/p>",
+        "x": "0.5586",
+        "y": "0.5512",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "no": {
+        "id": "no",
+        "title": "Norway",
+        "description": "<p>NORGE<\/p>",
+        "x": "0.6002",
+        "y": "0.2675",
+        "category": "eu-partners",
+        "pin": "hidden nofill",
+        "zoom": 1
+    },
+    "pl": {
+        "id": "pl",
+        "title": "Poland",
+        "description": "<p>POLSKA<\/p>",
+        "x": "0.7049",
+        "y": "0.5749",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 2
+    },
+    "pt": {
+        "id": "pt",
+        "title": "Portugal",
+        "description": "<p>PORTUGAL<\/p>",
+        "x": "0.3521",
+        "y": "0.8439",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "ro": {
+        "id": "ro",
+        "title": "Romania",
+        "description": "<p>ROM\u00c2NIA<\/p>",
+        "x": "0.7820",
+        "y": "0.7062",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "ru": {
+        "id": "ru",
+        "title": "Russia",
+        "description": "",
+        "x": "0.835",
+        "y": "0.4",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 1
+    },
+    "sm": {
+        "id": "sm",
+        "title": "San Marino",
+        "description": "<p>SAN MARINO<\/p>",
+        "x": "0.6479",
+        "y": "0.8118",
+        "category": "eu-partners",
+        "pin": "hidden nofill",
+        "zoom": 6
+    },
+    "rs": {
+        "id": "rs",
+        "title": "Serbia",
+        "description": "<p>\u0421\u0420\u0411\u0418\u0408\u0410<\/p>",
+        "x": "0.7435",
+        "y": "0.7253",
+        "category": "non-eu-but-candidates",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "rk": {
+        "id": "rk",
+        "title": "Kosovo",
+        "description": "<p>This designation is without prejudice to positions on status, and is in line with UNSCR 1244\/1999 and the ICJ Opinion on the Kosovo declaration of independence<\/p>",
+        "x": "0.7435",
+        "y": "0.7253",
+        "category": "non-eu-but-candidates",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "sk": {
+        "id": "sk",
+        "title": "Slovakia",
+        "description": "<p>SLOVENSKO<\/p>",
+        "x": "0.7142",
+        "y": "0.6551",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "si": {
+        "id": "si",
+        "title": "Slovenia",
+        "description": "<p>SLOVENIJA<\/p>",
+        "x": "0.6680",
+        "y": "0.7216",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "es": {
+        "id": "es",
+        "title": "Spain",
+        "description": "<p>ESPA\u00d1A<\/p>",
+        "x": "0.4183",
+        "y": "0.8987",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 2
+    },
+    "se": {
+        "id": "se",
+        "title": "Sweden",
+        "description": "<p>SVERIGE<\/p>",
+        "x": "0.6525",
+        "y": "0.3435",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 1
+    },
+    "ch": {
+        "id": "ch",
+        "title": "Switzerland",
+        "description": "<p>SCHWEIZ\/SUISSE\/SVIZZERA<\/p>",
+        "x": "0.5847",
+        "y": "0.6989",
+        "category": "eu-partners",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "ma": {
+        "id": "ma",
+        "title": "Morocco",
+        "description": "<p>al-ma\u0121hrib<\/p>",
+        "x": "0.4183",
+        "y": "0.9887",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "dz": {
+        "id": "dz",
+        "title": "Algeria",
+        "description": "<p>Alg\u00e9rie, \u0627\u0644\u062c\u0632\u0627\u0626\u0631 <\/p>",
+        "x": "0.5183",
+        "y": "0.9887",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "ly": {
+        "id": "ly",
+        "title": "Libya",
+        "description": "<p><\/p>",
+        "x": "0.5183",
+        "y": "0.9887",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "eg": {
+        "id": "eg",
+        "title": "Egypt",
+        "description": "<p><\/p>",
+        "x": "0.7183",
+        "y": "0.9887",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "sy": {
+        "id": "sy",
+        "title": "Syria",
+        "description": "<p><\/p>",
+        "x": "0.6251",
+        "y": "0.9599",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "jo": {
+        "id": "jo",
+        "title": "Jordan",
+        "description": "",
+        "x": "0.90",
+        "y": "0.8",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "ps": {
+        "id": "ps",
+        "title": "Palestine",
+        "description": "<p>* This designation shall not be construed as recognition of a State of Palestine and is without prejudice to the individual positions of the Member States on this issue.<\/p>",
+        "x": "0.90",
+        "y": "0.8",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "il": {
+        "id": "il",
+        "title": "Israel",
+        "description": "",
+        "x": "0.90",
+        "y": "0.8",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "lb": {
+        "id": "lb",
+        "title": "Lebanon",
+        "description": "",
+        "x": "0.90",
+        "y": "0.8",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "tr": {
+        "id": "tr",
+        "title": "Turkey",
+        "description": "<p>T\u00dcRKIYE<\/p>",
+        "x": "0.8652",
+        "y": "0.8097",
+        "category": "non-eu-but-candidates",
+        "pin": "hidden nofill",
+        "zoom": 2
+    },
+    "tn": {
+        "id": "tn",
+        "title": "Tunisia",
+        "description": "<p>Republic of Tunisia<\/p>",
+        "x": "0.6",
+        "y": "0.95",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 3
+    },
+    "ua": {
+        "id": "ua",
+        "title": "Ukraine",
+        "description": "<p>\u0423\u041a\u0420\u0410\u0407\u041d\u0410<\/p>",
+        "x": "0.8451",
+        "y": "0.5692",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 2
+    },
+    "uk": {
+        "id": "uk",
+        "title": "United Kingdom",
+        "description": "<p>UNITED KINGDOM<\/p>",
+        "x": "0.4631",
+        "y": "0.5154",
+        "category": "eu",
+        "pin": "hidden nofill",
+        "zoom": 2
+    }
+}

@@ -11,10 +11,5 @@
 #svg-map-container {
    outline: 3px solid $primary;
 
-    .selectable {
-        fill: $secondary;
-        &:hover {
-            fill: $info;
-        }
-    }
+    
 }

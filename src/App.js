@@ -1,6 +1,6 @@
 import React from 'react'
 import Map from './Map';
-
+import SearchByRegion from './SearchByRegion';
 import './App.scss';
 
 
@@ -8,10 +8,10 @@ function App() {
 
   // **** STATES *****
   const [allProgrammes, setAllProgrammes] = React.useState({}); // set in API call fetchProgrammesProjects, once. // Object of programmes with Key=programme ID. { "5224": { "ID": 5224, "post_title": "Hungary - Slovakia - Romania - Ukraine ENI CBC", "post_name": "hungary-slovakia-romania-ukraine-eni-cbc", "nuts3": "hu323,hu311,ro215,ro114,ro115,sk042,sk041,uab08,ua006,ua003", "countries": "hu,ro,sk,ua" },  "5233": { ...
-
-  const [allProjects, setAllProjects] = React.useState([]); // in fetchProgrammesProjects, once.
-  const [regionsToProgrammes, setRegionsToProgrammes] = React.useState({}); // calculated
+  const [allProjects, setAllProjects] = React.useState([]); // in fetchProgrammesProjects, once. // array of obj project:   [  {"ID": 7537,"permalink": "http:\/\/localhost:9000\/snippet\/cgtn\/","pdf_link": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/02\/CGTN.pdf","external_featured_image": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/01\/CGTN.png","links_and_map": "https:\/\/keep.eu\/projects\/23032\/Cross-border-green-transpor-EN\/ \r\nTESIM story https:\/\/tesim-enicbc.eu\/voices\/ihor-popodyuk\/ \r\nProject page https:\/\/huskroua-cbc.eu\/projects\/financed-projects-database\/cross-border-green-transport-network \r\nFacebook https:\/\/www.facebook.com\/CGTN.HUSKROUA\/","color": "infrastructures",    "programme": 5224 },
+  const [regionsToProgrammes, setRegionsToProgrammes] = React.useState({}); // calculated // { tr325: [5435], tr34: ... }
   const [allRegionsInfo, setAllRegionsInfo] = React.useState({}); // set on API call, once
+  const [allCountriesInfo, setAllCountriesInfo] = React.useState({}); // set on API call, once
 
   // **** ON MOUNT *****
   React.useEffect( () => {
@@ -130,13 +130,16 @@ function App() {
   async function fetchAllRegionsNames() {
     const endpoint  = 'regions.json';
     const res       = await fetch(endpoint);
-    // console.log('Antes de json es : ', res);
+    // API call to grab the name of every region code  { "es008" : { title: regionname }),  ...}
     res.json().then(res => { 
       console.log('all regions desde json dio: ', res);
       setAllRegionsInfo(res);
     }).catch(err => {
       console.warn('ERRRORRerror capturing regions info: ', err);
-    });;
+    });
+    // fetch countries: TODO: we could use this to colour all regions using the category of every country.
+    (await fetch('countries.json')).json().then(res => setAllCountriesInfo(res) )
+              .catch(err => console.error('mal countries', err) );
   }
 
   return (

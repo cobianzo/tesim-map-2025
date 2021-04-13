@@ -1,5 +1,18 @@
 @import './styles/custom.scss';
 
+// class set up by react
+#svg-map-container {
+	.selectable {
+		fill: $secondary;
+		&:hover {
+			fill: $info;
+		}
+	}
+	.selected {
+		fill: $info; //TODO: better with an animation
+	}
+}
+
 .cls-2 {
 	stroke:        #000;
 	fill:           $primary;
@@ -8,7 +21,7 @@
 	stroke-width: 0.25px;
     cursor:         pointer;
     &:hover{
-        fill:           $info;
+      //  fill:           $info;
     }
 }
 

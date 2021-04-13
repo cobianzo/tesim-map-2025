@@ -2,16 +2,19 @@
 # DATA  
 EXTERNAL DATA
 ---
-- List of programmes and their projects: in a json with format at `programmesProjects.json`  
-    - In this list, the projects are only an ID.
-- Info of a single project: given post ID, json from API interreg.eu, returning a post and acf fields Object.
+- List of programmes and their projects: in a json with format at `projects-and-programmes.json`  . We get this one from 'interreg' project with a php fn called `get_all_eni_projects()`. We can also retrieve from API, but it's not tested live
+    - .projects
+    - .programmes
 - List of nuts3 and their projects
+- WE DONT USE THIS ONE BUT THE ENDPOINT WORKS: Info of a single project: given post ID, json from API interreg.eu, returning a post and acf fields Object.
 
 REPRESENTATION OF DATA IN REACT  
 ---  
 List of Programmes: see App.js State
 List of Projects: see App.js State
-List of regions: see App.js State
+List of regions: Appjs state in 2 vars: 
+                allRegionsInfo : info about the name of the region, given the code
+                regionsToProgrammes: given a region, returns programmes associated. Calculated in run time.
 List of countries?
 
 # The MAP IN SVG  
