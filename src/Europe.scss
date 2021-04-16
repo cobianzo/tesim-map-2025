@@ -1,5 +1,10 @@
 @import './styles/custom.scss';
 
+@keyframes country-stroke-animation {
+	from {stroke: $secondary;}
+	to {stroke: $info;}
+}
+
 // class set up by react
 #svg-map-container {
 	.selectable {
@@ -11,10 +16,14 @@
 	.selected {
 		fill: $info; //TODO: better with an animation
 	}
+	.country-selected {
+		animation: country-stroke-animation 1s infinite;
+		stroke-width: 5px;
+	}
 }
 
 .cls-2 {
-	stroke:        #000;
+	stroke: 	  #a8a8a8;
 	fill:           $primary;
 	stroke-linecap: round;
 	stroke-linejoin: bevel;

@@ -1,0 +1,70 @@
+import React from 'react'
+import ProgrammeInfoPanel from './ProgrammeInfoPanel';
+
+export default function PanelSelectedRegion({allProgrammes,allProjects,
+    allRegionsInfo, allCountriesInfo,
+    regionsToProgrammes,
+    selected}) {
+
+    const [numProgProj, setNumProgProj] = React.useState({}); // { num_progs:, num_projs: }
+    const [regionInfo, setRegionInfo] = React.useState({});
+    const [programmes, setProgrammes] = React.useState([]);
+     // WATCH
+     React.useEffect(() => {
+        if (!allRegionsInfo || !Object.keys(allRegionsInfo).length) return;
+        const regionI = allRegionsInfo[selected];
+        setRegionInfo(regionI);
+
+        const progIDs = regionsToProgrammes.nuts3[selected]; // [ "5431", "2334"]
+        const programmes = []; // progIDs.map( progID => allProgrammes[progID] );
+        progIDs?.forEach( progId => {
+            const programmeInfo = allProgrammes[progId];
+            let projects = programmeInfo.projects.map( projID => allProjects.find( pJ => pJ.ID === projID)); 
+            programmeInfo.projectsArray = projects;
+            programmes.push(programmeInfo);
+        });
+        setProgrammes(programmes);
+
+        return () => {
+            setProgrammes([]);
+        }
+    }, [selected]);
+    // COMPUTED
+    const getCountry = () => {
+        if (regionInfo) {
+            const countryCode = selected.substr(0,2);
+            const countryInfo = allCountriesInfo[countryCode];
+            return countryInfo? countryInfo.title : '';
+        }
+    }
+
+    return (<>
+        <div className="row">
+            <div className="col-2">
+                ✴
+            </div>
+            <div className="col-8">
+                <h2>
+                    { regionInfo?.title }
+                </h2>
+                <p className="m-0">
+                    { getCountry() }
+                </p>
+                <small>
+                    { programmes?.length} programmes
+                </small>
+            </div>
+        </div>
+        <div className="row">
+            <ul>
+                { programmes.map( progInfo => 
+                  <li key={`prog-${progInfo.ID}`}>
+                      <ProgrammeInfoPanel   programmeInfo={progInfo} 
+                                            projectsInfo={progInfo.projectsArray} />
+                  </li>  
+                )}
+            </ul>
+        </div>
+    </>)
+}
+

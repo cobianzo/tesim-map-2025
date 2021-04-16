@@ -6,9 +6,14 @@ import ProjectInfo from './ProjectInfo';
 // import "react-svg-map/lib/index.css";
 import './Map.scss';
 import SearchByRegion from './SearchByRegion';
+import ProgrammePanel from './ProgrammePanel';
+import PanelHoveredRegion from './PanelHoveredRegion';
+import PanelSelectedRegion from './PanelSelectedRegion';
 
 
-export default function Map( { allProgrammes, allProjects, regionsToProgrammes, allRegionsInfo } ) {
+export default function Map( { allProgrammes, allProjects, 
+                                allRegionsInfo, allCountriesInfo,
+                                regionsToProgrammes,  } ) {
     
     const classSelectablePath = 'cls-2';
 
@@ -16,65 +21,65 @@ export default function Map( { allProgrammes, allProjects, regionsToProgrammes, 
     const refContainer = React.useRef();
     const refSVG = React.useRef();
     const [hovered, setHovered] = React.useState(null); // ID of region hovered: from here we calculat the programmes, and the projects
-    const [selected, setSelected] = React.useState(null); // ID of region selected.
-    const [showingProgramme_s, setShowingProgramme_s] = React.useState(null);
+    const [selected, setSelected] = React.useState(null); // ID of region selected.    
+    const [countrySelected, setCountrySelected] = React.useState(null); // ID of region selected.    
 
     // **** ON MOUNT *****
     React.useEffect( () => {
         adjustMapResolution();
     }, []);
     React.useEffect( () => {
-        if (!regionsToProgrammes || !Object.keys(regionsToProgrammes).length) return;
-        Object.keys(regionsToProgrammes).forEach( regCode => {
+        if (!regionsToProgrammes || !regionsToProgrammes.nuts3 || !Object.keys(regionsToProgrammes.nuts3).length) return;
+        Object.keys(regionsToProgrammes.nuts3).forEach( regCode => {
             const path = refSVG.current.getElementById(regCode)
             path.classList.add('selectable');
         });
-    }, [regionsToProgrammes]);
+    }, [regionsToProgrammes.nuts3]);
 
     // **** WATCH hovered (a region is hovered!) *****
-    React.useEffect( () => {
-        if (selected) return;
-        if (hovered && regionsToProgrammes[hovered]) {  // array of prog IDs
-            // when hovering region
-            const programmesBien = [];
-            regionsToProgrammes[hovered].forEach( progID => programmesBien.push(allProgrammes[progID]) );
-            refContainer.current.classList.add('is-showing-programmes', 'is-hovering-map');
-            setShowingProgramme_s(programmesBien);
-            return;
-        }
-        // when unhovering region. Applying timeout for adding opacity transition with css.
-        if (showingProgramme_s) {
-            refContainer.current.classList.remove('is-showing-programmes', 'is-hovering-map');
-            setTimeout( ()=>setShowingProgramme_s(null),2000);
-        }
-    }, [hovered]); // hovered is a region ID
+    
+    // React.useEffect( () => {
+    //     if (selected) return;
+    //     if (!regionsToProgrammes?.nuts3) return;
+    // }, [hovered]); // hovered is a region ID
 
     // watch selected region: WHEN clicking on a region in the map
     React.useEffect( () => {
-        if (selected && regionsToProgrammes[selected]) { 
+        if (selected && regionsToProgrammes && regionsToProgrammes.nuts3[selected]) { 
             // when selected region
-            const programmesBien = [];
-            regionsToProgrammes[selected].forEach( progID => programmesBien.push(allProgrammes[progID]) );
             // add classes to DOM svg els
-            refContainer.current.classList.add('is-showing-programmes', 'is-selected-map');
             let path = refContainer.current.querySelector('.selected');
             if (path) path.classList.remove('selected');
-            path = refContainer.current.querySelector('#'+selected);
+            path = refContainer.current.querySelector('#' + selected);
             if (path) path.classList.add('selected');
 
-            setShowingProgramme_s(programmesBien);
+            const countryCode = selected.substr(0,2);
+            setCountrySelected(countryCode);
             return;
         }
         // CLEANUP: when selected region
-        refContainer.current.classList.remove('is-showing-programmes', 'is-selected-map');
         const path = refContainer.current.querySelector('.selected');
         if (path) path.classList.remove('selected');
-        setShowingProgramme_s(null);
     }, [selected]); // selected is a region ID
+
+    // watch selection of country in dropdown.
+    React.useEffect(() => {
+        if (countrySelected && regionsToProgrammes && regionsToProgrammes.countries[countrySelected]) { 
+            let path = refContainer.current.querySelector('.country-selected');
+            if (path) path.classList.remove('country-selected');
+            path = refContainer.current.querySelector('#' + countrySelected + '0'); // path#es0
+            if (path) path.classList.add('country-selected');
+        }
+        return () => {
+            // cleanup
+            const path = refContainer.current.querySelector('#' + countrySelected + '0'); // path#es0
+            if (path) path.classList.remove('country-selected');
+        }
+    }, [countrySelected])
 
     // **** HANDLERS *****
     const handleMouseMove = e => {
-        
+        // grab the hovered svg path and update the 'hovered' var with that code , ie es032
         var x = e.clientX, y = e.clientY,
         elementMouseIsOver = document.elementFromPoint(x, y);
         if (elementMouseIsOver && elementMouseIsOver.classList?.contains(classSelectablePath)) {
@@ -101,14 +106,17 @@ export default function Map( { allProgrammes, allProjects, regionsToProgrammes, 
     // *** T E M P L A T E ******    JXS    *******************************
     /**********************************************************************/ 
     return (
-        <div className="container" ref={refContainer}>
+        <div    className={`container ${hovered && regionsToProgrammes?.nuts3[hovered]? 'hovering-region' : ''} ${selected? 'selected-region' : '' }`} 
+                ref={refContainer}>
 
             <div className='row'>
-                <div className='col-6 col-md-4'>
-                    <SearchByRegion allProgrammes={allProgrammes} allProjects={allProjects} regionsToProgrammes={regionsToProgrammes} allRegionsInfo={allRegionsInfo} 
+                
+                    <SearchByRegion allProgrammes={allProgrammes} allProjects={allProjects} regionsToProgrammes={regionsToProgrammes} 
+                                    allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo} 
                                     hovered={hovered} selected={selected} setSelected={setSelected}
+                                    countrySelected={countrySelected} setCountrySelected={setCountrySelected}
                                     allRegionsInfo={allRegionsInfo} />
-                </div>
+                
             </div>
 
             <div className="row border">
@@ -117,39 +125,31 @@ export default function Map( { allProgrammes, allProjects, regionsToProgrammes, 
                     <div className="card">
                         <div className="card-header">
                             Info:
+                            {selected && <button onClick={ e => { setSelected(null); setCountrySelected(null); }}>
+                                Close
+                            </button>}
                             {process.env.NODE_ENV}
                             {process.env.REACT_APP_PUBLIC_URL}
                         </div>
                         <div className="card-body">
-                            {/* TODO: all this in a new component <ProgrammesPanel> */}
-                            Hovered: {hovered}, { allRegionsInfo[hovered]?.title } <br/>
-                            Selected: {selected}
 
-                            { selected && <div>
-                                <div className="badge badge-primary mr-3">{allRegionsInfo[selected]?.title}</div>
-                                <button className="btn btn-danger"
-                                        onClick={ e => setSelected(null) }>
-                                    Close
-                                </button>
-                            </div>}
-                            { showingProgramme_s? ( <>                                
-                                { Object.keys(showingProgramme_s).map( programmeSlug => 
-                                    <div className="programme-title" key={`prg-${programmeSlug}`}> 
-                                        <p className="h2">{ showingProgramme_s[programmeSlug].post_title }</p>
-                                        <span className="badge badge-secondary d-block">
-                                            { showingProgramme_s[programmeSlug].projects?.length } projects
-                                        </span>
+                            { hovered && !selected && 
+                            <PanelHoveredRegion allProgrammes={allProgrammes} allProjects={allProjects} 
+                                                allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
+                                                regionsToProgrammes={regionsToProgrammes}
+                                                hovered={hovered} />}
 
-                                        { showingProgramme_s[programmeSlug].projects.map( ID => (
-                                            <ProjectInfo ID={ID} allProjects={allProjects} key={`pi-${ID}`}/>
-                                        )) }
-                                    </div>
-                                )}
-                            </>) : null }
+                            { selected && 
+                            <PanelSelectedRegion allProgrammes={allProgrammes} allProjects={allProjects} 
+                                allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
+                                regionsToProgrammes={regionsToProgrammes}
+                                selected={selected} setSelected={setSelected} />}
                             
                         </div>
                     </div>
                 </div>
+
+                {/* The MAP */}
                 <div className="col-8 border overflow-hidden">
                     <svg ref={refSVG} width='100%' height='230px'
                             className="n" id="svg-map-container"

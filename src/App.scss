@@ -7,3 +7,20 @@ body {
 .border {
     border: 1px solid yellow;
 }
+
+
+
+.projects-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    li {
+        flex: 0 0 20%;
+    }
+}
+.project-details {
+
+    img {
+        max-width: 100%;
+    }
+}

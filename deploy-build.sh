@@ -2,7 +2,7 @@ rm -rf built-git
 npm run build
 mkdir built-git
 cd built-git
-git clone git@bitbucket.org:cobianzoltddreamteam/tesim-map-react.git .
+git clone git@bitbucket.org:cobianzoltddreamteam/tesim-map-react-built.git .
 rm -rf *
 mv -f ../build/* ./
 git add --all
