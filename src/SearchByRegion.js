@@ -113,6 +113,7 @@ export default function SearchByRegion( {   regionsToProgrammes,
 
     React.useEffect(()=>{
         if (!placeholderRef || !selected) return;
+        if (!allRegionsInfo[selected]) return;
         placeholderRef.textContent = allRegionsInfo[selected].title;
     }, [selected]);
     React.useEffect(()=>{

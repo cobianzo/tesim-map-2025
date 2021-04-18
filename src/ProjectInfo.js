@@ -11,12 +11,22 @@ import React from 'react'
             "programme": 5224
 */
 export default function ProjectInfo({ projectInfo }) {
+  
     
+    function get_thumbail_from_pdf_filename() {
+        const pdfFilename = projectInfo.pdf_link;
+        const baseFilename = pdfFilename.substr(0, pdfFilename.indexOf('.pdf') );
+        const imgFilename = baseFilename + '-pdf-297x420.jpg';
+        return imgFilename;
+    }
+
     return (
-        <div className="project-details">
-            <img src={projectInfo.external_featured_image} />
-            <div className='small'>{ projectInfo.post_title }</div>
-        </div>
+        <>
+            <img src={get_thumbail_from_pdf_filename()} className="img-fluid" />
+            <div className='small'>
+                { projectInfo.post_title }
+            </div>
+        </>
     )
 }
 

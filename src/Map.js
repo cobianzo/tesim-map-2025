@@ -1,7 +1,8 @@
 import React from 'react'
 import Europe from "./SVGEurope";
 
-import ProjectInfo from './ProjectInfo';
+
+import useKeyPress from './helpers/useKeyPress';
 //import Brazil from "@svg-maps/brazil";
 // import "react-svg-map/lib/index.css";
 import './Map.scss';
@@ -13,7 +14,8 @@ import PanelSelectedRegion from './PanelSelectedRegion';
 
 export default function Map( { allProgrammes, allProjects, 
                                 allRegionsInfo, allCountriesInfo,
-                                regionsToProgrammes,  } ) {
+                                regionsToProgrammes,
+                                appOptions  } ) {
     
     const classSelectablePath = 'cls-2';
 
@@ -23,6 +25,7 @@ export default function Map( { allProgrammes, allProjects,
     const [hovered, setHovered] = React.useState(null); // ID of region hovered: from here we calculat the programmes, and the projects
     const [selected, setSelected] = React.useState(null); // ID of region selected.    
     const [countrySelected, setCountrySelected] = React.useState(null); // ID of region selected.    
+    const [projectInModal, setProjectInModal] = React.useState(null);
 
     // **** ON MOUNT *****
     React.useEffect( () => {
@@ -35,6 +38,12 @@ export default function Map( { allProgrammes, allProjects,
             path.classList.add('selectable');
         });
     }, [regionsToProgrammes.nuts3]);
+    // key escape listener: close the modal window with the project info
+    useKeyPress('Escape', () => { 
+        if (projectInModal)
+            setProjectInModal(null);
+        else if (selected) setSelected(null);
+    }, [selected, projectInModal]);
 
     // **** WATCH hovered (a region is hovered!) *****
     
@@ -72,6 +81,7 @@ export default function Map( { allProgrammes, allProjects,
         }
         return () => {
             // cleanup
+            if (!refContainer.current) return;
             const path = refContainer.current.querySelector('#' + countrySelected + '0'); // path#es0
             if (path) path.classList.remove('country-selected');
         }
@@ -101,67 +111,93 @@ export default function Map( { allProgrammes, allProjects,
         refSVG.current.setAttribute('height', refSVG.current.clientWidth * 7/12 + 'px');
         refSVG.current.style.transform = `translateX(${refSVG.current.clientWidth/6}px)`;
     }
+    // CONTORL OF ESC KEY PRESSED                                                
+    const escFunction = (event) => {
+        if(event.keyCode === 27) { alert()
+            if (projectInModal) setProjectInModal(null);
+        }
+    }
+    // React.useEffect(() => {
+    //     document.addEventListener("keydown", escFunction, false);
+    //     return () => document.removeEventListener("keydown", escFunction, false);
+    // }, []);
+
     
 
     // *** T E M P L A T E ******    JXS    *******************************
     /**********************************************************************/ 
     return (
-        <div    className={`container ${hovered && regionsToProgrammes?.nuts3[hovered]? 'hovering-region' : ''} ${selected? 'selected-region' : '' }`} 
-                ref={refContainer}>
+<div    className={`container ${hovered && regionsToProgrammes?.nuts3 && regionsToProgrammes.nuts3[hovered]? 'hovering-region' : ''
+                    } ${selected? 'selected-region' : '' }`} 
+        ref={refContainer}>
 
-            <div className='row'>
-                
-                    <SearchByRegion allProgrammes={allProgrammes} allProjects={allProjects} regionsToProgrammes={regionsToProgrammes} 
-                                    allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo} 
-                                    hovered={hovered} selected={selected} setSelected={setSelected}
-                                    countrySelected={countrySelected} setCountrySelected={setCountrySelected}
-                                    allRegionsInfo={allRegionsInfo} />
-                
-            </div>
+    <div className='row'>
+        
+            <SearchByRegion allProgrammes={allProgrammes} allProjects={allProjects} regionsToProgrammes={regionsToProgrammes} 
+                            allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo} 
+                            hovered={hovered} selected={selected} setSelected={setSelected}
+                            countrySelected={countrySelected} setCountrySelected={setCountrySelected}
+                            allRegionsInfo={allRegionsInfo} />
+        
+    </div>
 
-            <div className="row border">
-                
-                <div className="col-4 border">
-                    <div className="card">
-                        <div className="card-header">
-                            Info:
-                            {selected && <button onClick={ e => { setSelected(null); setCountrySelected(null); }}>
-                                Close
-                            </button>}
-                            {process.env.NODE_ENV}
-                            {process.env.REACT_APP_PUBLIC_URL}
-                        </div>
-                        <div className="card-body">
-
-                            { hovered && !selected && 
-                            <PanelHoveredRegion allProgrammes={allProgrammes} allProjects={allProjects} 
-                                                allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
-                                                regionsToProgrammes={regionsToProgrammes}
-                                                hovered={hovered} />}
-
-                            { selected && 
-                            <PanelSelectedRegion allProgrammes={allProgrammes} allProjects={allProjects} 
-                                allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
-                                regionsToProgrammes={regionsToProgrammes}
-                                selected={selected} setSelected={setSelected} />}
-                            
-                        </div>
-                    </div>
+    <div className="row border position-relative">
+        
+        <div className="left-panel border m-5">
+            <div className="card">
+                <div className="card-header">
+                    Info:
+                    {selected && <button onClick={ e => { setSelected(null); setCountrySelected(null); }}>
+                        Close
+                    </button>}
+                    {process.env.NODE_ENV}
+                    {process.env.REACT_APP_PUBLIC_URL}
                 </div>
+                <div className="card-body">
 
-                {/* The MAP */}
-                <div className="col-8 border overflow-hidden">
-                    <svg ref={refSVG} width='100%' height='230px'
-                            className="n" id="svg-map-container"
-                            xmlns='http://www.w3.org/2000/svg'
-                            onMouseMove={ handleMouseMove }    
-                            onClick={ handleClick }
-                        >
-                        <Europe />
-                    </svg>
+                    { hovered && !selected && 
+                    <PanelHoveredRegion allProgrammes={allProgrammes} allProjects={allProjects} 
+                                        allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
+                                        regionsToProgrammes={regionsToProgrammes}
+                                        hovered={hovered} />}
+
+                    { selected && 
+                    <PanelSelectedRegion allProgrammes={allProgrammes} allProjects={allProjects} 
+                        allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
+                        regionsToProgrammes={regionsToProgrammes}
+                        selected={selected} setSelected={setSelected}
+                        appOptions={appOptions}
+                        projectInModal={projectInModal} setProjectInModal={setProjectInModal} />}
+                    
                 </div>
             </div>
         </div>
+
+        {/* The MAP */}
+        <div className="col-12 border overflow-hidden">
+            <svg ref={refSVG} width='100%' height='230px'
+                    className="n" id="svg-map-container"
+                    xmlns='http://www.w3.org/2000/svg'
+                    onMouseMove={ handleMouseMove }    
+                    onClick={ handleClick }
+                >
+                <Europe />
+            </svg>
+        </div>
+
+        {/* The MODAL WINDOW for the selected profject PDF */}
+        { projectInModal &&
+        <div className="tesim-modal-wrapper" tabIndex="-1" role="dialog" aria-hidden="true"
+            onClick={e=>setProjectInModal(null)}>
+            <div className="tesim-modal">
+                <iframe src={ projectInModal.permalink }>
+
+                </iframe>
+            </div>
+        </div>
+        }
+    </div>
+</div>
     )
 }
 

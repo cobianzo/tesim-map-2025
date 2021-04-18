@@ -15,7 +15,7 @@ List of Projects: see App.js State
 List of regions: Appjs state in 2 vars: 
                 allRegionsInfo : info about the name of the region, given the code
                 regionsToProgrammes: given a region, returns programmes associated. Calculated in run time.
-List of countries?
+List of countries:
 
 # The MAP IN SVG  
 App.js > Map.js (all html) > SVGEurope.js , created from nuts3-eni.svg   

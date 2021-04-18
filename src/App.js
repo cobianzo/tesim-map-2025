@@ -12,9 +12,11 @@ function App() {
   const [regionsToProgrammes, setRegionsToProgrammes] = React.useState({}); // calculated // { tr325: [5435], tr34: ... }
   const [allRegionsInfo, setAllRegionsInfo] = React.useState({}); // set on API call, once { tr325: {title: "Capadocchia", description }, ... }
   const [allCountriesInfo, setAllCountriesInfo] = React.useState({}); // set on API call, once
-
+  const [appOptions, setAppOptions] = React.useState({ showProjectsType: 'programmes' });
+  
   // **** ON MOUNT *****
   React.useEffect( () => {
+    setAppOptions({ showProjectsType: 'programmes' });
     fetchProgrammesProjects();
     fetchAllRegionsNames();
   }, []);
@@ -153,10 +155,20 @@ function App() {
 
   return (
     <div className="App">
+      <button className={`btn btn-primary ${appOptions.showProjectsType}`}
+              onClick={ e => {
+                const newAppOptions = {...appOptions};
+                newAppOptions.showProjectsType = appOptions.showProjectsType === 'all-projects-together'? 'projects-by-programme' : 'all-projects-together';
+                setAppOptions(newAppOptions);
+                }}>
+        {appOptions.showProjectsType === 'all-projects-together' ? 
+          <span>All projects</span>: <span>Projects by Programme</span>}
+      </button>
       <Map allProgrammes={allProgrammes}
            allProjects={allProjects}
            regionsToProgrammes={regionsToProgrammes}
-           allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo} />
+           allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
+           appOptions={appOptions} />
     </div>
   );
 }

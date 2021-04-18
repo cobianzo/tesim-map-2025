@@ -4,9 +4,11 @@ import ProgrammeInfoPanel from './ProgrammeInfoPanel';
 export default function PanelSelectedRegion({allProgrammes,allProjects,
     allRegionsInfo, allCountriesInfo,
     regionsToProgrammes,
-    selected}) {
+    selected,
+    appOptions,
+    projectInModal, setProjectInModal
+}) {
 
-    const [numProgProj, setNumProgProj] = React.useState({}); // { num_progs:, num_projs: }
     const [regionInfo, setRegionInfo] = React.useState({});
     const [programmes, setProgrammes] = React.useState([]);
      // WATCH
@@ -40,9 +42,6 @@ export default function PanelSelectedRegion({allProgrammes,allProjects,
 
     return (<>
         <div className="row">
-            <div className="col-2">
-                ✴
-            </div>
             <div className="col-8">
                 <h2>
                     { regionInfo?.title }
@@ -55,15 +54,27 @@ export default function PanelSelectedRegion({allProgrammes,allProjects,
                 </small>
             </div>
         </div>
-        <div className="row">
+        <div className="row projects-by-programme">
+
+        </div>
+
+        <div className={`row ${appOptions.showProjectsType}`}>
+        { appOptions.showProjectsType === 'all-projects-together' ?
             <ul>
+                
+            </ul>
+        :
+            <ul className="list-unstyled">
                 { programmes.map( progInfo => 
                   <li key={`prog-${progInfo.ID}`}>
                       <ProgrammeInfoPanel   programmeInfo={progInfo} 
-                                            projectsInfo={progInfo.projectsArray} />
+                                            projectsInfo={progInfo.projectsArray} 
+                                            projectInModal={projectInModal} setProjectInModal={setProjectInModal}
+                                            />
                   </li>  
                 )}
             </ul>
+        }
         </div>
     </>)
 }
