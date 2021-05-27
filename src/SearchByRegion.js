@@ -5,7 +5,7 @@ import Select from 'react-select'
 
 export default function SearchByRegion( {   regionsToProgrammes, 
                                             allRegionsInfo, allCountriesInfo,
-                                            hovered, selected, setSelected,
+                                            hovered, selected, setRegionSelected,
                                             countrySelected, setCountrySelected } ) {
     
     // **** STATES *****
@@ -124,7 +124,7 @@ export default function SearchByRegion( {   regionsToProgrammes,
 
     // *** HANDLERS
     const handleSelectRegion = e => {
-        setSelected(e.value);
+        setRegionSelected(e.value);
     }
     const handleSelectCountry = e => {
         setCountrySelected(e.value);
@@ -133,15 +133,18 @@ export default function SearchByRegion( {   regionsToProgrammes,
     // *** FUNCTION HELPER
     // ... empty
 
+
+    // *** T E M P L A T E ******    JXS    *******************************
+    /**********************************************************************/     
     return (<>
-        <div className='search-by-country col-6 col-md-4'>
+        <div className='search-by-country TM_col-6 TM_col-md-4'>
             <Select options={optionsCountry} 
                     placeholder="Lookup by country" 
                     defaultValue={''}
                     // onInputChange={ handleSelectRegion }
                     onChange={handleSelectCountry}/>
         </div>
-        <div className='search-by-region col-6 col-md-4'>
+        <div className='search-by-region TM_col-6 TM_col-md-4'>
             <Select options={options} 
                     placeholder="Lookup by region name" 
                     defaultValue={hovered}

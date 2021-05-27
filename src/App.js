@@ -31,7 +31,8 @@ function App() {
     // get programmes with fetch > update state > 
     //            when finish get all projects and fetch into from api > update state projects.
     //            and prepare array for regions > update state
-    const endpoint = 'projects-and-programmes.json'; // created by interreg project with php fn:  get_all_eni_projects()
+    const endpoint  = `${process.env.REACT_APP_LOCAL_ENDPOINT}projects-and-programmes.json`; // created by interreg project with php fn:  get_all_eni_projects()
+    console.log('openENDPOINT ProPro: ',endpoint)
     const res = await fetch(endpoint);
     res.json().then(res => { 
       console.log('all Programmes and projects dio: ', res);
@@ -96,10 +97,9 @@ function App() {
       // fetchProjectByIds(allProjectsTogether);
       // if (allRegionsToProgrammes)
       //   setRegionsToProgrammes(allRegionsToProgrammes); // called only once
-    } )
-    .catch(err => {
-        console.warn('res error: ', err);
-    });
+    } ).catch(err => {
+        console.error('res error: ', err);
+      });
   }
 
   /**
@@ -139,23 +139,28 @@ function App() {
   }
 
   async function fetchAllRegionsNames() {
-    const endpoint  = 'regions.json';
+    const endpoint  = `${process.env.REACT_APP_LOCAL_ENDPOINT}regions.json`;
+    console.log('openENDPOINT regions: ',endpoint)
     const res       = await fetch(endpoint);
     // API call to grab the name of every region code  { "es008" : { title: regionname }),  ...}
     res.json().then(res => { 
       console.log('all regions desde json dio: ', res);
       setAllRegionsInfo(res);
     }).catch(err => {
-      console.warn('ERRRORRerror capturing regions info: ', err);
+      console.error('ERRRORRerror capturing regions info: ', err.message);
     });
     // fetch countries: TODO: we could use this to colour all regions using the category of every country.
-    (await fetch('countries.json')).json().then(res => setAllCountriesInfo(res) )
+    const endpointC  = `${process.env.REACT_APP_LOCAL_ENDPOINT}countries.json`;
+    console.log('openENDPOINT countries: ',endpointC)
+    (await fetch(endpointC)).json().then(res => setAllCountriesInfo(res) )
               .catch(err => console.error('mal countries', err) );
   }
 
+  // *** T E M P L A T E ******    JXS    *******************************
+  /**********************************************************************/ 
   return (
-    <div className="App">
-      <button className={`btn btn-primary ${appOptions.showProjectsType}`}
+    <div className="TM_App">
+      <button className={`TM_btn TM_btn-primary ${appOptions.showProjectsType}`}
               onClick={ e => {
                 const newAppOptions = {...appOptions};
                 newAppOptions.showProjectsType = appOptions.showProjectsType === 'all-projects-together'? 'projects-by-programme' : 'all-projects-together';

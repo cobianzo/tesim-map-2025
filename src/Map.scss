@@ -1,16 +1,20 @@
 @import './styles/custom.scss';
 
-
-#svg-map-container {
-   outline: 3px solid $primary;
+.TM_map-wrapper {
+    //min-height: 500px;
 }
 
 
-.left-panel {
+.TM_left-panel {
     position: absolute;
+    background-color: var(--tm-light);
+    padding: 1rem;
+    border-radius: 5px;
     z-index: 9;
     left: 0;
     right: 0;
+    max-height: calc(100% - 3rem);
+    overflow: scroll;
 
     @include media-breakpoint-up(md) { 
         margin-left: 1rem;
@@ -42,4 +46,37 @@
         height: 100%;
     }
 
+}
+
+// now icon for programme
+.programme-and-projects {
+    .programme-name {
+        text-align: center;
+        img {
+            margin: auto;
+            max-width: 100px;
+        }
+    }
+}
+// now posters for projects
+.projects-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    li {
+        text-align: center;
+        img {
+            max-width: 50px;
+        }
+    }
+}
+
+
+
+// dropdowns::
+
+// countries dropdown when expanded
+.css-26l3qy-menu {
+    z-index: 11   !important;
+    position: absolute;
+    border: 5px solid var(--tm-primary) !important;
 }

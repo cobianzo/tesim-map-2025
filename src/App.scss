@@ -1,10 +1,67 @@
-@import './styles/custom.scss';
+// @import './styles/custom.scss';
 // @import './styles/variables.scss';
 
 body {
-    // background: $primary !important;
+    font-family: 'Century Gothic',-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #2b3788;
+    background-color: #fff;
 }
 .border {
     border: 1px solid yellow;
+}
+.tm_list-unstyled {
+    list-style: none; 
+    padding-left: 0;
+}
+.tm_img-fluid {
+    max-width: 100%;
+}
+
+.TM_btn {
+    border: 1px solid var(--tm-primary);
+    color: var(--tm-primary);
+    background: white;
+    padding: 5px 20px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+        border-color: var(--tm-secondary);
+        background: var(--tm-light);
+        color: var(--tm-secondary);
+    }
+    &-secondary {
+        border-color: var(--tm-secondary);
+        color: var(--tm-secondary);
+        background: white;
+    }
+}
+
+.TM_container {
+    max-width: 1400px;
+    margin: auto;
+}
+.TM_row {
+    display: flex;
+}
+.TM_col-6 {
+    flex-basis: 50%;
+}
+.TM_col-12 {
+    flex-basis: 100%;
+}
+.TM_col-md-4 {
+    @media only screen and (min-width: 600px){
+        flex-basis: calc( 400% / 12 );
+    }
+}
+
+.TM_overflow-hidden {
+    overflow: hidden;
+}
+.TM_position-relative {
+    position: relative;
 }
 

@@ -5,7 +5,18 @@ $body-bg: #fff;
 $app-min-width: 1024px;
 
 $primary: #6b2d6d;
+$secondary: #273989;
 $info:  #e6d822;
+$light:  #EBDEEA;
+$dark:  darken($primary, 20%);
+
+:root {
+    --tm-primary: #{$primary};
+    --tm-secondary: #{$secondary};
+    --tm-info: #{$info};
+    --tm-light: #{$light};
+    --tm-dark: #{$dark};
+}
 
 // Required parts of Bootstrap
 @import '~bootstrap/scss/functions';

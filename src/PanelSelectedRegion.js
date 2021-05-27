@@ -4,7 +4,7 @@ import ProgrammeInfoPanel from './ProgrammeInfoPanel';
 export default function PanelSelectedRegion({allProgrammes,allProjects,
     allRegionsInfo, allCountriesInfo,
     regionsToProgrammes,
-    selected,
+    regionSelected,
     appOptions,
     projectInModal, setProjectInModal
 }) {
@@ -14,10 +14,10 @@ export default function PanelSelectedRegion({allProgrammes,allProjects,
      // WATCH
      React.useEffect(() => {
         if (!allRegionsInfo || !Object.keys(allRegionsInfo).length) return;
-        const regionI = allRegionsInfo[selected];
+        const regionI = allRegionsInfo[regionSelected];
         setRegionInfo(regionI);
 
-        const progIDs = regionsToProgrammes.nuts3[selected]; // [ "5431", "2334"]
+        const progIDs = regionsToProgrammes.nuts3[regionSelected]; // [ "5431", "2334"]
         const programmes = []; // progIDs.map( progID => allProgrammes[progID] );
         progIDs?.forEach( progId => {
             const programmeInfo = allProgrammes[progId];
@@ -30,11 +30,11 @@ export default function PanelSelectedRegion({allProgrammes,allProjects,
         return () => {
             setProgrammes([]);
         }
-    }, [selected]);
+    }, [regionSelected]);
     // COMPUTED
     const getCountry = () => {
         if (regionInfo) {
-            const countryCode = selected.substr(0,2);
+            const countryCode = regionSelected.substr(0,2);
             const countryInfo = allCountriesInfo[countryCode];
             return countryInfo? countryInfo.title : '';
         }
@@ -64,7 +64,7 @@ export default function PanelSelectedRegion({allProgrammes,allProjects,
                 
             </ul>
         :
-            <ul className="list-unstyled">
+            <ul className="tm_list-unstyled">
                 { programmes.map( progInfo => 
                   <li key={`prog-${progInfo.ID}`}>
                       <ProgrammeInfoPanel   programmeInfo={progInfo} 

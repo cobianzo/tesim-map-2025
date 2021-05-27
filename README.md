@@ -1,12 +1,29 @@
+TODO:
+- The thumbnails of posters are calculated using the WP PDF thumbnails. I should use wp interreg with a field for the thumbnail, uploaded to tesim site. Then export it to json and use that field ad thumbnail.
+- Remove Bootstrap. Try to do everything without BT4!
+
+# TEST in Tesim page Simulation  
+- We downloaded the site using httrack, it is in `/Sites/httrack-3.49.2/tesim-enicbc.eu`
+- /Sites/httrack-3.49.2/tesim-enicbc.eu , run apache in localhost:9000. 
+    - the index.php calls the snippet-for-web.php, in this project.
+    - the http://localhost is always pointing to /Sites, so the .env has to 
+    - go to the folder 
+    `/Sites/httrack-3.49.2/tesim-enicbc.eu/wp-content/themes/understrap-child-master/tesim-map-react-snippet/`  
+    - `git pull` from the `https://bitbucket.org/cobianzoltddreamteam/tesim-map-react-built/src/master/` project
+    - edit `snippet-for-web.php`, it has to call the right css and js from the built react.  
+    - copy them from /build/index.html  
 
 # DATA  
 EXTERNAL DATA
 ---
-- List of programmes and their projects: in a json with format at `projects-and-programmes.json`  . We get this one from 'interreg' project with a php fn called `get_all_eni_projects()`. We can also retrieve from API, but it's not tested live
+- List of programmes and their projects: in a json with format at 
+    - `projects-and-programmes.json`  . We get this one from 'interreg' project with a php fn called `get_all_eni_projects()`. We can also retrieve from API, but it's not tested live
     - .projects
     - .programmes
 - List of nuts3 and their projects
 - WE DONT USE THIS ONE BUT THE ENDPOINT WORKS: Info of a single project: given post ID, json from API interreg.eu, returning a post and acf fields Object.
+- The images of poster are, at the moment, calculated by using the thumbnail that WP generates at tesim. But normally I should use an image
+
 
 REPRESENTATION OF DATA IN REACT  
 ---  

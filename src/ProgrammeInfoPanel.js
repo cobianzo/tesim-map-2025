@@ -6,15 +6,15 @@ export default function ProgrammeInfoPanel({ programmeInfo, projectsInfo,
 
 
     return (
-        <div className="programme-and-projects row">
-            <div className='programme-name col-3'>
-                <img src={programmeInfo.logo} className="img-fluid img-thumbnail" />
+        <div className="programme-and-projects tm_row">
+            <div className='programme-name'>
+                <img src={programmeInfo.logo} className="tm_img-fluid img-thumbnail" />
                 <h3 className='h5'>{programmeInfo.post_title}</h3>
                 <p>{projectsInfo.length} projects</p>
             </div>
-            <ul className="projects-list p-0 row col-9 list-unstyled">
+            <ul className="projects-list p-0 tm_row tm_list-unstyled">
                 { projectsInfo.map( projectInfo => 
-                    <li key={`proj-${projectInfo.ID}`} className='col-3'
+                    <li key={`proj-${projectInfo.ID}`} className='n'
                         onClick={e=> {
                             setProjectInModal(projectInfo   )
                             

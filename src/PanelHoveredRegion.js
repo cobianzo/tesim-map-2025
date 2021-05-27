@@ -31,6 +31,7 @@ export default function PanelHoveredRegion({allProgrammes,allProjects,
     }
     const numberOfProgrammesAndProjects = () => {
         if (!regionInfo) return null;
+        if (!regionsToProgrammes) return null;
         const progIds = regionsToProgrammes.nuts3[hovered];
         if (!progIds) return null;
         

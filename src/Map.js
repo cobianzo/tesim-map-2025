@@ -23,7 +23,7 @@ export default function Map( { allProgrammes, allProjects,
     const refContainer = React.useRef();
     const refSVG = React.useRef();
     const [hovered, setHovered] = React.useState(null); // ID of region hovered: from here we calculat the programmes, and the projects
-    const [selected, setSelected] = React.useState(null); // ID of region selected.    
+    const [regionSelected, setRegionSelected] = React.useState(null); // ID of region selected.    
     const [countrySelected, setCountrySelected] = React.useState(null); // ID of region selected.    
     const [projectInModal, setProjectInModal] = React.useState(null);
 
@@ -42,8 +42,8 @@ export default function Map( { allProgrammes, allProjects,
     useKeyPress('Escape', () => { 
         if (projectInModal)
             setProjectInModal(null);
-        else if (selected) setSelected(null);
-    }, [selected, projectInModal]);
+        else if (regionSelected) setRegionSelected(null);
+    }, [regionSelected, projectInModal]);
 
     // **** WATCH hovered (a region is hovered!) *****
     
@@ -54,22 +54,22 @@ export default function Map( { allProgrammes, allProjects,
 
     // watch selected region: WHEN clicking on a region in the map
     React.useEffect( () => {
-        if (selected && regionsToProgrammes && regionsToProgrammes.nuts3[selected]) { 
+        if (regionSelected && regionsToProgrammes && regionsToProgrammes.nuts3[regionSelected]) { 
             // when selected region
             // add classes to DOM svg els
             let path = refContainer.current.querySelector('.selected');
             if (path) path.classList.remove('selected');
-            path = refContainer.current.querySelector('#' + selected);
+            path = refContainer.current.querySelector('#' + regionSelected);
             if (path) path.classList.add('selected');
 
-            const countryCode = selected.substr(0,2);
+            const countryCode = regionSelected.substr(0,2);
             setCountrySelected(countryCode);
             return;
         }
         // CLEANUP: when selected region
         const path = refContainer.current.querySelector('.selected');
         if (path) path.classList.remove('selected');
-    }, [selected]); // selected is a region ID
+    }, [regionSelected]); // selected is a region ID
 
     // watch selection of country in dropdown.
     React.useEffect(() => {
@@ -102,13 +102,14 @@ export default function Map( { allProgrammes, allProjects,
     }
     const handleClick = e => {
         if (hovered)
-            setSelected(hovered);
+            setRegionSelected(hovered);
     }
 
     // **** FUNCTIONS *****
     // TODO: apply on resize
     function adjustMapResolution() {
-        refSVG.current.setAttribute('height', refSVG.current.clientWidth * 7/12 + 'px');
+        console.log('adjusting size map');
+        refSVG.current.setAttribute('height', refSVG.current.clientWidth * 5/12 + 'px');
         refSVG.current.style.transform = `translateX(${refSVG.current.clientWidth/6}px)`;
     }
     // CONTORL OF ESC KEY PRESSED                                                
@@ -127,45 +128,47 @@ export default function Map( { allProgrammes, allProjects,
     // *** T E M P L A T E ******    JXS    *******************************
     /**********************************************************************/ 
     return (
-<div    className={`container ${hovered && regionsToProgrammes?.nuts3 && regionsToProgrammes.nuts3[hovered]? 'hovering-region' : ''
-                    } ${selected? 'selected-region' : '' }`} 
+<div    className={`TM_container ${hovered && regionsToProgrammes?.nuts3 && regionsToProgrammes.nuts3[hovered]? 'hovering-region' : ''
+                    } ${regionSelected? 'selected-region' : '' }`} 
         ref={refContainer}>
 
-    <div className='row'>
+    <div className='TM_row'>
         
             <SearchByRegion allProgrammes={allProgrammes} allProjects={allProjects} regionsToProgrammes={regionsToProgrammes} 
                             allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo} 
-                            hovered={hovered} selected={selected} setSelected={setSelected}
+                            hovered={hovered} regionSelected={regionSelected} setRegionSelected={setRegionSelected}
                             countrySelected={countrySelected} setCountrySelected={setCountrySelected}
                             allRegionsInfo={allRegionsInfo} />
         
     </div>
 
-    <div className="row border position-relative">
+    <div className="TM_row border TM_position-relative">
         
-        <div className="left-panel border m-5">
-            <div className="card">
-                <div className="card-header">
+        <div className="TM_left-panel border m-5">
+            <div className="TM_card">
+                <div className="TM_card-header">
                     Info:
-                    {selected && <button onClick={ e => { setSelected(null); setCountrySelected(null); }}>
-                        Close
+                    {regionSelected && 
+                    <button onClick={ e => { setRegionSelected(null); setCountrySelected(null); }}
+                        className='TM_btn TM_btn-secondary'>
+                        Close selection
                     </button>}
                     {process.env.NODE_ENV}
                     {process.env.REACT_APP_PUBLIC_URL}
                 </div>
-                <div className="card-body">
+                <div className="TM_card-body">
 
-                    { hovered && !selected && 
+                    { hovered && !regionSelected && 
                     <PanelHoveredRegion allProgrammes={allProgrammes} allProjects={allProjects} 
                                         allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
                                         regionsToProgrammes={regionsToProgrammes}
                                         hovered={hovered} />}
 
-                    { selected && 
+                    { regionSelected && 
                     <PanelSelectedRegion allProgrammes={allProgrammes} allProjects={allProjects} 
                         allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
                         regionsToProgrammes={regionsToProgrammes}
-                        selected={selected} setSelected={setSelected}
+                        regionSelected={regionSelected} setRegionSelected={setRegionSelected}
                         appOptions={appOptions}
                         projectInModal={projectInModal} setProjectInModal={setProjectInModal} />}
                     
@@ -174,9 +177,10 @@ export default function Map( { allProgrammes, allProjects,
         </div>
 
         {/* The MAP */}
-        <div className="col-12 border overflow-hidden">
+        <div className="TM_map-wrapper TM_col-12 border TM_overflow-hidden">
             <svg ref={refSVG} width='100%' height='230px'
-                    className="n" id="svg-map-container"
+                    className="n" 
+                    id="svg-map-container"
                     xmlns='http://www.w3.org/2000/svg'
                     onMouseMove={ handleMouseMove }    
                     onClick={ handleClick }
