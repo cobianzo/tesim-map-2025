@@ -2,7 +2,7 @@ import React from 'react'
 import ProjectInfo from './ProjectInfo'
 
 /**
- * 
+ * NOT IN USE ????  TODELETE
  * @param {int} programmeId : given the programme post ID, we display info and projects.
  * @returns 
  */
@@ -28,7 +28,7 @@ export default function ProgrammePanel({
                 { allProgrammes[programmeId].projects?.length } projects
             </span>
 
-            <ul class="TM_list-of-projects">
+            <ul className="TM_list-of-projects">
             { allProgrammes[programmeId].projects.map( ID => {
                     const projInfo = allProjects.find( pro => ID === pro.ID );
                     return <ProjectInfo 

@@ -2,25 +2,15 @@ TODO:
 - The thumbnails of posters are calculated using the WP PDF thumbnails. I should use wp interreg with a field for the thumbnail, uploaded to tesim site. Then export it to json and use that field ad thumbnail.
 QUE HACER
 
+
 TESIM:
 Grafica colores.
+CUANDO SE SELECCIONA UN PAIS, QUE SE VEA LAS REGIONES ANIMADAS, NO EL BORDER DEL PAIS.
 Testear los paises que vayan bien. Seleccion de una region, muestra un pais
 Hover region, muestra el pais. Muestra el nombre de la region en el lado.
 Crear un dropdown de programmes 
 
-RECOLOR:
-Terminar la Gioconda.
-
 Ricerca:
-
-Per paese e per programma.
-E per
-Aspetto se c'e' rapporto paese-progetti
-
-MAPPA:
-Manteniamo livello regione, ma si seleziona solo il pases.
-Non mostrare nessuna informazione che faccia capire che una regione e selwziomna
-
 
 
 # TEST in Tesim page Simulation  
@@ -48,13 +38,16 @@ EXTERNAL DATA
 
 REPRESENTATION OF DATA IN REACT  
 ---  
-List of Programmes: see App.js State
-List of Projects: see App.js State
+List of Programmes: see App.js State  
+List of Projects: see App.js State  
 List of regions: Appjs state in 2 vars: 
-                allRegionsInfo : info about the name of the region, given the code
-                regionsToProgrammes: given a region, returns programmes associated. Calculated in run time.
-List of countries:
+                allRegionsInfo : info about the name of the region, given the code  
+                regionsToProgrammes: given a region, returns programmes  associated. Calculated in run time.  
+List of countries:  
 
+# DEPLOY  
+> sh deploy-build.sh  
+Creates the built-git and pushes into `https://bitbucket.org/cobianzoltddreamteam/tesim-map-react-built/`. That is the definitive project which goes live.  
 # The MAP IN SVG  
 App.js > Map.js (all html) > SVGEurope.js , created from nuts3-eni.svg   
 and `https://svg2jsx.com/`

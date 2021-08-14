@@ -4,17 +4,22 @@ import Select from 'react-select'
 /**
  * DROPDOWN for the countries (also regions, but it was removed).
  */
-export default function SearchByRegion( {   regionsToProgrammes, 
+export default function TopBarSearch( {   regionsToProgrammes, 
                                             allRegionsInfo, allCountriesInfo,
                                             hovered, countryHovered,
                                             selected, setRegionSelected,
-                                            countrySelected, setCountrySelected } ) {
+                                            countrySelected, setCountrySelected,
+                                            allProjects, projectInModal, setProjectInModal,
+                                            appOptions, setAppOptions } ) {
     
     // **** STATES *****
-    const [options, setOptions] = React.useState([]);
+    const [optionsRegionsByCountry, setOptionsRegionsByCountry] = React.useState([]); // not in use anymore. It works though
     const [optionsCountry, setOptionsCountry] = React.useState([]);
-    const [placeholderRef, setPlaceholderRef] = React.useState(null);
+    const [optionsProjects, setOptionsProjects] = React.useState([]);
+    const [placeholderRef, setPlaceholderRef] = React.useState(null); // works better the shabby solution used for dropdown project.
     const [placeholderCountryRef, setPlaceholderCountryRef] = React.useState(null);
+    // const [placeholderProjectRef, setPlaceholderProjectRef] = React.useState(null);
+    
 
     // **** ON MOUNT *****
     React.useEffect(() => {
@@ -62,7 +67,7 @@ export default function SearchByRegion( {   regionsToProgrammes,
             // }
         });
         newOptions.push(tempGroupedOptions);
-        setOptions(newOptions);
+        setOptionsRegionsByCountry(newOptions);
 
         /*  --------------
             END OF options for search for region (nuts3)
@@ -73,8 +78,8 @@ export default function SearchByRegion( {   regionsToProgrammes,
     //     Object.keys(allCountriesInfo).forEach( countryCode => {
     //         newOptionsCountry.push({ label: allCountriesInfo[countryCode].title, value: countryCode });
     //     } );
-        if (!optionsCountry.length) // we want this to be set only once and nevre change.
-            setOptionsCountry(allCountriesArray);
+        if (!optionsCountry.length) // we want this to be set only once and never change.
+            setOptionsCountry(allCountriesArray); // [ {label:Bulgaria, value:bg}, { ...} ]
         /** ------ ------ ------ ------ ------ ------  */
 
 
@@ -86,6 +91,9 @@ export default function SearchByRegion( {   regionsToProgrammes,
         const PHCountry = document.querySelector('.search-by-country div[class*="placeholder"]');
         setPlaceholderCountryRef(PHCountry);
 
+        // const PHProject = document.querySelector('.search-by-project div[class*="placeholder"]');
+        // setPlaceholderProjectRef(PHProject);
+
 
 
 
@@ -95,6 +103,27 @@ export default function SearchByRegion( {   regionsToProgrammes,
         }
     }, [allRegionsInfo, regionsToProgrammes, allCountriesInfo, countrySelected]);
     
+    // Initialize the dropdown values for All proyects
+    React.useEffect( () => {
+        if (!allProjects || !allProjects.length ) return;
+        if (optionsProjects.length) return;
+        var groupedOptions = [];
+        
+        allProjects.forEach( proj => {
+            // find the option with that label 
+            var groupIndex = groupedOptions.findIndex( gr => gr.label === proj.color );
+            if (groupIndex === -1) {
+                groupedOptions.push({ label: proj.color, options: []}); // init if didnt exist
+                groupIndex = groupedOptions.length - 1;
+            }
+            groupedOptions[groupIndex].options.push({
+                label: proj.post_title,
+                value: proj.ID
+            });
+        })
+        setOptionsProjects(groupedOptions);
+    }, [allProjects]);
+
     // on mount when countries info is ready
 
 
@@ -110,7 +139,7 @@ export default function SearchByRegion( {   regionsToProgrammes,
             return;
         }
         placeholderRef.textContent = allRegionsInfo[hovered].title;
-    }, [hovered]);
+    }, [hovered]);//WATCH:hovered in map
     React.useEffect(()=>{
         if (!placeholderCountryRef) return;
         if (!allCountriesInfo[countryHovered]) { // if the country exists
@@ -122,7 +151,7 @@ export default function SearchByRegion( {   regionsToProgrammes,
             return;
         }
         placeholderCountryRef.textContent = allCountriesInfo[countryHovered].title;
-    }, [countryHovered]);
+    }, [countryHovered]);//WATCH:countryHoveredInMap
 
     React.useEffect(()=>{
         if (!placeholderRef || !selected) return;
@@ -137,6 +166,16 @@ export default function SearchByRegion( {   regionsToProgrammes,
         placeholderCountryRef.textContent = allCountriesInfo[countrySelected].title;
     }, [countrySelected]);
 
+    React.useEffect(()=>{
+        var PHProjectDropdown = document.querySelector('.search-by-project div[class*="placeholder"]')
+                                || document.querySelector('.search-by-project div[class*="singleValue"]'); // if there was a value on it already.
+        if (!projectInModal) {
+            // remove dropdown
+            if (PHProjectDropdown) {
+                PHProjectDropdown.textContent = 'search by project';
+            }
+        }
+    }, [projectInModal]);//WATCH:projectInModal
 
     // *** HANDLERS
     // const handleSelectRegion = e => { setRegionSelected(e.value); }
@@ -152,24 +191,42 @@ export default function SearchByRegion( {   regionsToProgrammes,
     // *** T E M P L A T E ******    JXS    *******************************
     /**********************************************************************/     
     return (<>
-        <div className='search-by-country TM_col-6 TM_col-md-4'>
+
+        <button className={`tm_nav-item TM_col-12 TM_col-md-3 TM_btn TM_btn-primary ${appOptions.showProjectsType}`}
+              onClick={ e => 
+                  setAppOptions( Object.assign( {...appOptions}, {
+                    showProjectsType: appOptions.showProjectsType === 'all-programmes'? 'map' : 'all-programmes'
+                  }))
+                }>
+            {appOptions.showProjectsType === 'all-programmes' ? 
+          <span>Close list of programmes</span>: <span>List of all ENI-CBC Programmes</span>}
+        </button>
+
+        <div className='tm_nav-item search-by-country TM_col-6 TM_col-md-3'>
             <Select options={optionsCountry} 
                     placeholder="Lookup by country" 
-                    defaultValue={''}
+                    defaultValue={''} // I didnt find a way to change the value automatically.
                     // onInputChange={ handleSelectRegion }
                     onChange={handleSelectCountry}/>
         </div>
         {/* <div className='search-by-region TM_col-6 TM_col-md-4'>
-            <Select options={options} 
+            <Select options={optionsRegionsByCountry} 
                     placeholder="Lookup by region name" 
                     defaultValue={hovered}
                     // onInputChange={ handleSelectRegion }
-                    onChange={handleSelectRegion}/>
+                    onChange={null}/>
         </div> */}
-        reg hover <b>{ hovered}</b> //
+        <div className='tm_nav-item search-by-project TM_col-6 TM_col-md-3'>
+            <Select options={optionsProjects} 
+                    placeholder="Lookup by project" 
+                    defaultValue={projectInModal}
+                    // onInputChange={ handleSelectRegion }
+                    onChange={ e => setProjectInModal(e.value) }/>
+        </div>
+        {/* reg hover <b>{ hovered}</b> //
         reg sel <b>{ selected}</b> //
         country hob <b>{ countryHovered}</b> //
-        country sel <b>{ countrySelected}</b> //
+        country sel <b>{ countrySelected}</b> // */}
         </>
     )
 }

@@ -6,7 +6,7 @@ import useKeyPress from './helpers/useKeyPress';
 //import Brazil from "@svg-maps/brazil";
 // import "react-svg-map/lib/index.css";
 import './Map.scss';
-import SearchByRegion from './SearchByRegion';
+import TopBarSearch from './TopBarSearch';
 import ProjectInfo from './ProjectInfo';
 import PanelHoveredRegion from './PanelHoveredRegion';
 import PanelSelectedRegion from './PanelSelectedRegion';
@@ -96,6 +96,10 @@ export default function Map( { allProgrammes, allProjects,
 
     // watch selection of country in dropdown.
     React.useEffect(() => {
+        // shabby solution
+        var PHCountry = document.querySelector('.search-by-country div[class*="placeholder"]');
+        if (!PHCountry) PHCountry = document.querySelector('.search-by-country div[class*="singleValue"]'); // if there was a value on it already.
+
         if (countrySelected && regionsToProgrammes && regionsToProgrammes.countries[countrySelected]) { 
             // first, the mode of lookup comes back to 'map'.
             setAppOptions(Object.assign( {...appOptions}, { showProjectsType: 'map' }));
@@ -104,12 +108,18 @@ export default function Map( { allProgrammes, allProjects,
             if (path) path.classList.remove('country-selected');
             path = refContainer.current.querySelector('#' + countrySelected + '0'); // path#es0
             if (path) path.classList.add('country-selected');
+
+            PHCountry.textContent = allCountriesInfo[countrySelected].title; // dropdown value needs to be changed by hand if selected from map
         }
-        return () => {
-            // cleanup
+        if (countrySelected===null){
+            // cleanup the country selected in map
             if (!refContainer.current) return;
             const path = refContainer.current.querySelector('#' + countrySelected + '0'); // path#es0
             if (path) path.classList.remove('country-selected');
+            // cleanup the dropdown country
+            
+            PHCountry.textContent = 'Select country...';
+        
         }
     }, [countrySelected]);//WATCH (click on a country or selected from dropdown)
     
@@ -158,42 +168,68 @@ export default function Map( { allProgrammes, allProjects,
         refSVG.current.style.transform = `translateX(${refSVG.current.clientWidth/6}px)`;
     }
     
-    
+    /** COMPUTED : considers all the main states that this app accepts and explains it with classes in an array */    
+    const currentStateClasses = React.useMemo(()=>{
+        let classes = [];
+        if (hovered) classes.push('region-hovered');
+        if (countryHovered) classes.push('country-hovered');
+        if (regionSelected) classes.push('region-selected');
+        if (countrySelected) classes.push('country-selected');
+        if (appOptions.showProjectsType === 'all-programmes') 
+            classes.push('showing-programmes');
+        if (projectInModal) classes.push('project-selected');
+        return classes;    
+    }, [regionSelected, countryHovered, countrySelected, appOptions.showProjectsType, projectInModal ]);
 
     // *** T E M P L A T E ******    JSX    *******************************
     /**********************************************************************/ 
     return (
-<div    className={`TM_container ${hovered && regionsToProgrammes?.nuts3 && regionsToProgrammes.nuts3[hovered]? 'hovering-region' : ''
-                    } ${regionSelected? 'selected-region' : '' }`} 
+<div    className={`TM_container ${
+              currentStateClasses.length? 
+                        'TM_container--active-state ' + currentStateClasses.join(' ') : 'TM_container--no-selection'
+        }`} 
         ref={refContainer}>
 
-    <div className='TM_row'>
-        
-            <SearchByRegion allProgrammes={allProgrammes} allProjects={allProjects} regionsToProgrammes={regionsToProgrammes} 
+    <div id="TM_topbar" className='TM_row'>
+    
+            <TopBarSearch allProgrammes={allProgrammes} allProjects={allProjects} regionsToProgrammes={regionsToProgrammes} 
                             allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo} 
                             hovered={hovered} countryHovered={countryHovered} 
                             regionSelected={regionSelected} setRegionSelected={setRegionSelected}
                             countrySelected={countrySelected} setCountrySelected={setCountrySelected}
-                            allRegionsInfo={allRegionsInfo} />
+                            allRegionsInfo={allRegionsInfo}
+                            appOptions={appOptions} setAppOptions={setAppOptions}
+                            allProjects={allProjects} projectInModal={projectInModal} setProjectInModal={setProjectInModal} />
         
     </div>
 
     <div className="TM_row border TM_position-relative">
         
         {/* Panel on the left. Shows info of selected country or shows Search by programme */}
-        <div className="TM_left-panel border m-5">
+        <div className={`TM_left-panel `}>
             <div className="TM_card">
                 <div className="TM_card-header">
-                    Info:
+                { currentStateClasses.length === 0 && <>
+
+                    <h2 className="TM_h2">Programmes <span className="TM_text-primary">and</span> Projects search</h2>
+                    {/* {process.env.NODE_ENV} {process.env.REACT_APP_PUBLIC_URL} */}
+                </> }
+                    
                     {regionSelected && 
                     <button onClick={ e => { setRegionSelected(null); setCountrySelected(null); }}
                         className='TM_btn TM_btn-secondary'>
                         Close selection
                     </button>}
-                    {process.env.NODE_ENV}
-                    {process.env.REACT_APP_PUBLIC_URL}
+                    
                 </div>
                 <div className="TM_card-body">
+
+                    { currentStateClasses.length === 0 && <p>
+                        Here you can access to the information of all ENI-CBC projects. 
+                        Look for them by searching in the map or using the options above.
+                    </p>}
+
+
                     { countrySelected && countriesToProjects[countrySelected] && (
                         <div className='Panel-list-of-projects'>
                             <div className="btn-wrapper">
@@ -202,7 +238,7 @@ export default function Map( { allProgrammes, allProjects,
                                     Close
                                 </button>
                             </div>
-                            <ul class="TM_list-of-projects">
+                            <ul className="TM_list-of-projects">
                             { countriesToProjects[countrySelected].map( projectId => {
                                 const projInfo = allProjects.find( pro => projectId === pro.ID );
                                 return <ProjectInfo 
@@ -242,7 +278,7 @@ export default function Map( { allProgrammes, allProjects,
                                         hovered={hovered} />}
 
         {/* The MAP */}
-        <div className="TM_map-wrapper TM_col-12 border TM_overflow-hidden">
+        <div className="TM_map-wrapper TM_col-12 tm_border TM_overflow-hidden">
             <svg ref={refSVG} width='100%' height='230px'
                     className="n" 
                     id="svg-map-container"
@@ -253,12 +289,19 @@ export default function Map( { allProgrammes, allProjects,
                 <Europe />
             </svg>
         </div>
+        
+        {/* The footer with help information */}
+        <footer>
+
+        </footer>
+
+
 
         {/* The MODAL WINDOW for the selected project PDF */}
         { projectInModal &&
-        <div className="tesim-modal-wrapper" tabIndex="-1" role="dialog" aria-hidden="true"
+        <div className="tm_tesim-modal__wrapper" tabIndex="-1" role="dialog" aria-hidden="true"
             onClick={e=>setProjectInModal(null)}>
-            <div className="tesim-modal">
+            <div className="tm_tesim-modal__inner">
                 <iframe src={ projectInModal.permalink?? allProjects.find(p=>p.ID===projectInModal).permalink }>
 
                 </iframe>

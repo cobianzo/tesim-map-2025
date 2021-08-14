@@ -18,6 +18,10 @@ $color-non-eu-selectable: $primary;
 // class set up by react
 #svg-map-container {
 	
+	#sea {
+		stroke: none;
+	}
+
 	.selectable {
 		fill: $color-eu-non-selectable;
 		&:hover {

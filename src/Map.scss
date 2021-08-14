@@ -1,52 +1,60 @@
 @import './styles/custom.scss';
 
 .TM_map-wrapper {
-    //min-height: 500px;
-}
-
-
-.TM_left-panel {
-    position: absolute;
-    background-color: var(--tm-light);
-    padding: 1rem;
-    border-radius: 5px;
-    z-index: 9;
-    left: 0;
-    right: 0;
-    max-height: calc(100% - 3rem);
-    overflow: scroll;
-
-    @include media-breakpoint-up(md) { 
-        margin-left: 1rem;
-        margin-right: 1rem;
-        top: 15px;
-        right: auto;
-        max-width: 50%;    
-    } 
-}
-
-
-.tesim-modal-wrapper {
-    position: fixed;
-    z-index: 10;
-    left: 0; top: 0; right: 0; bottom: 0;
-    background-color: rgba(0,0,0,0.5);
-    display: flex;
-    justify-self: center; align-items: center;
-}
-
-.tesim-modal {
-    width: 100%;
-    max-width: 1240px;
-    height: 100%;
-    margin: auto;
-    background: white;
-    iframe { 
-        width: 100%;
-        height: 100%;
+    min-height: 500px;
+    @media only screen and (min-width: 600px) { 
+        min-height: 0;
     }
-
 }
+
+// TOP BAR with search btns and dropdowns
+#TM_topbar {
+    .tm_nav-item {
+        flex-grow: 1; // in mobile take all width
+        margin: 5px 5px;
+    }
+    @media only screen and (min-width: 600px) {
+        position: absolute;
+        width: 100%;
+        z-index: 9;
+        
+        .tm_nav-item {
+            &:first-child { margin-left: 20px; }
+            &:last-child  { margin-right: 20px; }
+            flex-grow: 1; // in desktop don't grow more
+            margin: 15px 5px; 
+        }
+    }
+}
+// -- end top bar 
+
+
+.tm_tesim-modal {
+    &__wrapper {
+        position: fixed;
+        z-index: 10;
+        left: 0; top: 0; right: 0; bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        display: flex;
+        justify-self: center; align-items: center;
+    }
+    &__inner {
+
+        width: 100%;
+        max-width: 1240px;
+        height: 100%;
+        margin: auto;
+        background: white;
+        iframe { 
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+
+
+
 
 // now icon for programme
 .programme-and-projects {

@@ -1,6 +1,5 @@
 import React from 'react'
 import Map from './Map';
-import SearchByRegion from './SearchByRegion';
 import './App.scss';
 
 /**
@@ -117,7 +116,7 @@ function App() {
   }
 
   /**
-   * 
+   * don't need, we grab already all projects info at once.
    * @param { array of int | int | string } ids.
    */
   async function fetchProjectByIds( ids ) {
@@ -152,6 +151,9 @@ function App() {
     });
   }
 
+  /**
+   * updates coutriesInfo and regionsInfo
+   */
   async function fetchAllRegionsNames() {
     const endpoint  = `${process.env.REACT_APP_LOCAL_ENDPOINT}regions.json`;
     console.log('openENDPOINT regions: ',endpoint)
@@ -174,15 +176,6 @@ function App() {
   /**********************************************************************/ 
   return (
     <div className="TM_App">
-      <button className={`TM_btn TM_btn-primary ${appOptions.showProjectsType}`}
-              onClick={ e => 
-                  setAppOptions( Object.assign( {...appOptions}, {
-                    showProjectsType: appOptions.showProjectsType === 'all-programmes'? 'map' : 'all-programmes'
-                  }))
-                }>
-        {appOptions.showProjectsType === 'all-programmes' ? 
-          <span>Close list of programmes</span>: <span>Lookup by ENI-CBC Programme</span>}
-      </button>
       <Map allProgrammes={allProgrammes}
            allProjects={allProjects}
            regionsToProgrammes={regionsToProgrammes}

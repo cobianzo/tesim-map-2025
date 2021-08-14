@@ -1,15 +1,28 @@
 // @import './styles/custom.scss';
-// @import './styles/variables.scss';
+@import './styles/variables.scss';
 
 body {
     font-family: 'Century Gothic',-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
     font-size: 1rem;
     line-height: 1.5;
-    color: #2b3788;
+    color: $primary;
     background-color: #fff;
 }
-.border {
-    border: 1px solid yellow;
+
+// typo:
+.TM_h2 {
+    font-size: 2rem;
+    text-transform: uppercase;
+    line-height: 1.2;
+    font-weight: 300;
+    color: $secondary;
+}
+.TM_text-primary {
+    color: $primary !important;
+}
+
+.tm_border {
+    border: 1px solid $primary;
 }
 .tm_list-unstyled {
     list-style: none; 
@@ -42,15 +55,22 @@ body {
 .TM_container {
     max-width: 1400px;
     margin: auto;
+    position: relative;
 }
 .TM_row {
     display: flex;
+    flex-wrap: wrap;
 }
 .TM_col-6 {
     flex-basis: 50%;
 }
 .TM_col-12 {
     flex-basis: 100%;
+}
+.TM_col-md-3 {
+    @media only screen and (min-width: 600px){
+        flex-basis: calc( 300% / 12 );
+    }
 }
 .TM_col-md-4 {
     @media only screen and (min-width: 600px){
@@ -65,3 +85,8 @@ body {
     position: relative;
 }
 
+
+// margins paddings 
+.tm_ml-3 {
+    margin-left: 1rem;
+}
