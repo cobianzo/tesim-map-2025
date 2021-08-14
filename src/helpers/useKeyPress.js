@@ -5,9 +5,7 @@ import { useEffect } from 'react';
  * @param {function} action - the action to perform on key press
  * 
  * Usage:
- * useKeyPress('Escape', () => { 
-        do whatever you want to do when escape is pressed
-    }, [selected, projectInModal]);
+ Y
  */
 export default function useKeypress(key, action, dependencies = []) {
   useEffect(() => {

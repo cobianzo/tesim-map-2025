@@ -1,6 +1,27 @@
 TODO:
 - The thumbnails of posters are calculated using the WP PDF thumbnails. I should use wp interreg with a field for the thumbnail, uploaded to tesim site. Then export it to json and use that field ad thumbnail.
-- Remove Bootstrap. Try to do everything without BT4!
+QUE HACER
+
+TESIM:
+Grafica colores.
+Testear los paises que vayan bien. Seleccion de una region, muestra un pais
+Hover region, muestra el pais. Muestra el nombre de la region en el lado.
+Crear un dropdown de programmes 
+
+RECOLOR:
+Terminar la Gioconda.
+
+Ricerca:
+
+Per paese e per programma.
+E per
+Aspetto se c'e' rapporto paese-progetti
+
+MAPPA:
+Manteniamo livello regione, ma si seleziona solo il pases.
+Non mostrare nessuna informazione che faccia capire che una regione e selwziomna
+
+
 
 # TEST in Tesim page Simulation  
 - We downloaded the site using httrack, it is in `/Sites/httrack-3.49.2/tesim-enicbc.eu`

@@ -1,6 +1,12 @@
 TODO LIST
 
+- Esperar por respuestas: tenemos una lista project > countries.
+Si no, podemos asumir que las sedes del proyecto, mencionadas en el PDF y en el mapa de keep.eu son los paises asociados.
+- Cuando tengamos esa lista ,  exportarla, y aplicarla a projects-and-programmes.json, para la seecion projects (q cada project tenga un campo "countries", con los codigos del pais/es involucrados.)
+- Al seleccionar un pais, hay q mostrar entonces los projects del pais.
+
 - desarrollar un metodo para publicar en Tesim. Crear nuevo env test para simular.
+     HE CREADO YA `/Sites/httrack-3.49.2/tesim-enicbc.eu`
      El problema actual es q no carga los json pq estan en una ruta diferente.
      usar algo asi como   "build:staging": "REACT_APP_ENV=staging npm run build",
      con un .env.staging creando el ROOT URL

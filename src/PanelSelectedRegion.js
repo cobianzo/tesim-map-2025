@@ -41,12 +41,12 @@ export default function PanelSelectedRegion({allProgrammes,allProjects,
     }
 
     return (<>
-        <div className="row">
-            <div className="col-8">
+        <div className="TM_row">
+            <div className="TM_col-8">
                 <h2>
                     { regionInfo?.title }
                 </h2>
-                <p className="m-0">
+                <p className="">
                     { getCountry() }
                 </p>
                 <small>
@@ -54,11 +54,11 @@ export default function PanelSelectedRegion({allProgrammes,allProjects,
                 </small>
             </div>
         </div>
-        <div className="row projects-by-programme">
+        <div className="TM_row projects-by-programme">
 
         </div>
 
-        <div className={`row ${appOptions.showProjectsType}`}>
+        <div className="TODELETE">
         { appOptions.showProjectsType === 'all-projects-together' ?
             <ul>
                 

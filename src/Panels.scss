@@ -1,0 +1,89 @@
+@import './styles/variables.scss';
+
+.TM_Panel {
+    position: absolute;
+    z-index: 9;
+    background-color: rgba(255,255,255,0.8);
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    max-width: 150px;
+    &--hoveredregion {
+        left: auto;
+        right: 0;
+
+        .region-title {
+            font-size: 1.3rem;
+            margin: 0;
+            line-height: 1;
+        }
+    }
+}
+
+
+.TM_Panel__all-programmes {
+    .TM_List-of-programmes {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr; // 3 cols
+        > li {
+            cursor: pointer;
+            text-align: center;
+            align-items: start;
+            display: grid;
+            border-bottom: 1px solid $secondary;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            grid-template-columns: auto; // 1 col
+            &:hover {
+                border: 1px solid $info;
+            }
+            &.selected {
+                background-color: $info;
+            }
+            p { 
+                font-size: 0.8rem;
+                line-height: 1rem;
+                margin: 0; 
+            }
+            img.logo-programme {
+                margin: auto;
+                max-width: 50px;
+            }
+            
+        }
+    }
+
+    .Panel-list-of-projects {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: white;
+        overflow-y: scroll;
+        .TM_btn-close {
+
+        }
+    }
+}
+
+// inside project component
+.TM_list-of-projects {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 15px;
+    list-style: none;
+    padding: 0;
+    > li {
+        display: grid;
+        justify-content: center;
+        img {
+            margin: auto;
+            max-width: 100px;
+        }
+        .project-title {
+            text-align: center;
+        }
+    }
+}

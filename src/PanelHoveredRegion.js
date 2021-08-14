@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import './Panels.scss';
 
 export default function PanelHoveredRegion({allProgrammes,allProjects,
                                             allRegionsInfo, allCountriesInfo,
@@ -44,29 +45,28 @@ export default function PanelHoveredRegion({allProgrammes,allProjects,
     }
 
 
+
+
+    // *** T E M P L A T E ******    JSX    *******************************
+    /**********************************************************************/ 
     if (!hovered) return null;
     return (<>
-        <div className="row">
-            <div className="col-2">
-                ✴
-            </div>
-            <div className="col-8">
-                <h2>
+        <div className="TM_Panel TM_Panel--hoveredregion">
+            <div className="TM_Panel__inner">
+                <p className="region-title">
                     { regionInfo?.title }
-                </h2>
+                </p>
                 <small>
                     { getCountry() }
                 </small>
             </div>
         </div>
         
-        <div className="row">
-            <div className='col-6'>
-                { numProgProj?.num_progs } programmes
-            </div>
-            <div className='col-6'>
+        <div className="nadaada" style={{display:'none'}}>
+            
+                { numProgProj?.num_progs } programmes <br/><br/>
                 { numProgProj?.num_projs } projects
-            </div>
+            
         </div>
         
     </>

@@ -10,10 +10,11 @@ import React from 'react'
             "color": "infrastructures",
             "programme": 5224
 */
-export default function ProjectInfo({ projectInfo }) {
+export default function ProjectInfo({ setProjectInModal, projectInfo }) {
   
     
     function get_thumbail_from_pdf_filename() {
+        if (!projectInfo) return ''; // TODO: use placeholder
         const pdfFilename = projectInfo.pdf_link;
         const baseFilename = pdfFilename.substr(0, pdfFilename.indexOf('.pdf') );
         // const imgFilename = baseFilename + '-pdf-297x420.jpg';
@@ -22,12 +23,12 @@ export default function ProjectInfo({ projectInfo }) {
     }
 
     return (
-        <>
+        <li onClick={e=>setProjectInModal(projectInfo.ID)}>
             <img src={get_thumbail_from_pdf_filename()} className="tm_img-fluid" />
-            <div className='small'>
-                { projectInfo.post_title }
+            <div className='small project-title'>
+                { projectInfo?.post_title }
             </div>
-        </>
+        </li>
     )
 }
 

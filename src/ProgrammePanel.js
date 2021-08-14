@@ -9,7 +9,8 @@ import ProjectInfo from './ProjectInfo'
 export default function ProgrammePanel({
     programmeId,
     allProgrammes,
-    allProjects
+    allProjects,
+    setProjectInModal
 }) {
 
     // const [programmeInfo, setProgrammeInfo] = React.useState({});
@@ -27,9 +28,15 @@ export default function ProgrammePanel({
                 { allProgrammes[programmeId].projects?.length } projects
             </span>
 
-            { allProgrammes[programmeId].projects.map( ID => (
-                <ProjectInfo ID={ID} allProjects={allProjects} key={`pi-${ID}`}/>
-            )) }
+            <ul class="TM_list-of-projects">
+            { allProgrammes[programmeId].projects.map( ID => {
+                    const projInfo = allProjects.find( pro => ID === pro.ID );
+                    return <ProjectInfo 
+                            setProjectInModal={setProjectInModal}
+                            projectInfo={projInfo} key={`pi-${ID}`}/>
+                } )
+            }
+            </ul>
         </div>
     )
 }

@@ -3,20 +3,28 @@ import Map from './Map';
 import SearchByRegion from './SearchByRegion';
 import './App.scss';
 
-
+/**
+ * SETUP of the App. fetch, from API (Json files) the programmes, projects. Then create the relations regionsToProgrammes
+ * API from:
+ *    projects-and-programmes.json - 
+ *      regions.json - for every region code, it gives the name
+ *      countries.json - for every country code, it gives the name
+ */
 function App() {
 
   // **** STATES *****
   const [allProgrammes, setAllProgrammes] = React.useState({}); // set in API call fetchProgrammesProjects, once. // Object of programmes with Key=programme ID. { "5224": { "ID": 5224, "post_title": "Hungary - Slovakia - Romania - Ukraine ENI CBC", "post_name": "hungary-slovakia-romania-ukraine-eni-cbc", "nuts3": "hu323,hu311,ro215,ro114,ro115,sk042,sk041,uab08,ua006,ua003", "countries": "hu,ro,sk,ua" },  "5233": { ...
   const [allProjects, setAllProjects] = React.useState([]); // in fetchProgrammesProjects, once. // array of obj project:   [  {"ID": 7537,"permalink": "http:\/\/localhost:9000\/snippet\/cgtn\/","pdf_link": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/02\/CGTN.pdf","external_featured_image": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/01\/CGTN.png","links_and_map": "https:\/\/keep.eu\/projects\/23032\/Cross-border-green-transpor-EN\/ \r\nTESIM story https:\/\/tesim-enicbc.eu\/voices\/ihor-popodyuk\/ \r\nProject page https:\/\/huskroua-cbc.eu\/projects\/financed-projects-database\/cross-border-green-transport-network \r\nFacebook https:\/\/www.facebook.com\/CGTN.HUSKROUA\/","color": "infrastructures",    "programme": 5224 },
-  const [regionsToProgrammes, setRegionsToProgrammes] = React.useState({}); // calculated // { tr325: [5435], tr34: ... }
+  const [regionsToProgrammes, setRegionsToProgrammes] = React.useState({}); // calculated // { nuts3: { tr325: [5435], tr34: ...}, countries: { tr: [5435, 4345], ee: ... } }
+  const [countriesToProjects, setCountriesToProjects] = React.useState({}); // calculated // { tr: [5435, 4345], ee: ... }
+  //const [countriesToProgrammes, setCountriesToProgrammes] = React.useState({}); // calculated // 
   const [allRegionsInfo, setAllRegionsInfo] = React.useState({}); // set on API call, once { tr325: {title: "Capadocchia", description }, ... }
   const [allCountriesInfo, setAllCountriesInfo] = React.useState({}); // set on API call, once
-  const [appOptions, setAppOptions] = React.useState({ showProjectsType: 'programmes' });
+  const [appOptions, setAppOptions] = React.useState({ showProjectsType: 'all-programmes' }); // programmes|map (by default)
   
   // **** ON MOUNT *****
   React.useEffect( () => {
-    setAppOptions({ showProjectsType: 'programmes' });
+    setAppOptions({ showProjectsType: 'map' });
     fetchProgrammesProjects();
     fetchAllRegionsNames();
   }, []);
@@ -24,7 +32,8 @@ function App() {
   // **** WATCH allProgrammes *****
   React.useEffect( () => {
     if (!allProgrammes) return;
-  }, [allProgrammes]);
+  }, [allProgrammes]);//WATCH `on mount 2`- when the programmes are read from API
+
 
   // **** FUNCTIONS *****
   async function fetchProgrammesProjects() {
@@ -39,6 +48,7 @@ function App() {
       setAllProjects(res.projects);
 
       // before saving the programmes, we add the field of projects, so we have both ways info
+      const countToProj = {};
       res.projects.forEach( projectObj => {
         // set the programme's projects
         if (projectObj.programme) { // return ID programme, str "5224"          
@@ -46,9 +56,13 @@ function App() {
           programmeInfo.projects = programmeInfo.projects || [];
           res.programmes[projectObj.programme].projects.push(parseInt(projectObj.ID));
         }
-        
-      })
+        if (projectObj.countries)
+          projectObj.countries.split(',').forEach( code => 
+            countToProj[code] = (countToProj[code] || [] ).concat([projectObj.ID])
+          )
+      });
       setAllProgrammes(res.programmes);
+      setCountriesToProjects(countToProj);
 
       // set the regions programmes and projects update
       let nuts3ToProg = {};
@@ -151,29 +165,31 @@ function App() {
     });
     // fetch countries: TODO: we could use this to colour all regions using the category of every country.
     const endpointC  = `${process.env.REACT_APP_LOCAL_ENDPOINT}countries.json`;
-    console.log('openENDPOINT countries: ',endpointC)
+    console.log('openENDPOINT countries: ', endpointC);
     (await fetch(endpointC)).json().then(res => setAllCountriesInfo(res) )
               .catch(err => console.error('mal countries', err) );
   }
 
-  // *** T E M P L A T E ******    JXS    *******************************
+  // *** T E M P L A T E ******    JSX    *******************************
   /**********************************************************************/ 
   return (
     <div className="TM_App">
       <button className={`TM_btn TM_btn-primary ${appOptions.showProjectsType}`}
-              onClick={ e => {
-                const newAppOptions = {...appOptions};
-                newAppOptions.showProjectsType = appOptions.showProjectsType === 'all-projects-together'? 'projects-by-programme' : 'all-projects-together';
-                setAppOptions(newAppOptions);
-                }}>
-        {appOptions.showProjectsType === 'all-projects-together' ? 
-          <span>All projects</span>: <span>Projects by Programme</span>}
+              onClick={ e => 
+                  setAppOptions( Object.assign( {...appOptions}, {
+                    showProjectsType: appOptions.showProjectsType === 'all-programmes'? 'map' : 'all-programmes'
+                  }))
+                }>
+        {appOptions.showProjectsType === 'all-programmes' ? 
+          <span>Close list of programmes</span>: <span>Lookup by ENI-CBC Programme</span>}
       </button>
       <Map allProgrammes={allProgrammes}
            allProjects={allProjects}
            regionsToProgrammes={regionsToProgrammes}
            allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
-           appOptions={appOptions} />
+           appOptions={appOptions} setAppOptions={setAppOptions}
+           countriesToProjects={countriesToProjects}
+           />
     </div>
   );
 }

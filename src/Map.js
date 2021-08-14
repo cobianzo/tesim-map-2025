@@ -7,25 +7,32 @@ import useKeyPress from './helpers/useKeyPress';
 // import "react-svg-map/lib/index.css";
 import './Map.scss';
 import SearchByRegion from './SearchByRegion';
-import ProgrammePanel from './ProgrammePanel';
+import ProjectInfo from './ProjectInfo';
 import PanelHoveredRegion from './PanelHoveredRegion';
 import PanelSelectedRegion from './PanelSelectedRegion';
+import PanelProgrammesSearch from './PanelProgrammesSearch';
 
 
 export default function Map( { allProgrammes, allProjects, 
                                 allRegionsInfo, allCountriesInfo,
                                 regionsToProgrammes,
-                                appOptions  } ) {
+                                countriesToProjects,
+                                appOptions, setAppOptions  } ) {
     
     const classSelectablePath = 'cls-2';
 
     // **** STATES *****
     const refContainer = React.useRef();
     const refSVG = React.useRef();
+    const [countryHovered, setCountryHovered] = React.useState(null); // ID of region hovered: from here we calculat the programmes, and the projects
     const [hovered, setHovered] = React.useState(null); // ID of region hovered: from here we calculat the programmes, and the projects
     const [regionSelected, setRegionSelected] = React.useState(null); // ID of region selected.    
     const [countrySelected, setCountrySelected] = React.useState(null); // ID of region selected.    
     const [projectInModal, setProjectInModal] = React.useState(null);
+
+    // State for Mode search by programme
+    const [hoveredProgramme, setHoveredProgramme] = React.useState(null);
+    const [selectedProgramme, setSelectedProgramme] = React.useState(null);
 
     // **** ON MOUNT *****
     React.useEffect( () => {
@@ -38,19 +45,35 @@ export default function Map( { allProgrammes, allProjects,
             path.classList.add('selectable');
         });
     }, [regionsToProgrammes.nuts3]);
-    // key escape listener: close the modal window with the project info
-    useKeyPress('Escape', () => { 
-        if (projectInModal)
-            setProjectInModal(null);
-        else if (regionSelected) setRegionSelected(null);
-    }, [regionSelected, projectInModal]);
-
+    
     // **** WATCH hovered (a region is hovered!) *****
     
-    // React.useEffect( () => {
-    //     if (selected) return;
-    //     if (!regionsToProgrammes?.nuts3) return;
-    // }, [hovered]); // hovered is a region ID
+    React.useEffect( () => {
+        if (!hovered) {
+            setCountryHovered(null);
+            return;
+        }
+        // if (regionSelected) return;
+        if (!regionsToProgrammes?.nuts3) return;
+        // get the country from the region hovered
+        const countryCode = hovered.substr(0,2);
+        // if country belongs to countries with programmes:
+        if (regionsToProgrammes.countries && regionsToProgrammes.countries[countryCode])
+            setCountryHovered(countryCode);
+    }, [hovered]);//WATCH. hovered is a region ID
+
+    // watch country hovered: add class to highlight
+    React.useEffect( () => {
+        let domElCountry = refContainer.current.querySelectorAll('.country-hovered');
+        if (domElCountry.length)
+            domElCountry.forEach(el => el.classList.remove('country-hovered') );
+        if (countryHovered) {
+            domElCountry = refContainer.current.querySelector('#'+countryHovered+'0'); // es0 is the code of country
+            if (domElCountry) {
+                domElCountry.classList.add('country-hovered');
+            }
+        } 
+    }, [countryHovered]);//WATCH
 
     // watch selected region: WHEN clicking on a region in the map
     React.useEffect( () => {
@@ -69,11 +92,14 @@ export default function Map( { allProgrammes, allProjects,
         // CLEANUP: when selected region
         const path = refContainer.current.querySelector('.selected');
         if (path) path.classList.remove('selected');
-    }, [regionSelected]); // selected is a region ID
+    }, [regionSelected]);//WATCH. selected is a region ID. Not applicable anymore since we can only select countries.
 
     // watch selection of country in dropdown.
     React.useEffect(() => {
         if (countrySelected && regionsToProgrammes && regionsToProgrammes.countries[countrySelected]) { 
+            // first, the mode of lookup comes back to 'map'.
+            setAppOptions(Object.assign( {...appOptions}, { showProjectsType: 'map' }));
+
             let path = refContainer.current.querySelector('.country-selected');
             if (path) path.classList.remove('country-selected');
             path = refContainer.current.querySelector('#' + countrySelected + '0'); // path#es0
@@ -85,7 +111,17 @@ export default function Map( { allProgrammes, allProjects,
             const path = refContainer.current.querySelector('#' + countrySelected + '0'); // path#es0
             if (path) path.classList.remove('country-selected');
         }
-    }, [countrySelected])
+    }, [countrySelected]);//WATCH (click on a country or selected from dropdown)
+    
+    // when looking up by programme, if a country weas selected, we deselected it.
+    React.useEffect( () => {
+        if (appOptions.showProjectsType === 'all-programmes') {
+            setCountrySelected(null);
+        } else
+        if (appOptions.showProjectsType === 'map') {
+            setSelectedProgramme(null);
+        }
+    }, [appOptions.showProjectsType]);//WATCH (change from/to 'select country in map' - 'show programmes and select one')
 
     // **** HANDLERS *****
     const handleMouseMove = e => {
@@ -101,9 +137,18 @@ export default function Map( { allProgrammes, allProjects,
         //setHovered(newH);
     }
     const handleClick = e => {
-        if (hovered)
-            setRegionSelected(hovered);
+        //if (hovered)
+        //    setRegionSelected(hovered);
+        if (countryHovered)
+            setCountrySelected(countryHovered);
     }
+    // key escape listener: close the modal window with the project info
+    useKeyPress('Escape', () => { 
+        if (projectInModal)
+            setProjectInModal(null);
+        else if (regionSelected) setRegionSelected(null);
+    }, [regionSelected, projectInModal]);
+
 
     // **** FUNCTIONS *****
     // TODO: apply on resize
@@ -112,20 +157,10 @@ export default function Map( { allProgrammes, allProjects,
         refSVG.current.setAttribute('height', refSVG.current.clientWidth * 5/12 + 'px');
         refSVG.current.style.transform = `translateX(${refSVG.current.clientWidth/6}px)`;
     }
-    // CONTORL OF ESC KEY PRESSED                                                
-    const escFunction = (event) => {
-        if(event.keyCode === 27) { alert()
-            if (projectInModal) setProjectInModal(null);
-        }
-    }
-    // React.useEffect(() => {
-    //     document.addEventListener("keydown", escFunction, false);
-    //     return () => document.removeEventListener("keydown", escFunction, false);
-    // }, []);
-
+    
     
 
-    // *** T E M P L A T E ******    JXS    *******************************
+    // *** T E M P L A T E ******    JSX    *******************************
     /**********************************************************************/ 
     return (
 <div    className={`TM_container ${hovered && regionsToProgrammes?.nuts3 && regionsToProgrammes.nuts3[hovered]? 'hovering-region' : ''
@@ -136,7 +171,8 @@ export default function Map( { allProgrammes, allProjects,
         
             <SearchByRegion allProgrammes={allProgrammes} allProjects={allProjects} regionsToProgrammes={regionsToProgrammes} 
                             allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo} 
-                            hovered={hovered} regionSelected={regionSelected} setRegionSelected={setRegionSelected}
+                            hovered={hovered} countryHovered={countryHovered} 
+                            regionSelected={regionSelected} setRegionSelected={setRegionSelected}
                             countrySelected={countrySelected} setCountrySelected={setCountrySelected}
                             allRegionsInfo={allRegionsInfo} />
         
@@ -144,6 +180,7 @@ export default function Map( { allProgrammes, allProjects,
 
     <div className="TM_row border TM_position-relative">
         
+        {/* Panel on the left. Shows info of selected country or shows Search by programme */}
         <div className="TM_left-panel border m-5">
             <div className="TM_card">
                 <div className="TM_card-header">
@@ -157,13 +194,24 @@ export default function Map( { allProgrammes, allProjects,
                     {process.env.REACT_APP_PUBLIC_URL}
                 </div>
                 <div className="TM_card-body">
-
-                    { hovered && !regionSelected && 
-                    <PanelHoveredRegion allProgrammes={allProgrammes} allProjects={allProjects} 
-                                        allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
-                                        regionsToProgrammes={regionsToProgrammes}
-                                        hovered={hovered} />}
-
+                    { countrySelected && countriesToProjects[countrySelected] && (
+                        <div className='Panel-list-of-projects'>
+                            <div className="btn-wrapper">
+                                <button className="TM_btn TM_btn-close "
+                                        onClick={ e=>setCountrySelected(null)}>
+                                    Close
+                                </button>
+                            </div>
+                            <ul class="TM_list-of-projects">
+                            { countriesToProjects[countrySelected].map( projectId => {
+                                const projInfo = allProjects.find( pro => projectId === pro.ID );
+                                return <ProjectInfo 
+                                        setProjectInModal={setProjectInModal}
+                                        projectInfo={projInfo} key={`pi-${projectId}`}/>
+                                }
+                            ) }
+                            </ul>
+                    </div>)}
                     { regionSelected && 
                     <PanelSelectedRegion allProgrammes={allProgrammes} allProjects={allProjects} 
                         allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
@@ -172,9 +220,26 @@ export default function Map( { allProgrammes, allProjects,
                         appOptions={appOptions}
                         projectInModal={projectInModal} setProjectInModal={setProjectInModal} />}
                     
+                    {/* If btn lookup by programme was clicked */}
+                    { appOptions.showProjectsType === 'all-programmes' && (
+                        <PanelProgrammesSearch 
+                            allProgrammes={allProgrammes} allProjects={allProjects}
+                            setProjectInModal={setProjectInModal}
+                            hoveredProgramme={hoveredProgramme} setHoveredProgramme={setHoveredProgramme}
+                            selectedProgramme={selectedProgramme} setSelectedProgramme={setSelectedProgramme}
+                        />
+                    )}
+
                 </div>
             </div>
         </div>
+
+        {/* Panel on the right: shows infor of hovered region */}
+        { hovered && !regionSelected && 
+                    <PanelHoveredRegion allProgrammes={allProgrammes} allProjects={allProjects} 
+                                        allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
+                                        regionsToProgrammes={regionsToProgrammes}
+                                        hovered={hovered} />}
 
         {/* The MAP */}
         <div className="TM_map-wrapper TM_col-12 border TM_overflow-hidden">
@@ -189,12 +254,12 @@ export default function Map( { allProgrammes, allProjects,
             </svg>
         </div>
 
-        {/* The MODAL WINDOW for the selected profject PDF */}
+        {/* The MODAL WINDOW for the selected project PDF */}
         { projectInModal &&
         <div className="tesim-modal-wrapper" tabIndex="-1" role="dialog" aria-hidden="true"
             onClick={e=>setProjectInModal(null)}>
             <div className="tesim-modal">
-                <iframe src={ projectInModal.permalink }>
+                <iframe src={ projectInModal.permalink?? allProjects.find(p=>p.ID===projectInModal).permalink }>
 
                 </iframe>
             </div>

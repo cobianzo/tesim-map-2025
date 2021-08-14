@@ -1,31 +1,65 @@
 @import './styles/custom.scss';
 @import './styles/variables.scss';
 
+// SVG map
+
+$color-eu-non-selectable: #626BAB;
+$color-eu-selectable: $secondary;
+$color-non-eu-non-selectable: #A76EA4;
+$color-non-eu-selectable: $primary;
+
 @keyframes country-stroke-animation {
 	from {stroke: $secondary;}
 	to {stroke: $info;}
 }
 
+
+
 // class set up by react
 #svg-map-container {
+	
 	.selectable {
-		fill: $secondary;
+		fill: $color-eu-non-selectable;
 		&:hover {
 			fill: $info;
 		}
 	}
+	#landmarks-eu {
+		fill: $color-eu-non-selectable;
+	}
+	#landmarks-eu .selectable {
+		fill: $color-eu-selectable;
+	}
+	#landmarks-non-eu-but-involved {
+		fill: $color-non-eu-non-selectable;
+	}
+	#landmarks-non-eu-but-involved .selectable {
+		fill: $color-non-eu-selectable;
+	}
+	#non-eu-but-candidates, #landmarks-non-eu-but-partners, #countries-non-interactive {
+		fill: #999;
+		.selectable {
+			fill: $color-non-eu-selectable;
+		}
+	}
+
 	.selected {
 		fill: $info; //TODO: better with an animation
 	}
+	.country-hovered {
+		stroke: $info;
+		stroke-width: 5px !important;
+	}
 	.country-selected {
+		// fill: $info;
 		animation: country-stroke-animation 1s infinite;
-		stroke-width: 5px;
+		stroke-width: 5px !important;
 	}
 }
 
 .cls-2 {
 	stroke: 	  #a8a8a8;
-	fill:           $primary;
+	// fill:           $primary;
 	stroke-linecap: round;
 	stroke-linejoin: bevel;
 	stroke-width: 0.25px;
@@ -123,3 +157,5 @@
 	font-size: 12px;
 	font-family: ArialMT, Arial;
 }
+
+

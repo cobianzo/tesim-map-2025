@@ -1,11 +1,13 @@
 import React from 'react';
-// import SelectSearch from 'react-select-search';
 import Select from 'react-select'
-//import AsyncSelect from 'react-select/async';
 
+/**
+ * DROPDOWN for the countries (also regions, but it was removed).
+ */
 export default function SearchByRegion( {   regionsToProgrammes, 
                                             allRegionsInfo, allCountriesInfo,
-                                            hovered, selected, setRegionSelected,
+                                            hovered, countryHovered,
+                                            selected, setRegionSelected,
                                             countrySelected, setCountrySelected } ) {
     
     // **** STATES *****
@@ -30,7 +32,7 @@ export default function SearchByRegion( {   regionsToProgrammes,
         let tempGroupedOptions = null;
         let currentGroupCountry = null;
         // --------------
-        // Object.keys(allRegionsInfo).forEach(nuts3Code => {  // this for all regions, including the ones without programmes.
+
         Object.keys(regionsToProgrammes.nuts3).forEach(nuts3Code => {
             if (! (regionsToProgrammes.nuts3[nuts3Code]?.length) ) return;
 
@@ -98,7 +100,6 @@ export default function SearchByRegion( {   regionsToProgrammes,
 
     // ** WATCH hovered, update (modo cutre) el placeholder del select (acessing the dom)
     React.useEffect(()=>{
-        
         if (!placeholderRef) return;
         if (!allRegionsInfo[hovered]) {
             if (selected) {
@@ -110,6 +111,18 @@ export default function SearchByRegion( {   regionsToProgrammes,
         }
         placeholderRef.textContent = allRegionsInfo[hovered].title;
     }, [hovered]);
+    React.useEffect(()=>{
+        if (!placeholderCountryRef) return;
+        if (!allCountriesInfo[countryHovered]) { // if the country exists
+            if (countrySelected) {
+                placeholderCountryRef.textContent = allCountriesInfo[countrySelected].title;
+                return;  
+            }
+            placeholderCountryRef.textContent = 'Select a country';
+            return;
+        }
+        placeholderCountryRef.textContent = allCountriesInfo[countryHovered].title;
+    }, [countryHovered]);
 
     React.useEffect(()=>{
         if (!placeholderRef || !selected) return;
@@ -117,16 +130,18 @@ export default function SearchByRegion( {   regionsToProgrammes,
         placeholderRef.textContent = allRegionsInfo[selected].title;
     }, [selected]);
     React.useEffect(()=>{
-        if (!placeholderCountryRef || !countrySelected) return;
+        if (!placeholderCountryRef || !countrySelected) {
+            if (placeholderCountryRef) placeholderCountryRef.textContent = '';
+            return;
+        }
         placeholderCountryRef.textContent = allCountriesInfo[countrySelected].title;
     }, [countrySelected]);
 
 
     // *** HANDLERS
-    const handleSelectRegion = e => {
-        setRegionSelected(e.value);
-    }
+    // const handleSelectRegion = e => { setRegionSelected(e.value); }
     const handleSelectCountry = e => {
+        setRegionSelected(null); 
         setCountrySelected(e.value);
     }
 
@@ -144,13 +159,17 @@ export default function SearchByRegion( {   regionsToProgrammes,
                     // onInputChange={ handleSelectRegion }
                     onChange={handleSelectCountry}/>
         </div>
-        <div className='search-by-region TM_col-6 TM_col-md-4'>
+        {/* <div className='search-by-region TM_col-6 TM_col-md-4'>
             <Select options={options} 
                     placeholder="Lookup by region name" 
                     defaultValue={hovered}
                     // onInputChange={ handleSelectRegion }
                     onChange={handleSelectRegion}/>
-        </div>
+        </div> */}
+        reg hover <b>{ hovered}</b> //
+        reg sel <b>{ selected}</b> //
+        country hob <b>{ countryHovered}</b> //
+        country sel <b>{ countrySelected}</b> //
         </>
     )
 }
