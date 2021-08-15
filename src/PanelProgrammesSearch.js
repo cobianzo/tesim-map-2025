@@ -38,9 +38,8 @@ export default function PanelProgrammesSearch({
             {
                 selectedProgramme && (
                     <div className='Panel-list-of-projects'>
-                        <div className="btn-wrapper">
-                            <button className="TM_btn TM_btn-close "
-                                    onClick={ e=>setSelectedProgramme(null)}>
+                        <div className="tm_btn-wrapper" onClick={ e=>setSelectedProgramme(null)}>
+                            <button className="TM_btn TM_btn-close ">
                                 Close
                             </button>
                         </div>

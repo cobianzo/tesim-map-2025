@@ -210,16 +210,27 @@ export default function Map( { allProgrammes, allProjects,
             <div className="TM_card">
                 <div className="TM_card-header">
                 { currentStateClasses.length === 0 && <>
-
+                    {/* Help info when nothing is selected */}
                     <h2 className="TM_h2">Programmes <span className="TM_text-primary">and</span> Projects search</h2>
                     {/* {process.env.NODE_ENV} {process.env.REACT_APP_PUBLIC_URL} */}
                 </> }
-                    
+                { countryHovered && !countrySelected && 
+                    <h2 className="TM_h2"><b>{ allCountriesInfo[countryHovered].title }</b></h2>
+                }
+                { countrySelected && <>
+                    <h2 className="TM_h2"><b>{ allCountriesInfo[countrySelected].title }</b></h2>
+                    <p>{ regionsToProgrammes.countries[countrySelected].length } programme{regionsToProgrammes.countries[countrySelected].length > 1 && 's' } and <br/>
+                        { countriesToProjects[countrySelected].length } project{countriesToProjects[countrySelected].length > 1 && 's' }
+                        &nbsp;developing in this country.
+                    </p>
+                    </>
+                }
+                    {/* @BOOK:SELECTBYREGION not needed since we dont select region anymore
                     {regionSelected && 
                     <button onClick={ e => { setRegionSelected(null); setCountrySelected(null); }}
                         className='TM_btn TM_btn-secondary'>
                         Close selection
-                    </button>}
+                    </button>} */}
                     
                 </div>
                 <div className="TM_card-body">
@@ -227,14 +238,19 @@ export default function Map( { allProgrammes, allProjects,
                     { currentStateClasses.length === 0 && <p>
                         Here you can access to the information of all ENI-CBC projects. 
                         Look for them by searching in the map or using the options above.
-                    </p>}
+                    </p> }
+                    {
+                        countryHovered && !countrySelected && <p>
+                            { regionsToProgrammes.countries[countryHovered].length } project{regionsToProgrammes.countries[countryHovered].length > 1 && 's' } <br/>
+                            Click on the country to display all projects
+                        </p>
+                    }
 
 
                     { countrySelected && countriesToProjects[countrySelected] && (
                         <div className='Panel-list-of-projects'>
-                            <div className="btn-wrapper">
-                                <button className="TM_btn TM_btn-close "
-                                        onClick={ e=>setCountrySelected(null)}>
+                            <div className="tm_btn-wrapper" onClick={ e=>setCountrySelected(null)}>
+                                <button className="TM_btn-close ">
                                     Close
                                 </button>
                             </div>
@@ -248,13 +264,14 @@ export default function Map( { allProgrammes, allProjects,
                             ) }
                             </ul>
                     </div>)}
+                    {/* @BOOK:SELECTBYREGION
                     { regionSelected && 
                     <PanelSelectedRegion allProgrammes={allProgrammes} allProjects={allProjects} 
                         allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
                         regionsToProgrammes={regionsToProgrammes}
                         regionSelected={regionSelected} setRegionSelected={setRegionSelected}
                         appOptions={appOptions}
-                        projectInModal={projectInModal} setProjectInModal={setProjectInModal} />}
+                        projectInModal={projectInModal} setProjectInModal={setProjectInModal} />} */}
                     
                     {/* If btn lookup by programme was clicked */}
                     { appOptions.showProjectsType === 'all-programmes' && (
@@ -267,6 +284,12 @@ export default function Map( { allProgrammes, allProjects,
                     )}
 
                 </div>
+                <footer className="TM_text-secondary">
+                    { countrySelected && <>
+                        <small>Click on a project to open the full description</small>
+                    </>
+                    }
+                </footer>
             </div>
         </div>
 

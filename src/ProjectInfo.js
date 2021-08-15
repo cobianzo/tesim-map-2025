@@ -15,6 +15,7 @@ export default function ProjectInfo({ setProjectInModal, projectInfo }) {
     
     function get_thumbail_from_pdf_filename() {
         if (!projectInfo) return ''; // TODO: use placeholder
+        if (projectInfo.external_cover_image) return projectInfo.external_cover_image;
         const pdfFilename = projectInfo.pdf_link;
         const baseFilename = pdfFilename.substr(0, pdfFilename.indexOf('.pdf') );
         // const imgFilename = baseFilename + '-pdf-297x420.jpg';
@@ -26,7 +27,7 @@ export default function ProjectInfo({ setProjectInModal, projectInfo }) {
         <li onClick={e=>setProjectInModal(projectInfo.ID)}>
             <img src={get_thumbail_from_pdf_filename()} className="tm_img-fluid" />
             <div className='small project-title'>
-                { projectInfo?.post_title }
+                <p>{ projectInfo?.post_title }</p>
             </div>
         </li>
     )

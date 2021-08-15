@@ -20,6 +20,9 @@ body {
 .TM_text-primary {
     color: $primary !important;
 }
+.TM_text-secondary {
+    color: $secondary !important;
+}
 
 .tm_border {
     border: 1px solid $primary;
