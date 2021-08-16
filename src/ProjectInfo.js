@@ -25,7 +25,9 @@ export default function ProjectInfo({ setProjectInModal, projectInfo }) {
 
     return (
         <li onClick={e=>setProjectInModal(projectInfo.ID)}>
-            <img src={get_thumbail_from_pdf_filename()} className="tm_img-fluid" />
+            <div className="tm_img-wrapper">
+                <img src={get_thumbail_from_pdf_filename()} className="tm_img-fluid" />
+            </div>
             <div className='small project-title'>
                 <p>{ projectInfo?.post_title }</p>
             </div>

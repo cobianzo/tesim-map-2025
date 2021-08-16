@@ -215,10 +215,10 @@ export default function Map( { allProgrammes, allProjects,
                     {/* {process.env.NODE_ENV} {process.env.REACT_APP_PUBLIC_URL} */}
                 </> }
                 { countryHovered && !countrySelected && 
-                    <h2 className="TM_h2"><b>{ allCountriesInfo[countryHovered].title }</b></h2>
+                    <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countryHovered].title }</b></h2>
                 }
                 { countrySelected && <>
-                    <h2 className="TM_h2"><b>{ allCountriesInfo[countrySelected].title }</b></h2>
+                    <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countrySelected].title }</b></h2>
                     <p>{ regionsToProgrammes.countries[countrySelected].length } programme{regionsToProgrammes.countries[countrySelected].length > 1 && 's' } and <br/>
                         { countriesToProjects[countrySelected].length } project{countriesToProjects[countrySelected].length > 1 && 's' }
                         &nbsp;developing in this country.
@@ -234,16 +234,23 @@ export default function Map( { allProgrammes, allProjects,
                     
                 </div>
                 <div className="TM_card-body">
-
+                    {/* Just info when nothing is selected */}
                     { currentStateClasses.length === 0 && <p>
                         Here you can access to the information of all ENI-CBC projects. 
                         Look for them by searching in the map or using the options above.
                     </p> }
+                    
                     {
-                        countryHovered && !countrySelected && <p>
-                            { regionsToProgrammes.countries[countryHovered].length } project{regionsToProgrammes.countries[countryHovered].length > 1 && 's' } <br/>
-                            Click on the country to display all projects
+                        countryHovered && !countrySelected && <>
+                        <p>
+                            <b>{ regionsToProgrammes.countries[countryHovered]?.length } programme{regionsToProgrammes.countries[countryHovered].length > 1 && 's' }</b> and <br/>
+                            <b>{ countriesToProjects[countryHovered]?.length } project{countriesToProjects[countryHovered]?.length > 1 && 's' }</b>
+                            &nbsp;developing in this country.
                         </p>
+                        <p className="TM_text-secondary">
+                            <br/>Click on the country to display all projects
+                        </p>
+                        </>
                     }
 
 

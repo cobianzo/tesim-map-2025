@@ -1,6 +1,6 @@
 TODO LIST
 
-- Esperar por respuestas: tenemos una lista project > countries.
+- Esperar por respuestas: tenemos una lista project > countries.: NO, la cree yo
 Si no, podemos asumir que las sedes del proyecto, mencionadas en el PDF y en el mapa de keep.eu son los paises asociados.
 - Cuando tengamos esa lista ,  exportarla, y aplicarla a projects-and-programmes.json, para la seecion projects (q cada project tenga un campo "countries", con los codigos del pais/es involucrados.)
 - Al seleccionar un pais, hay q mostrar entonces los projects del pais.
@@ -17,8 +17,8 @@ Si no, podemos asumir que las sedes del proyecto, mencionadas en el PDF y en el 
      y asignar en interreg. Las imgs ya estan en Tesim WP.
 - HAcer el mapa zoomeable (ver mapplic)
 - Tal vez crear el mapa de countries tb.
-- Cambiar colores del map
-- Arreglar el estilo de todo.
-- Hacerlo responsive, q se recalcule el mapa en resize.
+- Cambiar colores del map: DONE
+- Arreglar el estilo de todo: DONE
+- Hacerlo responsive, q se recalcule el mapa en resize. - in progress
 - Anhadir barra de estado abajo explicando las acciones a tomar
 - Practicar la inclusion en la web de Tesim
