@@ -5,12 +5,20 @@
 
 $color-eu-non-selectable: #626BAB;
 $color-eu-selectable: $secondary;
-$color-non-eu-non-selectable: #A76EA4;
-$color-non-eu-selectable: $primary;
+$color-candidates-non-selectable: #A76EA4; // turkey ... 
+$color-candidates-selectable: $primary;
+$color-partners-non-selectable: lightgray; // turkey ... 
+$color-partners-selectable: darkgray;
+$color-non-eu-non-selectable: #A76EA4; // light purple. Russia ... 
+$color-non-eu-selectable: $primary; // deep purple. Nuts3 of Russia with programmes.
 
 @keyframes country-stroke-animation {
 	from {stroke: $secondary;}
 	to {stroke: $info;}
+}
+@keyframes country-fill-animation {
+	from {fill: $secondary !important;}
+	to {fill: $info !important;}
 }
 
 
@@ -40,11 +48,24 @@ $color-non-eu-selectable: $primary;
 	#landmarks-non-eu-but-involved .selectable {
 		fill: $color-non-eu-selectable;
 	}
-	#non-eu-but-candidates, #landmarks-non-eu-but-partners, #countries-non-interactive {
-		fill: #999;
+	#non-eu-but-candidates {
+		fill: $color-candidates-non-selectable;
 		.selectable {
-			fill: $color-non-eu-selectable;
+			fill: $color-candidates-selectable;
 		}
+	}
+	#landmarks-non-eu-but-partners {
+		fill: $color-partners-non-selectable;
+		.selectable {
+			fill: $color-partners-selectable;
+		}
+	}
+	#countries-non-interactive {
+		fill: $color-candidates-non-selectable;
+		.selectable {
+			fill: $color-candidates-selectable;
+		}
+
 	}
 
 	.selected {
@@ -52,12 +73,19 @@ $color-non-eu-selectable: $primary;
 	}
 	.country-hovered {
 		stroke: $info;
-		stroke-width: 5px !important;
+		stroke-width: 3px !important;
+		// fill: $info;
+		.selectable {
+			fill: $info !important;
+		}
 	}
 	.country-selected {
 		// fill: $info;
 		animation: country-stroke-animation 1s infinite;
-		stroke-width: 5px !important;
+		stroke-width: 2px !important;
+		.selectable {
+			fill: country-fill-animation 1s infinite;
+		}
 	}
 }
 

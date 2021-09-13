@@ -21,7 +21,7 @@ Ricerca:
     - go to the folder 
     `/Sites/httrack-3.49.2/tesim-enicbc.eu/wp-content/themes/understrap-child-master/tesim-map-react-snippet/`  
     - `git pull` from the `https://bitbucket.org/cobianzoltddreamteam/tesim-map-react-built/src/master/` project
-    - edit `snippet-for-web.php`, it has to call the right css and js from the built react.  
+    - edit `tesim-map.php`, it has to call the right css and js from the built react.  
     - copy them from /build/index.html  
 
 # DATA  

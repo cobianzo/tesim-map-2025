@@ -1,5 +1,6 @@
 import React from 'react'
 import Map from './Map';
+// import './SimulationTesimStyles.scss'; // TODELETE: Remove this in the final deploy! For development only.
 import './App.scss';
 
 /**
@@ -111,7 +112,7 @@ function App() {
       // if (allRegionsToProgrammes)
       //   setRegionsToProgrammes(allRegionsToProgrammes); // called only once
     } ).catch(err => {
-        console.error('res error: ', err);
+        console.error('Propro res error: ', err);
       });
   }
 

@@ -40,9 +40,9 @@ export default function Map( { allProgrammes, allProjects,
     }, []);
     React.useEffect( () => {
         if (!regionsToProgrammes || !regionsToProgrammes.nuts3 || !Object.keys(regionsToProgrammes.nuts3).length) return;
-        Object.keys(regionsToProgrammes.nuts3).forEach( regCode => {
+        Object.keys( regionsToProgrammes.nuts3 ).forEach( regCode => {
             const path = refSVG.current.getElementById(regCode)
-            path.classList.add('selectable');
+            path?.classList.add('selectable');
         });
     }, [regionsToProgrammes.nuts3]);
     
@@ -212,7 +212,7 @@ export default function Map( { allProgrammes, allProjects,
                 { currentStateClasses.length === 0 && <>
                     {/* Help info when nothing is selected */}
                     <h2 className="TM_h2">Programmes <span className="TM_text-primary">and</span> Projects search</h2>
-                    {/* {process.env.NODE_ENV} {process.env.REACT_APP_PUBLIC_URL} */}
+                    {process.env.NODE_ENV} {process.env.REACT_APP_PUBLIC_URL} | {process.env.REACT_APP_LOCAL_ENDPOINT}
                 </> }
                 { countryHovered && !countrySelected && 
                     <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countryHovered].title }</b></h2>
@@ -236,7 +236,7 @@ export default function Map( { allProgrammes, allProjects,
                 <div className="TM_card-body">
                     {/* Just info when nothing is selected */}
                     { currentStateClasses.length === 0 && <p>
-                        Here you can access to the information of all ENI-CBC projects. 
+                        Here you can access to the information of all ENI CBC projects. 
                         Look for them by searching in the map or using the options above.
                     </p> }
                     
@@ -265,6 +265,7 @@ export default function Map( { allProgrammes, allProjects,
                             { countriesToProjects[countrySelected].map( projectId => {
                                 const projInfo = allProjects.find( pro => projectId === pro.ID );
                                 return <ProjectInfo 
+                                        key={`pp-${projectId}`}
                                         setProjectInModal={setProjectInModal}
                                         projectInfo={projInfo} key={`pi-${projectId}`}/>
                                 }

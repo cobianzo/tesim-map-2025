@@ -15,7 +15,12 @@ export default function TopBarSearch( {   regionsToProgrammes,
     // **** STATES *****
     const [optionsRegionsByCountry, setOptionsRegionsByCountry] = React.useState([]); // not in use anymore. It works though
     const [optionsCountry, setOptionsCountry] = React.useState([]);
-    const [optionsProjects, setOptionsProjects] = React.useState([]);
+    const [optionsProjects, setOptionsProjects] = React.useState([]); // for select all projects
+    const [optionsProjectsEnvironment, setOptionsProjectsEnvironment] = React.useState([]); // for select all projects
+    const [optionsProjectsEconomic, setOptionsProjectsEconomic] = React.useState([]); // for select all projects
+    const [optionsProjectsP2p, setOptionsProjectsP2p] = React.useState([]); // for select all projects
+    const [optionsProjectsInfrastructures, setOptionsProjectsInfrastructures] = React.useState([]); // for select all projects
+
     const [placeholderRef, setPlaceholderRef] = React.useState(null); // works better the shabby solution used for dropdown project.
     const [placeholderCountryRef, setPlaceholderCountryRef] = React.useState(null);
     // const [placeholderProjectRef, setPlaceholderProjectRef] = React.useState(null);
@@ -54,13 +59,13 @@ export default function TopBarSearch( {   regionsToProgrammes,
                 if (tempGroupedOptions) {
                     newOptions.push(tempGroupedOptions); // add it to the Select
                 }
-                const label = allCountriesInfo[countryCode].title;
+                const label = allCountriesInfo[countryCode]?.title;
                 tempGroupedOptions = { label, options: [] }; // init to empty list of regions
                 currentGroupCountry = countryCode;
 
                 allCountriesArray.push({ label, value: countryCode}); // 
             } 
-            tempGroupedOptions.options.push({label: regionInfo.title, value: nuts3Code});
+            tempGroupedOptions.options.push({label: regionInfo?.title, value: nuts3Code});
             
             // if (regionsToProgrammes[nuts3Code]?.length) {
             //     newOptions.push({label: regionInfo.title, value: nuts3Code});
@@ -111,6 +116,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
         
         allProjects.forEach( proj => {
             // find the option with that label 
+            // we group projects by thematic (environment, p2p, economic, infrastr)
             var groupIndex = groupedOptions.findIndex( gr => gr.label === proj.color );
             if (groupIndex === -1) {
                 groupedOptions.push({ label: proj.color, options: []}); // init if didnt exist
@@ -122,6 +128,15 @@ export default function TopBarSearch( {   regionsToProgrammes,
             });
         })
         setOptionsProjects(groupedOptions);
+        // 4 different selects.
+        if (groupedOptions[0]?.options)
+            setOptionsProjectsInfrastructures(groupedOptions[0].options);
+        if (groupedOptions[1]?.options)
+            setOptionsProjectsEnvironment(groupedOptions[1].options);
+        if (groupedOptions[2]?.options)
+            setOptionsProjectsP2p(groupedOptions[2].options);
+        if (groupedOptions[3]?.options)
+            setOptionsProjectsEconomic(groupedOptions[3].options);
     }, [allProjects]);
 
     // on mount when countries info is ready
@@ -199,7 +214,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
                   }))
                 }>
             {appOptions.showProjectsType === 'all-programmes' ? 
-          <span>Close list of programmes</span>: <span>List of all ENI-CBC Programmes</span>}
+          <span>Close list of programmes</span>: <span>List of all ENI CBC Programmes</span>}
         </button>
 
         <div className='tm_nav-item search-by-country TM_col-6 TM_col-md-3'>
@@ -220,6 +235,13 @@ export default function TopBarSearch( {   regionsToProgrammes,
             <Select options={optionsProjects} 
                     placeholder="Lookup by project" 
                     defaultValue={projectInModal}
+                    // onInputChange={ handleSelectRegion }
+                    onChange={ e => setProjectInModal(e.value) }/>
+        </div>
+        <div className='tm_nav-item search-by-project TM_col-6 TM_col-md-3'>
+            <Select options={optionsProjectsEnvironment} 
+                    placeholder="Environment projects" 
+                    defaultValue={null}
                     // onInputChange={ handleSelectRegion }
                     onChange={ e => setProjectInModal(e.value) }/>
         </div>

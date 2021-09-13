@@ -31,6 +31,7 @@ export default function PanelSelectedRegion({allProgrammes,allProjects,
             setProgrammes([]);
         }
     }, [regionSelected]);//WATCH:regionSelected
+    
     // COMPUTED
     const getCountry = () => {
         if (regionInfo) {

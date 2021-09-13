@@ -29,13 +29,12 @@ export default function ProgrammePanel({
             </span>
 
             <ul className="TM_list-of-projects">
-            { allProgrammes[programmeId].projects.map( ID => {
+            { allProgrammes[programmeId].projects? allProgrammes[programmeId].projects.map( ID => {
                     const projInfo = allProjects.find( pro => ID === pro.ID );
                     return <ProjectInfo 
                             setProjectInModal={setProjectInModal}
                             projectInfo={projInfo} key={`pi-${ID}`}/>
-                } )
-            }
+                } ) : <pre> No projects found :(</pre>  }
             </ul>
         </div>
     )

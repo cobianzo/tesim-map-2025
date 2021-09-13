@@ -23,6 +23,10 @@ body {
 .TM_text-secondary {
     color: $secondary !important;
 }
+// overwriting tesim site styles
+.TM_App pre { overflow: inherit !important;}
+
+
 
 .tm_border {
     border: 1px solid $primary;
