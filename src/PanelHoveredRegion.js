@@ -1,3 +1,4 @@
+/** discarded. They dont want it.  */
 import React from 'react';
 import './Panels.scss';
 
@@ -49,9 +50,13 @@ export default function PanelHoveredRegion({allProgrammes,allProjects,
 
     // *** T E M P L A T E ******    JSX    *******************************
     /**********************************************************************/ 
+    return null;
+
+    // discarded so we dont show it. But it works.
     if (!hovered) return null;
     return (<>
-        <div className="TM_Panel TM_Panel--hoveredregion">
+        {/* This works, shows the name of the region on hover, but they dont want it */}
+        <div className="TM_Panel TM_Panel--hoveredregion d-none">
             <div className="TM_Panel__inner">
                 <p className="region-title">
                     { regionInfo?.title }

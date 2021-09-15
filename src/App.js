@@ -169,7 +169,14 @@ function App() {
     // fetch countries: TODO: we could use this to colour all regions using the category of every country.
     const endpointC  = `${process.env.REACT_APP_LOCAL_ENDPOINT}countries.json`;
     console.log('openENDPOINT countries: ', endpointC);
-    (await fetch(endpointC)).json().then(res => setAllCountriesInfo(res) )
+    (await fetch(endpointC)).json().then(countriesList => {
+      
+      // sort alphabetically. Not needed here, needed in the select
+      // Object.keys(countriesList).sort(function(a, b) {
+      //   return countriesList[b].title.localeCompare(countriesList[a].title);
+      // });
+      setAllCountriesInfo(countriesList);
+    })
               .catch(err => console.error('mal countries', err) );
   }
 

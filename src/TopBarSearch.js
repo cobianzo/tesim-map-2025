@@ -16,10 +16,10 @@ export default function TopBarSearch( {   regionsToProgrammes,
     const [optionsRegionsByCountry, setOptionsRegionsByCountry] = React.useState([]); // not in use anymore. It works though
     const [optionsCountry, setOptionsCountry] = React.useState([]);
     const [optionsProjects, setOptionsProjects] = React.useState([]); // for select all projects
-    const [optionsProjectsEnvironment, setOptionsProjectsEnvironment] = React.useState([]); // for select all projects
-    const [optionsProjectsEconomic, setOptionsProjectsEconomic] = React.useState([]); // for select all projects
-    const [optionsProjectsP2p, setOptionsProjectsP2p] = React.useState([]); // for select all projects
-    const [optionsProjectsInfrastructures, setOptionsProjectsInfrastructures] = React.useState([]); // for select all projects
+    // const [optionsProjectsEnvironment, setOptionsProjectsEnvironment] = React.useState([]); // for select all projects
+    // const [optionsProjectsEconomic, setOptionsProjectsEconomic] = React.useState([]); // for select all projects
+    // const [optionsProjectsP2p, setOptionsProjectsP2p] = React.useState([]); // for select all projects
+    // const [optionsProjectsInfrastructures, setOptionsProjectsInfrastructures] = React.useState([]); // for select all projects
 
     const [placeholderRef, setPlaceholderRef] = React.useState(null); // works better the shabby solution used for dropdown project.
     const [placeholderCountryRef, setPlaceholderCountryRef] = React.useState(null);
@@ -78,13 +78,17 @@ export default function TopBarSearch( {   regionsToProgrammes,
             END OF options for search for region (nuts3)
             START of options for search by country
         */
-    //    if (optionsCountry.length) return; //it was already initialized, so dont repeat.
-    //     const newOptionsCountry = [...optionsCountry];
-    //     Object.keys(allCountriesInfo).forEach( countryCode => {
-    //         newOptionsCountry.push({ label: allCountriesInfo[countryCode].title, value: countryCode });
-    //     } );
+    
+        // sort alphabetically
+        allCountriesArray.sort((a,b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0));
+        // eliminate duplicates
+        var allCountriesArrayUnique = [];
+        allCountriesArrayUnique = allCountriesArray.filter((thing, index, self) =>
+            index === self.findIndex((t) => ( t.label === thing.label ))
+        );
+        
         if (!optionsCountry.length) // we want this to be set only once and never change.
-            setOptionsCountry(allCountriesArray); // [ {label:Bulgaria, value:bg}, { ...} ]
+            setOptionsCountry(allCountriesArrayUnique); // [ {label:Bulgaria, value:bg}, { ...} ]
         /** ------ ------ ------ ------ ------ ------  */
 
 
@@ -128,15 +132,15 @@ export default function TopBarSearch( {   regionsToProgrammes,
             });
         })
         setOptionsProjects(groupedOptions);
-        // 4 different selects.
-        if (groupedOptions[0]?.options)
-            setOptionsProjectsInfrastructures(groupedOptions[0].options);
-        if (groupedOptions[1]?.options)
-            setOptionsProjectsEnvironment(groupedOptions[1].options);
-        if (groupedOptions[2]?.options)
-            setOptionsProjectsP2p(groupedOptions[2].options);
-        if (groupedOptions[3]?.options)
-            setOptionsProjectsEconomic(groupedOptions[3].options);
+        // 4 different selects. - we dont use it in the end
+        // if (groupedOptions[0]?.options)
+        //     setOptionsProjectsInfrastructures(groupedOptions[0].options);
+        // if (groupedOptions[1]?.options)
+        //     setOptionsProjectsEnvironment(groupedOptions[1].options);
+        // if (groupedOptions[2]?.options)
+        //     setOptionsProjectsP2p(groupedOptions[2].options);
+        // if (groupedOptions[3]?.options)
+        //     setOptionsProjectsEconomic(groupedOptions[3].options);
     }, [allProjects]);
 
     // on mount when countries info is ready
@@ -238,13 +242,16 @@ export default function TopBarSearch( {   regionsToProgrammes,
                     // onInputChange={ handleSelectRegion }
                     onChange={ e => setProjectInModal(e.value) }/>
         </div>
+
+        {/* { Dropdown for every thematic - we dont want this in the end
         <div className='tm_nav-item search-by-project TM_col-6 TM_col-md-3'>
             <Select options={optionsProjectsEnvironment} 
                     placeholder="Environment projects" 
                     defaultValue={null}
                     // onInputChange={ handleSelectRegion }
                     onChange={ e => setProjectInModal(e.value) }/>
-        </div>
+        </div> */}
+        
         {/* reg hover <b>{ hovered}</b> //
         reg sel <b>{ selected}</b> //
         country hob <b>{ countryHovered}</b> //

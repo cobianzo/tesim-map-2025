@@ -14,11 +14,7 @@ export default function PanelProgrammesSearch({
 }) {
 
     if (!allProgrammes) return <p>Loading programmes</p>;
-    return (
-        <div className="TM_Panel__all-programmes">
-            <div className="TM_Panel-header">
-                Select a Programme
-            </div>
+    return (<>
             {/* Show all programmes */}
             <ul className="TM_List-of-programmes">
             {  Object.keys(allProgrammes).map((code)=> (
@@ -37,13 +33,12 @@ export default function PanelProgrammesSearch({
 
             {
                 selectedProgramme && (
-                    <div className='Panel-list-of-projects'>
+                    <div className='InnerPanel-list-of-projects'>
                         <div className="tm_btn-wrapper" onClick={ e=>setSelectedProgramme(null)}>
-                            <button className="TM_btn TM_btn-close ">
-                                Close
+                            <button className="TM_btn TM_btn-close " style={{fontSize:'2rem', paddingTop:'13px'}}>
+                                 ⇠
                             </button>
                         </div>
-                        Projects for programme {allProgrammes[selectedProgramme].post_title}
 
                         <ProgrammePanel
                             setProjectInModal={setProjectInModal}
@@ -54,7 +49,7 @@ export default function PanelProgrammesSearch({
                     </div>
                 )
             }
-        </div>
+        </>
     )
 }
 

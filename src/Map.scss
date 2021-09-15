@@ -16,7 +16,7 @@
     @media only screen and (min-width: 600px) {
         position: absolute;
         width: 100%;
-        z-index: 9;
+        z-index: 20;
         
         .tm_nav-item {
             &:first-child { margin-left: 20px; }
@@ -25,6 +25,10 @@
             margin: 15px 5px; 
         }
     }
+
+    // div[class$="menu"] {
+        
+    // }
 }
 // -- end top bar 
 
@@ -86,5 +90,6 @@
 .css-26l3qy-menu {
     z-index: 11   !important;
     position: absolute;
-    border: 5px solid var(--tm-primary) !important;
+    background-color: white !important;
+ //   border: 5px solid var(--tm-primary) !important;
 }

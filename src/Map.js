@@ -8,7 +8,7 @@ import useKeyPress from './helpers/useKeyPress';
 import './Map.scss';
 import TopBarSearch from './TopBarSearch';
 import ProjectInfo from './ProjectInfo';
-import PanelHoveredRegion from './PanelHoveredRegion';
+import PanelHoveredRegion from './PanelHoveredRegion'; // works but they dont want it
 import PanelSelectedRegion from './PanelSelectedRegion';
 import PanelProgrammesSearch from './PanelProgrammesSearch';
 
@@ -176,10 +176,11 @@ export default function Map( { allProgrammes, allProjects,
         if (regionSelected) classes.push('region-selected');
         if (countrySelected) classes.push('country-selected');
         if (appOptions.showProjectsType === 'all-programmes') 
-            classes.push('showing-programmes');
-        if (projectInModal) classes.push('project-selected');
+            classes.push('showing-programmes-selected');
+        if (selectedProgramme) classes.push('programme-selected');
+        if (projectInModal) classes.push('project-opened');
         return classes;    
-    }, [regionSelected, countryHovered, countrySelected, appOptions.showProjectsType, projectInModal ]);
+    }, [regionSelected, countryHovered, countrySelected, appOptions.showProjectsType, projectInModal, selectedProgramme ]);
 
     // *** T E M P L A T E ******    JSX    *******************************
     /**********************************************************************/ 
@@ -187,7 +188,7 @@ export default function Map( { allProgrammes, allProjects,
 <div    className={`TM_container ${
               currentStateClasses.length? 
                         'TM_container--active-state ' + currentStateClasses.join(' ') : 'TM_container--no-selection'
-        }`} 
+        } ${ currentStateClasses.join(' ').substr('-selected')? 'TM_container--selection' : '' }`} 
         ref={refContainer}>
 
     <div id="TM_topbar" className='TM_row'>
@@ -206,14 +207,19 @@ export default function Map( { allProgrammes, allProjects,
     <div className="TM_row border TM_position-relative">
         
         {/* Panel on the left. Shows info of selected country or shows Search by programme */}
-        <div className={`TM_left-panel `}>
+        <div className={'TM_left-panel'}>
             <div className="TM_card">
                 <div className="TM_card-header">
                 { currentStateClasses.length === 0 && <>
                     {/* Help info when nothing is selected */}
-                    <h2 className="TM_h2">Programmes <span className="TM_text-primary">and</span> Projects search</h2>
-                    {process.env.NODE_ENV} {process.env.REACT_APP_PUBLIC_URL} | {process.env.REACT_APP_LOCAL_ENDPOINT}
+                    <h2 className="TM_h2">Programmes and Projects search</h2>
+                    {/* {process.env.NODE_ENV} {process.env.REACT_APP_PUBLIC_URL} | {process.env.REACT_APP_LOCAL_ENDPOINT} */}
                 </> }
+
+                { (appOptions.showProjectsType === 'all-programmes') && (
+                    selectedProgramme? <h2 className="TM_h2">Projects for programme <br/><b>{allProgrammes[selectedProgramme].post_title}</b></h2> :
+                                        <h2 className="TM_h2">Select an ENI CBC programme</h2>
+                )}
                 { countryHovered && !countrySelected && 
                     <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countryHovered].title }</b></h2>
                 }
@@ -255,10 +261,10 @@ export default function Map( { allProgrammes, allProjects,
 
 
                     { countrySelected && countriesToProjects[countrySelected] && (
-                        <div className='Panel-list-of-projects'>
+                        <div className='InnerPanel-list-of-projects'>
                             <div className="tm_btn-wrapper" onClick={ e=>setCountrySelected(null)}>
                                 <button className="TM_btn-close ">
-                                    Close
+                                    ⇠
                                 </button>
                             </div>
                             <ul className="TM_list-of-projects">

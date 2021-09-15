@@ -23,7 +23,7 @@ export default function ProgrammePanel({
     if (!allProgrammes[programmeId]||!Object.keys(allProgrammes[programmeId]).length) return 'no prog'+programmeId;
     return (
         <div className="programme-title" key={`prg-${allProgrammes[programmeId].ID}`}> 
-            <p className="h4">{ allProgrammes[programmeId].post_title }</p>
+            {/* <p className="h4">{ allProgrammes[programmeId].post_title }</p> */}
             <span className="badge badge-secondary d-block">
                 { allProgrammes[programmeId].projects?.length } projects
             </span>
