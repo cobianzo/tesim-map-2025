@@ -1,4 +1,6 @@
-Apply countries and regios to programmes
+Ac
+Checkear responsive todo bien. 
+Tal vez ordenar los resultados de projects por thematic and subthematic
 
 
 
@@ -27,4 +29,4 @@ Si no, podemos asumir que las sedes del proyecto, mencionadas en el PDF y en el 
 - Arreglar el estilo de todo: DONE
 - Hacerlo responsive, q se recalcule el mapa en resize. - in progress
 - Anhadir barra de estado abajo explicando las acciones a tomar
-- Practicar la inclusion en la web de Tesim
+- DONE: Practicar la inclusion en la web de Tesim

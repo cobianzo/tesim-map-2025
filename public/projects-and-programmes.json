@@ -9,6 +9,7 @@
             "links_and_map": "https://keep.eu/projects/23032/Cross-border-green-transpor-EN/ \r\nTESIM interview https://tesim-enicbc.eu/voices/ihor-popodyuk/ \r\nProject page https://huskroua-cbc.eu/projects/financed-projects-database/cross-border-green-transport-network \r\nFacebook https://www.facebook.com/CGTN.HUSKROUA/",
             "color": "infrastructures",
             "programme": 5224,
+            "subthematic": "A",
             "countries": "ua,sk,ro,hu"
         },
         {
@@ -20,6 +21,7 @@
             "links_and_map": "https://keep.eu/projects/24981/Arctic-Railway-Infrastructu-EN/ \r\nTESIM story https://tesim-enicbc.eu/stories/sensor-technologies-to-boost-rail-traffic-through-the-arctic/\r\nWebsite https://arinka.eu/",
             "color": "infrastructures",
             "programme": 5233,
+            "subthematic": "A",
             "countries": "no,fi,se,ru"
         },
         {
@@ -31,6 +33,7 @@
             "links_and_map": "KEEP: https://keep.eu/projects/22281/The-CBC-Romania-Moldova-a-s-EN/ \r\nWebsite https://www.igsu.ro/",
             "color": "infrastructures",
             "programme": 5255,
+            "subthematic": "A",
             "countries": "ro,md"
         },
         {
@@ -42,6 +45,7 @@
             "links_and_map": "https://keep.eu/projects/22764/Strengthening-the-capacity--EN/ \r\nProject page https://www.pbu2020.eu/en/projects2020/202",
             "color": "infrastructures",
             "programme": 5250,
+            "subthematic": "A",
             "countries": "by,pl"
         },
         {
@@ -53,6 +57,7 @@
             "links_and_map": "KEEP https://keep.eu/projects/23172/Reconstruction-and-Building-EN/ \r\nProject page https://eni-cbc.eu/llb/en/projects/reconstruction-and-building-of-pabrade-foreigners-registration-centre-large-infrastructure-project/4528",
             "color": "infrastructures",
             "programme": 5236,
+            "subthematic": "A",
             "countries": "lt,by,frc"
         },
         {
@@ -64,6 +69,7 @@
             "links_and_map": "https://keep.eu/projects/22759/Operation-visual-monitoring-EN/\r\nProject page https://pbu2020.eu/en/projects2020/190",
             "color": "infrastructures",
             "programme": 5250,
+            "subthematic": "A",
             "countries": "ua,pl"
         },
         {
@@ -75,6 +81,7 @@
             "links_and_map": "https://keep.eu/projects/23745/Reconstruction-of-the-marin-EN/\r\nTESIM story https://tesim-enicbc.eu/stories/better-sea-connections-between-finland-and-russia/\r\nProject factsheet https://www.sefrcbc.fi/wp-content/uploads/2019/03/LIP-KS1437-Multipass-Port-portfolio_en.jpg\r\nWebsite https://www.portspb.ru/en/about/multipass_port",
             "color": "infrastructures",
             "programme": 5262,
+            "subthematic": "A",
             "countries": "ru,fi"
         },
         {
@@ -86,6 +93,7 @@
             "links_and_map": "https://keep.eu/projects/23225/Vartius-border-crossing-poi-EN/\r\nProgramme page https://kareliacbc.fi/en/projects/vartius\r\nWebsite https://vayla.fi/en/development-projects-for-border-crossing-points/vartius",
             "color": "infrastructures",
             "programme": 5230,
+            "subthematic": "A",
             "countries": "fi,ru"
         },
         {
@@ -97,6 +105,7 @@
             "links_and_map": "https://keep.eu/projects/23162/Modern-Border-Infrastructur-EN/\r\nProject page https://huskroua-cbc.eu/projects/financed-projects-database/modern-border-infrastructure-successful-carpathian-region\r\nWebsite https://mobi.iardi.org/en/project/\r\nFacebook https://www.facebook.com/MOBI.CarpatianRegoin/",
             "color": "infrastructures",
             "programme": 5224,
+            "subthematic": "A",
             "countries": "ua,hu,sk,ro"
         },
         {
@@ -108,6 +117,7 @@
             "links_and_map": "KEEP https://keep.eu/projects/22800/Cross-border-partnership-a--EN/\r\nProject page https://pbu2020.eu/en/projects2020/165\r\nWebsite http://www.bieszczadzki.pl/strona-2174-partnerstwo_transgraniczne_szansa.html#PAN_1",
             "color": "infrastructures",
             "programme": 5250,
+            "subthematic": "A",
             "countries": "pl,ua"
         },
         {
@@ -119,6 +129,7 @@
             "links_and_map": "https://keep.eu/projects/23733/Adaptation-of-new-approache-EN/\r\nProject factsheet https://www.sefrcbc.fi/wp-content/uploads/2018/11/KS1133-Cycling-portfolio_en-1.jpg\r\nWebsite http://spbtrd.ru/en/projects/international-project/adaptation-of-new-approaches-of-development-of-cycling-transport-and-cycling-routes-between-russia-a/\r\nFacebook https://www.facebook.com/projectcyclingfinrus/ \r\nTwitter https://twitter.com/cyclingfinrus",
             "color": "infrastructures",
             "programme": 5262,
+            "subthematic": "A",
             "countries": "ru,fi"
         },
         {
@@ -130,6 +141,7 @@
             "links_and_map": "KEEP https://keep.eu/projects/24996/General-Furnishing-and-Surf-EN/",
             "color": "infrastructures",
             "programme": 5233,
+            "subthematic": "A",
             "countries": "ru,fi"
         },
         {
@@ -141,6 +153,7 @@
             "links_and_map": "https://keep.eu/projects/22828/Cross-border-Network-of-Ene-EN/\r\nTESIM interview https://tesim-enicbc.eu/voices/interview/maksym-karpash/\r\nProject page https://huskroua-cbc.eu/projects/financed-projects-database/cross-border-network-of-energy-sustainable-universities\r\nFacebook https://www.facebook.com/pg/net4senergyproject/about/?ref=page_internal",
             "color": "environment",
             "programme": 5224,
+            "subthematic": "A",
             "countries": "ua,sk,hu,ro"
         },
         {
@@ -207,6 +220,7 @@
             "links_and_map": "https://keep.eu/projects/22425/Increasing-capacity-of-envi-EN/\r\nProject page https://www.estoniarussia.eu/projects/adrienne/\r\nWebsite https://adrienne.ut.ee/project/?lang=en",
             "color": "environment",
             "programme": 5222,
+            "subthematic": "B",            
             "countries": "ee,ru"
         },
         {
@@ -218,6 +232,7 @@
             "links_and_map": "https://keep.eu/projects/24676/Management-Urban-Planning-o-EN/\r\nProject page http://latruscbc.eu/projects/management-urban-planning-of-green-city-areas-for-sustainability-in-lv-and-ru-cross-border-cities/\r\nFacebook https://www.facebook.com/Shaping-citiesZaļās-pilsētas-plānošanaПланирование-зеленого-города-107849233930373/",
             "color": "environment",
             "programme": 5239,
+            "subthematic": "B",            
             "countries": "lv,ru"
         },
         {
@@ -229,6 +244,7 @@
             "links_and_map": "https://keep.eu/projects/23216/Green-school-EN/ \r\nProject page https://kareliacbc.fi/en/projects/green-school-ka5030",
             "color": "environment",
             "programme": 5230,
+            "subthematic": "B",            
             "countries": "ru,fi"
         },
         {
@@ -240,6 +256,7 @@
             "links_and_map": "https://keep.eu/projects/24970/Arctic-Coast-Bioremediation-EN/\r\nTESIM interview https://tesim-enicbc.eu/voices/aleksandra-tceitlina/\r\nWebsite https://www.syke.fi/en-US/Research__Development/Research_and_development_projects/Projects/Arctic_Coast_Bioremediation__ACBR\r\nProject page https://kolarctic.info/news-and-events/how-to-tame-bacteria/ ",
             "color": "environment",
             "programme": 5233,
+            "subthematic": "B",            
             "countries": "ru,fi,no"
         },
         {
@@ -251,6 +268,7 @@
             "links_and_map": "https://keep.eu/projects/24396/Towards-sustainable-coexist-EN/\r\nProject factsheet https://www.sefrcbc.fi/wp-content/uploads/2019/03/KS1549-CoExist-portfolio_en.jpg\r\nWebsite https://sites.uef.fi/coexist/\r\nFacebook https://www.facebook.com/CoExistCBC/",
             "color": "environment",
             "programme": 5262,
+            "subthematic": "B",            
             "countries": "fi,ru"
         },
         {
@@ -262,6 +280,7 @@
             "links_and_map": "https://keep.eu/projects/22145/Reduction-of-Negative-Impac-EN/\r\nProject page https://www.eni-cbc.eu/llb/en/projects/reduction-of-negative-impact-of-alien-invasive-plant-species-on-ecosystems-and-human-wellbeing-in-coss-border-region-of-lithuania-belarus/4408",
             "color": "environment",
             "programme": 5236,
+            "subthematic": "B",            
             "countries": "lt,by"
         },
         {
@@ -273,6 +292,7 @@
             "links_and_map": "https://keep.eu/projects/23046/The-Curonian-Spit-fighting--EN/\r\nProject page https://eni-cbc.eu/lr/en/projects/approved-projects-of-the-1-call-for-proposals/lt-ru-1-002/1236\r\nFacebook https://www.facebook.com/groups/432418377477088/",
             "color": "environment",
             "programme": 5242,
+            "subthematic": "B",            
             "countries": "ru,lt"
         },
         {
@@ -284,6 +304,7 @@
             "links_and_map": "https://keep.eu/projects/22897/Strengthening-of-cross-bord-EN/\r\nProject page https://huskroua-cbc.eu/projects/financed-projects-database/strengthening-of-cross-border-safety-by-joint-measures-aimed-at-flood-and-inland-water-prevention-in-the-interfluves-of-tisza-tur-rivers\r\nWebsite https://safetisza.buvrtysa.gov.ua\r\nFacebook https://www.facebook.com/Safetisza/",
             "color": "environment",
             "programme": 5224,
+            "subthematic": "B",            
             "countries": "ua,hu"
         },
         {
@@ -295,6 +316,7 @@
             "links_and_map": "https://keep.eu/projects/23193/Development-of-forest-fire--EN/\r\nTESIM interview https://tesim-enicbc.eu/voices/elisa-korpelainen/\r\nProject page https://kareliacbc.fi/en/projects/fire-brake-ka2013#home",
             "color": "environment",
             "programme": 5230,
+            "subthematic": "B",            
             "countries": "fi,ru"
         },
         {
@@ -306,6 +328,7 @@
             "links_and_map": "https://keep.eu/projects/22905/Clean-river-EN/\r\nProject page https://ro-ua.net/en/154-map-with-projects/1049-clean-river.html\r\nFacebook https://www.facebook.com/rau.curat.3",
             "color": "environment",
             "programme": 5258,
+            "subthematic": "B",            
             "countries": "ua,ro"
         },
         {

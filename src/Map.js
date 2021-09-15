@@ -225,10 +225,12 @@ export default function Map( { allProgrammes, allProjects,
                 }
                 { countrySelected && <>
                     <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countrySelected].title }</b></h2>
-                    <p>{ regionsToProgrammes.countries[countrySelected].length } programme{regionsToProgrammes.countries[countrySelected].length > 1 && 's' } and <br/>
-                        { countriesToProjects[countrySelected].length } project{countriesToProjects[countrySelected].length > 1 && 's' }
-                        &nbsp;developing in this country.
-                    </p>
+                    { regionsToProgrammes.countries[countrySelected].length && 
+                        <p>{ regionsToProgrammes.countries[countrySelected].length } programme{regionsToProgrammes.countries[countrySelected].length > 1 && 's' } and <br/>
+                            { countriesToProjects[countrySelected].length } project{countriesToProjects[countrySelected].length > 1 && 's' }
+                            &nbsp;developing in this country.
+                        </p>
+                    }
                     </>
                 }
                     {/* @BOOK:SELECTBYREGION not needed since we dont select region anymore

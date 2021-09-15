@@ -118,12 +118,15 @@ export default function TopBarSearch( {   regionsToProgrammes,
         if (optionsProjects.length) return;
         var groupedOptions = [];
         
+        // to create a title we can use   { value: 'blue', label: 'Blue', color: '#0052CC', isDisabled: true },
         allProjects.forEach( proj => {
             // find the option with that label 
-            // we group projects by thematic (environment, p2p, economic, infrastr)
-            var groupIndex = groupedOptions.findIndex( gr => gr.label === proj.color );
-            if (groupIndex === -1) {
-                groupedOptions.push({ label: proj.color, options: []}); // init if didnt exist
+            // we group projects by thematic, prop.color (environment, p2p, economic, infrastr)
+            const groupLabel = proj.color + (proj.subthematic? ' - ' + proj.subthematic : '' );
+            var groupIndex = groupedOptions.findIndex( gr => gr.label === groupLabel );
+            // if (groupIndex === -1) groupIndex = groupedOptions.findIndex( gr => gr.label === proj.color );
+            if (groupIndex === -1) { // not found -> create the group
+                groupedOptions.push({ label: groupLabel, options: []}); // init if didnt exist
                 groupIndex = groupedOptions.length - 1;
             }
             groupedOptions[groupIndex].options.push({
@@ -131,6 +134,11 @@ export default function TopBarSearch( {   regionsToProgrammes,
                 value: proj.ID
             });
         })
+        // now sort alphabetically
+        groupedOptions.forEach( (grouped, i) => {
+            grouped.options.sort((a, b) => a.label.localeCompare(b.label))
+        });
+
         setOptionsProjects(groupedOptions);
         // 4 different selects. - we dont use it in the end
         // if (groupedOptions[0]?.options)

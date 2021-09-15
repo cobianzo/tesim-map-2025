@@ -13,6 +13,8 @@
     text-align: center; 
     height: 261px;
     padding: 0px 5px 10px;
+    transition: all 1s;
+    
     .TM_h2 {
         font-size: 1rem;;
     }
@@ -30,11 +32,15 @@
         padding: 20px 15px 10px;
         margin-left: 1rem;
         margin-right: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
+        top: 200px;
         min-height: 261px; // Refine this for tablet (to fit the parent container)
         
     } 
+
+    // when nothig is selected 
+    .TM_container.TM_container--no-selection & {
+
+    }
 
     // when there is a selection: List of programmes / Country selected 
     .TM_container--selection & {
