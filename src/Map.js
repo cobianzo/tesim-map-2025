@@ -42,7 +42,8 @@ export default function Map( { allProgrammes, allProjects,
         if (!regionsToProgrammes || !regionsToProgrammes.nuts3 || !Object.keys(regionsToProgrammes.nuts3).length) return;
         Object.keys( regionsToProgrammes.nuts3 ).forEach( regCode => {
             const path = refSVG.current.getElementById(regCode)
-            path?.classList.add('selectable');
+            if (path)
+                path.classList.add('selectable');
         });
     }, [regionsToProgrammes.nuts3]);
     

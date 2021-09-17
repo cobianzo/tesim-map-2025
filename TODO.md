@@ -1,7 +1,7 @@
 Ac
 Checkear responsive todo bien. 
 Tal vez ordenar los resultados de projects por thematic and subthematic
-
+Crear project-single en tesim site, igual q el de interreg.eu
 
 
 

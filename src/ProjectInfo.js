@@ -17,9 +17,9 @@ export default function ProjectInfo({ setProjectInModal, projectInfo }) {
         if (!projectInfo) return ''; // TODO: use placeholder
         if (projectInfo.external_cover_image) return projectInfo.external_cover_image;
         const pdfFilename = projectInfo.pdf_link;
-        const baseFilename = pdfFilename.substr(0, pdfFilename.indexOf('.pdf') );
+        const baseFilename = pdfFilename? pdfFilename.substr(0, pdfFilename.indexOf('.pdf') ) : 'https://tesim-enicbc.eu/wp-content/uploads/2021/09/placeholder'; 
         // const imgFilename = baseFilename + '-pdf-297x420.jpg';
-        const imgFilename = baseFilename + '-pdf-724x1024.jpg';
+        const imgFilename = baseFilename + '-pdf-724x1024.jpg'; // need to create https://tesim-enicbc.eu/wp-content/uploads/2021/09/placeholder-pdf-724x1024.jpg
         return imgFilename;
     }
 
