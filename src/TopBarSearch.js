@@ -122,7 +122,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
         allProjects.forEach( proj => {
             // find the option with that label 
             // we group projects by thematic, prop.color (environment, p2p, economic, infrastr)
-            const groupLabel = proj.color + (proj.subthematic? ' - ' + proj.subthematic : '' );
+            const groupLabel = proj.color + (proj.subthematic? ' - ' + proj.subthematic : '' ).replace('&amp;', '&');
             var groupIndex = groupedOptions.findIndex( gr => gr.label === groupLabel );
             // if (groupIndex === -1) groupIndex = groupedOptions.findIndex( gr => gr.label === proj.color );
             if (groupIndex === -1) { // not found -> create the group
@@ -247,6 +247,11 @@ export default function TopBarSearch( {   regionsToProgrammes,
             <Select options={optionsProjects} 
                     placeholder="Lookup by project" 
                     defaultValue={projectInModal}
+                    styles={ {groupHeading: (styles) => Object.assign({ ...styles }, { 
+                                                    fontSize: '22px',
+                                                    background: 'gray',
+                                                    color: 'white'
+                                                }) }}
                     // onInputChange={ handleSelectRegion }
                     onChange={ e => setProjectInModal(e.value) }/>
         </div>

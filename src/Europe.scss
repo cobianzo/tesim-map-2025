@@ -12,6 +12,10 @@ $color-partners-selectable: darkgray;
 $color-non-eu-non-selectable: #A76EA4; // light purple. Russia ... 
 $color-non-eu-selectable: $primary; // deep purple. Nuts3 of Russia with programmes.
 
+$color-norway: gray;
+$color-norway-selectable: #444444;
+
+
 @keyframes country-stroke-animation {
 	from {stroke: $secondary;}
 	to {stroke: $info;}
@@ -58,6 +62,12 @@ $color-non-eu-selectable: $primary; // deep purple. Nuts3 of Russia with program
 		fill: $color-partners-non-selectable;
 		.selectable {
 			fill: $color-partners-selectable;
+		}
+	}
+	#landmarks-no {
+		fill: $color-norway;
+		.selectable {
+			fill: $color-norway-selectable;
 		}
 	}
 	#countries-non-interactive {

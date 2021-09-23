@@ -16,6 +16,11 @@ $dark:  darken($primary, 20%);
     --tm-info: #{$info};
     --tm-light: #{$light};
     --tm-dark: #{$dark};
+
+    --tm-environment: #59a05d;
+    --tm-p2p: #9a2c6f;
+    --tm-economic: #296180;
+    --tm-infrastructure: #c9493e;
 }
 
 // Required parts of Bootstrap

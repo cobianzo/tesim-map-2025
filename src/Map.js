@@ -183,6 +183,22 @@ export default function Map( { allProgrammes, allProjects,
         return classes;    
     }, [regionSelected, countryHovered, countrySelected, appOptions.showProjectsType, projectInModal, selectedProgramme ]);
 
+    // computed list of project in alphabetic order 
+    const projectsInAlphabetic = React.useMemo( ()=>{
+        if (!countriesToProjects[countrySelected]) return null;
+        let projectsArray = [...countriesToProjects[countrySelected]];
+        return projectsArray.sort( (proID_1, proID_2) => {
+                const [project1, project2] = [allProjects.find(pp=>pp.ID === proID_1), allProjects.find(pp=>pp.ID === proID_2)];
+                if ( project1.post_title > project2.post_title) return 1;
+                if ( project1.post_title < project2.post_title) return -1;
+                if ( project1.post_subtitle > project2.post_subtitle) return 1;
+                if ( project1.post_subtitle < project2.post_subtitle) return -1;
+                return 0;
+            }
+        );
+    }, [countrySelected] );
+
+
     // *** T E M P L A T E ******    JSX    *******************************
     /**********************************************************************/ 
     return (
@@ -210,6 +226,9 @@ export default function Map( { allProgrammes, allProjects,
         {/* Panel on the left. Shows info of selected country or shows Search by programme */}
         <div className={'TM_left-panel'}>
             <div className="TM_card">
+
+
+                {/********** HEAD of PANEL **********/}
                 <div className="TM_card-header">
                 { currentStateClasses.length === 0 && <>
                     {/* Help info when nothing is selected */}
@@ -222,15 +241,21 @@ export default function Map( { allProgrammes, allProjects,
                                         <h2 className="TM_h2">Select an ENI CBC programme</h2>
                 )}
                 { countryHovered && !countrySelected && 
-                    <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countryHovered].title }</b></h2>
+                    <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countryHovered]?.title }</b></h2>
                 }
                 { countrySelected && <>
-                    <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countrySelected].title }</b></h2>
-                    { regionsToProgrammes.countries[countrySelected].length && 
-                        <p>{ regionsToProgrammes.countries[countrySelected].length } programme{regionsToProgrammes.countries[countrySelected].length > 1 && 's' } and <br/>
-                            { countriesToProjects[countrySelected].length } project{countriesToProjects[countrySelected].length > 1 && 's' }
-                            &nbsp;developing in this country.
-                        </p>
+                    <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countrySelected]?.title }</b></h2>
+                    { regionsToProgrammes.countries[countrySelected].length &&
+                        <p>{ regionsToProgrammes.countries[countrySelected].filter(pp=> pp.length).length } programme{regionsToProgrammes.countries[countrySelected].length > 1 && 's' }
+                            { countriesToProjects[countrySelected]?.length ? <span> and <br/>
+                                { countriesToProjects[countrySelected].length } project{countriesToProjects[countrySelected].length > 1 && 's' }
+                                &nbsp;developing in this country.
+                            </span> :
+                                allCountriesInfo[countrySelected] && <span> <br/> 
+                                        There are not projects associated to <b>{allCountriesInfo[countrySelected].title}</b>
+                                    </span>
+                            }
+                        </p> 
                     }
                     </>
                 }
@@ -242,22 +267,33 @@ export default function Map( { allProgrammes, allProjects,
                     </button>} */}
                     
                 </div>
+                {/********** END OF HEAD **********/}
+
+
+
+                {/********** BODY of PANEL **********/}
                 <div className="TM_card-body">
                     {/* Just info when nothing is selected */}
                     { currentStateClasses.length === 0 && <p>
-                        Here you can access to the information of all ENI CBC projects. 
+                        Here you can access to the information of the ENI CBC projects. 
                         Look for them by searching in the map or using the options above.
                     </p> }
                     
                     {
                         countryHovered && !countrySelected && <>
                         <p>
-                            <b>{ regionsToProgrammes.countries[countryHovered]?.length } programme{regionsToProgrammes.countries[countryHovered].length > 1 && 's' }</b> and <br/>
-                            <b>{ countriesToProjects[countryHovered]?.length } project{countriesToProjects[countryHovered]?.length > 1 && 's' }</b>
-                            &nbsp;developing in this country.
+                            <b>{ regionsToProgrammes.countries[countryHovered]?.filter(pp=> pp.length).length } programme{regionsToProgrammes.countries[countryHovered].length > 1 && 's' } </b> 
+                            { countriesToProjects[countryHovered]?.length ? <>
+                                    and <br/>
+                                    <b>{ countriesToProjects[countryHovered]?.length } project{countriesToProjects[countryHovered]?.length > 1 && 's' }</b>
+                                    &nbsp;developing in this country.
+                                </> : <>
+                                   <br/> There are no projects associated to this country.
+                                </> 
+                            }
                         </p>
                         <p className="TM_text-secondary">
-                            <br/>Click on the country to display all projects
+                            { countriesToProjects[countryHovered]?.length && <> <br/>Click on the country to display all projects </> }
                         </p>
                         </>
                     }
@@ -271,7 +307,7 @@ export default function Map( { allProgrammes, allProjects,
                                 </button>
                             </div>
                             <ul className="TM_list-of-projects">
-                            { countriesToProjects[countrySelected].map( projectId => {
+                            { projectsInAlphabetic.map( projectId => {
                                 const projInfo = allProjects.find( pro => projectId === pro.ID );
                                 return <ProjectInfo 
                                         key={`pp-${projectId}`}
@@ -302,7 +338,7 @@ export default function Map( { allProgrammes, allProjects,
 
                 </div>
                 <footer className="TM_text-secondary">
-                    { countrySelected && <>
+                    { countrySelected && countriesToProjects[countrySelected] && <>
                         <small>Click on a project to open the full description</small>
                     </>
                     }
