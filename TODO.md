@@ -4,6 +4,7 @@ FALTA
 ) Mobile view 
 13) some thumbnails of posters are broken.
 14) Make it look very good in a big screen. Add link to the virtual tour if there is space below and center vertically in the screen. 
+15) The ':' after every button, remove. 
 
 
 4) DONE: Nella Virutal Tour - Metter link alla mappa. Apre in nuova finestra

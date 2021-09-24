@@ -237,7 +237,8 @@ export default function Map( { allProgrammes, allProjects,
                 </> }
 
                 { (appOptions.showProjectsType === 'all-programmes') && (
-                    selectedProgramme? <h2 className="TM_h2">Projects for programme <br/><b>{allProgrammes[selectedProgramme].post_title}</b></h2> :
+                    selectedProgramme? <h2 className="TM_h2">Projects participating in<br/><b>{allProgrammes[selectedProgramme].post_title}</b></h2> 
+                                        :
                                         <h2 className="TM_h2">Select an ENI CBC programme</h2>
                 )}
                 { countryHovered && !countrySelected && 
@@ -246,13 +247,14 @@ export default function Map( { allProgrammes, allProjects,
                 { countrySelected && <>
                     <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countrySelected]?.title }</b></h2>
                     { regionsToProgrammes.countries[countrySelected].length &&
-                        <p>{ regionsToProgrammes.countries[countrySelected].filter(pp=> pp.length).length } programme{regionsToProgrammes.countries[countrySelected].length > 1 && 's' }
+                        <p> Participating in { regionsToProgrammes.countries[countrySelected].filter(pp=> pp.length).length } programme{regionsToProgrammes.countries[countrySelected].length > 1 && 's' }
                             { countriesToProjects[countrySelected]?.length ? <span> and <br/>
+                                
                                 { countriesToProjects[countrySelected].length } project{countriesToProjects[countrySelected].length > 1 && 's' }
-                                &nbsp;developing in this country.
+                                &nbsp;projects portrayed in this exhibition.
                             </span> :
                                 allCountriesInfo[countrySelected] && <span> <br/> 
-                                        There are not projects associated to <b>{allCountriesInfo[countrySelected].title}</b>
+                                        Engaged in ENI CBC projects for <b>{allCountriesInfo[countrySelected].title}</b> outside this exhibition 
                                     </span>
                             }
                         </p> 
@@ -275,20 +277,20 @@ export default function Map( { allProgrammes, allProjects,
                 <div className="TM_card-body">
                     {/* Just info when nothing is selected */}
                     { currentStateClasses.length === 0 && <p>
-                        Here you can access to the information of the ENI CBC projects. 
-                        Look for them by searching in the map or using the options above.
+                        Here you can access information about the ENI CBC projects portrayed in this exhibition.<br/>
+                        <br/>Look for them by searching in the map or using the options above.
                     </p> }
                     
                     {
                         countryHovered && !countrySelected && <>
                         <p>
-                            <b>{ regionsToProgrammes.countries[countryHovered]?.filter(pp=> pp.length).length } programme{regionsToProgrammes.countries[countryHovered].length > 1 && 's' } </b> 
+                            Participating in <b>{ regionsToProgrammes.countries[countryHovered]?.filter(pp=> pp.length).length } programme{regionsToProgrammes.countries[countryHovered].length > 1 && 's' } </b> 
                             { countriesToProjects[countryHovered]?.length ? <>
                                     and <br/>
                                     <b>{ countriesToProjects[countryHovered]?.length } project{countriesToProjects[countryHovered]?.length > 1 && 's' }</b>
-                                    &nbsp;developing in this country.
+                                    &nbsp;projects portrayed in this exhibition.
                                 </> : <>
-                                   <br/> There are no projects associated to this country.
+                                   <br/> Engaged in ENI CBC projects outside this exhibition
                                 </> 
                             }
                         </p>
