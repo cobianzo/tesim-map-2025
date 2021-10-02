@@ -40,7 +40,7 @@ function App() {
     // get programmes with fetch > update state > 
     //            when finish get all projects and fetch into from api > update state projects.
     //            and prepare array for regions > update state
-    const endpoint  = `${process.env.REACT_APP_LOCAL_ENDPOINT}projects-and-programmes.json`; // created by interreg project with php fn:  get_all_eni_projects()
+    const endpoint  = `${process.env.REACT_APP_LOCAL_ENDPOINT}projects-and-programmes.json?v=1`; // created by interreg project with php fn:  get_all_eni_projects()
     console.log('openENDPOINT ProPro: ',endpoint)
     const res = await fetch(endpoint);
     res.json().then(res => { 
@@ -168,7 +168,7 @@ function App() {
       console.error('ERRRORRerror capturing regions info: ', err.message);
     });
     // fetch countries: TODO: we could use this to colour all regions using the category of every country.
-    const endpointC  = `${process.env.REACT_APP_LOCAL_ENDPOINT}countries.json`;
+    const endpointC  = `${process.env.REACT_APP_LOCAL_ENDPOINT}countries.json?v=1`;
     console.log('openENDPOINT countries: ', endpointC);
     (await fetch(endpointC)).json().then(countriesList => {
       

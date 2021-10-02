@@ -79,14 +79,15 @@ export default function TopBarSearch( {   regionsToProgrammes,
             START of options for search by country
         */
     
-        // sort alphabetically
-        allCountriesArray.sort((a,b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0));
+        
+        
         // eliminate duplicates
         var allCountriesArrayUnique = [];
         allCountriesArrayUnique = allCountriesArray.filter((thing, index, self) =>
-            index === self.findIndex((t) => ( t.label === thing.label ))
+            thing.label && (index === self.findIndex((t) => ( t.label === thing.label )))
         );
-        
+        // sort alphabetically
+        allCountriesArrayUnique.sort((a,b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0));
         if (!optionsCountry.length) // we want this to be set only once and never change.
             setOptionsCountry(allCountriesArrayUnique); // [ {label:Bulgaria, value:bg}, { ...} ]
         /** ------ ------ ------ ------ ------ ------  */
@@ -122,7 +123,10 @@ export default function TopBarSearch( {   regionsToProgrammes,
         allProjects.forEach( proj => {
             // find the option with that label 
             // we group projects by thematic, prop.color (environment, p2p, economic, infrastr)
-            const groupLabel = proj.color + (proj.subthematic? ' - ' + proj.subthematic : '' ).replace('&amp;', '&');
+            let thematic = proj.color;
+            if (thematic.toLowerCase() === 'economical') thematic = 'Economic development';
+            else if (thematic.toLowerCase() === 'infrastructures') thematic = 'Cross-border infrastructure';
+            const groupLabel = `${thematic}` + (proj.subthematic? ' - ' + proj.subthematic : '' ).replace('&amp;', '&');
             var groupIndex = groupedOptions.findIndex( gr => gr.label === groupLabel );
             // if (groupIndex === -1) groupIndex = groupedOptions.findIndex( gr => gr.label === proj.color );
             if (groupIndex === -1) { // not found -> create the group

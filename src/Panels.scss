@@ -188,7 +188,7 @@
                 width: 100%;
                 font-size: 0.8rem;
                 line-height: 1rem;
-                p { margin: 0;}
+                p { margin: 0; word-break: break-word;}
                 &.long-title-5 .sub-title { display: none; } // if title is too long the subtitle not shown.
             }
             border: 2px solid transparent;
@@ -205,10 +205,10 @@
                 border-color: var(--tm-p2p);
             }
             &.project-infrastructures .tm_img-wrapper {
-                border-color: var(--tm-infrastructures);
+                border-color: var(--tm-infrastructure);
             }
             &.project-economical .tm_img-wrapper {
-                border-color: var(--tm-economical);
+                border-color: var(--tm-economic);
             }
         }
     }

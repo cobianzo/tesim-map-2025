@@ -149,6 +149,8 @@ export default function Map( { allProgrammes, allProjects,
         // CLEANUP - if we have finished a hover. (this could be in the return)
         const c = refContainer.current.querySelectorAll('.programme-with-country-selected');
         c.forEach( cc => cc.classList.remove('programme-with-country-selected') )
+        const d = refContainer.current.querySelectorAll('.country-selected');
+        d.forEach( cc => cc.classList.remove('country-selected') )
         if (!allProgrammes[selectedProgramme]) {
             return;
         }
@@ -290,7 +292,7 @@ export default function Map( { allProgrammes, allProjects,
 
                 {/* Show all programmes is selected */}
                 { (appOptions.showProjectsType === 'all-programmes') && (
-                    selectedProgramme? <h2 className="TM_h2">Projects participating in<br/>
+                    selectedProgramme? <h2 className="TM_h2">
                                                 <b>{allProgrammes[selectedProgramme].post_title}</b></h2> 
                                         :
                                         <h2 className="TM_h2">Select an ENI CBC programme</h2>
@@ -305,15 +307,16 @@ export default function Map( { allProgrammes, allProjects,
                 { countrySelected && <>
                     <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countrySelected]?.title }</b></h2>
                     { regionsToProgrammes.countries[countrySelected].length &&
-                        <p> <b>{ regionsToProgrammes.countries[countrySelected].filter(pp=> pp.length).length } Programme{regionsToProgrammes.countries[countrySelected].length > 1 && 's' }</b>
-                            
-                            { countriesToProjects[countrySelected]?.length ? <span> and &nbsp;
+                        <p> Participating in { regionsToProgrammes.countries[countrySelected].filter(pp=> pp.length).length } Programme{regionsToProgrammes.countries[countrySelected].length > 1 && 's' }:
+                                { regionsToProgrammes.countries[countrySelected].map( (code, i) => <b key={`pro-${i}`}> { (i>0) && '; ' } { allProgrammes[code].post_title } </b> ) }
+                                <br/>
+                            { countriesToProjects[countrySelected]?.length ? <span>
                                 
-                                <b>{ countriesToProjects[countrySelected].length } project{countriesToProjects[countrySelected].length > 1 && 's' }
-                                </b>&nbsp; are being implemented in this country
+                                <b>{ countriesToProjects[countrySelected].length }</b> {countriesToProjects[countrySelected].length > 1 ? <><b>projects</b> are</> : <><b>project</b> is</> }
+                                &nbsp; shown in this exhibition
                             </span> :
                                 allCountriesInfo[countrySelected] && <span> <br/> 
-                                        Eligible country, engaged in ENI CBC projects outside this exhibition
+                                        Engaged in ENI CBC projects outside this exhibition
                                     </span>
                             }
                         </p> 
@@ -341,22 +344,23 @@ export default function Map( { allProgrammes, allProjects,
                 <div className="TM_card-body">
                     {/* Just info when nothing is selected */}
                     { currentStateClasses.length === 0 && <p>
-                        Here you can access information about the ENI CBC projects portrayed in this exhibition:<br/> 
+                        Here you can access information about the ENI CBC projects portrayed in this exhibition:  
                         select them using the above options, or directly passing your mouse on the map to the right
                     </p> }
                     
                     {/* a country is hovered (body) */}
                     {
                         countryHovered && !countrySelected && <>
-                        <p>
-                            <b>{ regionsToProgrammes.countries[countryHovered]?.filter(pp=> pp.length).length } programme{regionsToProgrammes.countries[countryHovered].length > 1 && 's' } </b> 
-                            { countriesToProjects[countryHovered]?.length ? <>
-                                    and <br/>
-                                    <b>{ countriesToProjects[countryHovered]?.length } project{countriesToProjects[countryHovered]?.length > 1 && 's' }</b>
-                                    &nbsp;projects are being implemented in this country
-                                </> : <>
-                                   <br/> Eligible country, engaged in ENI CBC projects outside this exhibition
-                                </> 
+                        <p> Participating in <b>{ regionsToProgrammes.countries[countryHovered].filter(pp=> pp.length).length } Programme{regionsToProgrammes.countries[countryHovered].length > 1 && 's' }</b>
+                                <br/>
+                            { countriesToProjects[countryHovered]?.length ? <span>
+                                
+                                <b>{ countriesToProjects[countryHovered].length }</b> {countriesToProjects[countryHovered].length > 1 ? <><b>projects</b> are</> : <><b>project</b> is</> }
+                                &nbsp; shown in this exhibition
+                            </span> :
+                                allCountriesInfo[countryHovered] && <span> <br/> 
+                                        Engaged in ENI CBC projects outside this exhibition
+                                    </span>
                             }
                         </p>
                         <p className="TM_text-secondary">

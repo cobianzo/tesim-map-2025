@@ -1,6 +1,6 @@
 # To update the site, I had to upload the files:  
 - all /inc folder 
-- page-templates/page-map-standalone.php and page-templates/homepage2021.php
+- `page-templates/page-map-standalone.php` and `page-templates/homepage2021.php`
 - single-project.php
 
 
