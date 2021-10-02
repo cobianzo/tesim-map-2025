@@ -13,12 +13,22 @@ export default function ProgrammePanel({
     setProjectInModal
 }) {
 
-    // const [programmeInfo, setProgrammeInfo] = React.useState({});
-    // React.useEffect(() => {
-    //     setProgrammeInfo(allProgrammes[programmeId]);
-    //     return () => {
-    //     }
-    // }, [programmeId]);
+    const [ projectAlphabetical, setProjectAlphabetical ] = React.useState([]);
+    // computed list of project in alphabetic order 
+    const projectsInAlphabetic = React.useMemo( ()=>{
+        if (!allProjects) return null;
+        let projectsArray = [...allProgrammes[programmeId].projects]; // arary of ids
+        return projectsArray.sort( (proID_1, proID_2) => {
+                const [project1, project2] = [allProjects.find(pp=>pp.ID === proID_1), allProjects.find(pp=>pp.ID === proID_2)];
+                var name1 = project1.post_title + project1.post_subtitle;
+                var name2 = project2.post_title + project2.post_subtitle;
+                if ( name1 > name2) return 1;
+                return -1;
+            }
+        );
+    }, [programmeId] );
+    
+    
 
     if (!allProgrammes[programmeId]||!Object.keys(allProgrammes[programmeId]).length) return 'no prog'+programmeId;
     return (
@@ -29,7 +39,7 @@ export default function ProgrammePanel({
             </span>
 
             <ul className="TM_list-of-projects">
-            { allProgrammes[programmeId].projects? allProgrammes[programmeId].projects.map( ID => {
+            { allProgrammes[programmeId].projects? projectsInAlphabetic.map( ID => {
                     const projInfo = allProjects.find( pro => ID === pro.ID );
                     return <ProjectInfo 
                             setProjectInModal={setProjectInModal}

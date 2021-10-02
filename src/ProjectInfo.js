@@ -23,14 +23,26 @@ export default function ProjectInfo({ setProjectInModal, projectInfo }) {
         return imgFilename;
     }
 
+    var classes_long_title = React.useMemo(()=>{
+        if (!projectInfo) return false;
+        const fullTitle = projectInfo.post_title + ' | ' + projectInfo?.post_subtitle;
+        let classes = ''
+        if ( fullTitle.length > 50 ) classes += ' long-title-1';
+        if ( fullTitle.length > 70 ) classes += ' long-title-2';
+        if ( fullTitle.length > 90 ) classes += ' long-title-3';
+        if ( fullTitle.length > 110 ) classes += ' long-title-4';
+        if ( fullTitle.length > 130 ) classes += ' long-title-5';
+        return classes;
+    },[projectInfo]);
+
     return (
         <li onClick={e=>setProjectInModal(projectInfo.ID)} className={`project-${projectInfo.color}`}>
             <div className="tm_img-wrapper">
-                <img src={get_thumbail_from_pdf_filename()} className="tm_img-fluid" />
+                <img src={ projectInfo.image_poster?? get_thumbail_from_pdf_filename()} className="tm_img-fluid" alt="poster" />
             </div>
-            <div className='small project-title'>
-                { projectInfo?.post_title &&  <p><b>{ projectInfo?.post_title }</b></p> }
-                { projectInfo?.post_subtitle &&  <p>{ projectInfo?.post_subtitle }</p> }
+            <div className={ `small project-title ${classes_long_title}` }>
+                { projectInfo?.post_title &&  <p className="main-title"><b>{ projectInfo?.post_title }</b></p> }
+                { projectInfo?.post_subtitle &&  <p className="sub-title">{ projectInfo?.post_subtitle }</p> }
             </div>
         </li>
     )

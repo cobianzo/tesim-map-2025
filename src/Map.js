@@ -38,6 +38,7 @@ export default function Map( { allProgrammes, allProjects,
     React.useEffect( () => {
         adjustMapResolution();
     }, []);
+    window.addEventListener('resize', adjustMapResolution);
     React.useEffect( () => {
         if (!regionsToProgrammes || !regionsToProgrammes.nuts3 || !Object.keys(regionsToProgrammes.nuts3).length) return;
         Object.keys( regionsToProgrammes.nuts3 ).forEach( regCode => {
@@ -119,11 +120,52 @@ export default function Map( { allProgrammes, allProjects,
             if (path) path.classList.remove('country-selected');
             // cleanup the dropdown country
             
-            PHCountry.textContent = 'Select country...';
+            PHCountry.textContent = 'Select a country';
         
         }
     }, [countrySelected]);//WATCH (click on a country or selected from dropdown)
     
+    // Programme hovered, when the 15 programmes are listed.
+    React.useEffect(()=>{
+        if (!refContainer.current || !allProgrammes) return;
+        // CLEANUP - if we have finished a hover. (this could be in the return)
+        const c = refContainer.current.querySelectorAll('.programme-with-country-hovered');
+        c.forEach( cc => cc.classList.remove('programme-with-country-hovered') )
+        if (!allProgrammes[hoveredProgramme]) {
+            return;
+        }
+        // select the countries for that programme
+        const countriesArray = allProgrammes[hoveredProgramme].countries.split(',');
+        countriesArray.forEach( code => { if (code.trim().length) { // and apply the class
+            const path = refContainer.current.querySelector('#' + code + '0'); // path#es0
+            if (path) path.classList.add('programme-with-country-hovered');
+         } } );
+            
+    },[hoveredProgramme]);//WATCH
+    
+    // Programme selected watch, when the 15 programmes are listed.
+    React.useEffect(()=>{
+        if (!refContainer.current || !allProgrammes) return;
+        // CLEANUP - if we have finished a hover. (this could be in the return)
+        const c = refContainer.current.querySelectorAll('.programme-with-country-selected');
+        c.forEach( cc => cc.classList.remove('programme-with-country-selected') )
+        if (!allProgrammes[selectedProgramme]) {
+            return;
+        }
+        // select the countries for that programme
+        const countriesArray = allProgrammes[selectedProgramme].countries.split(',');
+        countriesArray.forEach( code => { if (code.trim().length) { // and apply the class
+            const path = refContainer.current.querySelector('#' + code + '0'); // path#es0
+            if (path) path.classList.add('programme-with-country-selected');
+         } } );
+            
+    },[selectedProgramme]);//WATCH
+
+
+
+
+
+
     // when looking up by programme, if a country weas selected, we deselected it.
     React.useEffect( () => {
         if (appOptions.showProjectsType === 'all-programmes') {
@@ -164,15 +206,21 @@ export default function Map( { allProgrammes, allProjects,
     // **** FUNCTIONS *****
     // TODO: apply on resize
     function adjustMapResolution() {
-        console.log('adjusting size map');
-        refSVG.current.setAttribute('height', refSVG.current.clientWidth * 5/12 + 'px');
-        refSVG.current.style.transform = `translateX(${refSVG.current.clientWidth/6}px)`;
+        const w = document.querySelector('body').offsetWidth;
+        if ( w > 700 && refSVG.current) {
+            console.log('adjusting size map', w);
+            refSVG.current.setAttribute('height', refSVG.current.clientWidth * 5/12 + 'px');
+            refSVG.current.style.transform = `scale(1.01) translateX(${refSVG.current.clientWidth/6}px)`;
+        } else if (refSVG.current) {
+            refSVG.current.removeAttribute('height');
+            refSVG.current.removeAttribute('style');
+        }
     }
     
     /** COMPUTED : considers all the main states that this app accepts and explains it with classes in an array */    
     const currentStateClasses = React.useMemo(()=>{
         let classes = [];
-        if (hovered) classes.push('region-hovered');
+        if (hovered && allRegionsInfo[hovered]) classes.push('region-hovered');
         if (countryHovered) classes.push('country-hovered');
         if (regionSelected) classes.push('region-selected');
         if (countrySelected) classes.push('country-selected');
@@ -189,11 +237,10 @@ export default function Map( { allProgrammes, allProjects,
         let projectsArray = [...countriesToProjects[countrySelected]];
         return projectsArray.sort( (proID_1, proID_2) => {
                 const [project1, project2] = [allProjects.find(pp=>pp.ID === proID_1), allProjects.find(pp=>pp.ID === proID_2)];
-                if ( project1.post_title > project2.post_title) return 1;
-                if ( project1.post_title < project2.post_title) return -1;
-                if ( project1.post_subtitle > project2.post_subtitle) return 1;
-                if ( project1.post_subtitle < project2.post_subtitle) return -1;
-                return 0;
+                var name1 = project1.post_title + project1.post_subtitle;
+                var name2 = project2.post_title + project2.post_subtitle;
+                if ( name1 > name2) return 1;
+                return -1;
             }
         );
     }, [countrySelected] );
@@ -223,6 +270,11 @@ export default function Map( { allProgrammes, allProjects,
 
     <div className="TM_row border TM_position-relative">
         
+        {/* Character when nothing is selected */}
+        <div className="TM_character-over-left-panel">
+            <img src={ process.env.REACT_APP_LOCAL_ENDPOINT+'char-map-'+Math.round(Math.random())+'.png'} alt="char" />
+        </div>
+        
         {/* Panel on the left. Shows info of selected country or shows Search by programme */}
         <div className={'TM_left-panel'}>
             <div className="TM_card">
@@ -232,33 +284,45 @@ export default function Map( { allProgrammes, allProjects,
                 <div className="TM_card-header">
                 { currentStateClasses.length === 0 && <>
                     {/* Help info when nothing is selected */}
-                    <h2 className="TM_h2">Programmes and Projects search</h2>
+                    <h2 className="TM_h2">Search by programme, country or project</h2>
                     {/* {process.env.NODE_ENV} {process.env.REACT_APP_PUBLIC_URL} | {process.env.REACT_APP_LOCAL_ENDPOINT} */}
                 </> }
 
+                {/* Show all programmes is selected */}
                 { (appOptions.showProjectsType === 'all-programmes') && (
-                    selectedProgramme? <h2 className="TM_h2">Projects participating in<br/><b>{allProgrammes[selectedProgramme].post_title}</b></h2> 
+                    selectedProgramme? <h2 className="TM_h2">Projects participating in<br/>
+                                                <b>{allProgrammes[selectedProgramme].post_title}</b></h2> 
                                         :
                                         <h2 className="TM_h2">Select an ENI CBC programme</h2>
                 )}
+
+                {/* a country is hovered */}
                 { countryHovered && !countrySelected && 
                     <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countryHovered]?.title }</b></h2>
                 }
+
+                {/* a country is selected */}
                 { countrySelected && <>
                     <h2 className="TM_h2 tm_mt-0"><b>{ allCountriesInfo[countrySelected]?.title }</b></h2>
                     { regionsToProgrammes.countries[countrySelected].length &&
-                        <p> Participating in { regionsToProgrammes.countries[countrySelected].filter(pp=> pp.length).length } programme{regionsToProgrammes.countries[countrySelected].length > 1 && 's' }
-                            { countriesToProjects[countrySelected]?.length ? <span> and <br/>
+                        <p> <b>{ regionsToProgrammes.countries[countrySelected].filter(pp=> pp.length).length } Programme{regionsToProgrammes.countries[countrySelected].length > 1 && 's' }</b>
+                            
+                            { countriesToProjects[countrySelected]?.length ? <span> and &nbsp;
                                 
-                                { countriesToProjects[countrySelected].length } project{countriesToProjects[countrySelected].length > 1 && 's' }
-                                &nbsp;projects portrayed in this exhibition.
+                                <b>{ countriesToProjects[countrySelected].length } project{countriesToProjects[countrySelected].length > 1 && 's' }
+                                </b>&nbsp; are being implemented in this country
                             </span> :
                                 allCountriesInfo[countrySelected] && <span> <br/> 
-                                        Engaged in ENI CBC projects for <b>{allCountriesInfo[countrySelected].title}</b> outside this exhibition 
+                                        Eligible country, engaged in ENI CBC projects outside this exhibition
                                     </span>
                             }
                         </p> 
                     }
+                    <div className="tm_btn-wrapper" onClick={ e=>setCountrySelected(null)}>
+                                <button className="TM_btn-close ">
+                                    ⇠
+                                </button>
+                    </div>
                     </>
                 }
                     {/* @BOOK:SELECTBYREGION not needed since we dont select region anymore
@@ -277,32 +341,39 @@ export default function Map( { allProgrammes, allProjects,
                 <div className="TM_card-body">
                     {/* Just info when nothing is selected */}
                     { currentStateClasses.length === 0 && <p>
-                        Here you can access information about the ENI CBC projects portrayed in this exhibition.<br/>
-                        <br/>Look for them by searching in the map or using the options above.
+                        Here you can access information about the ENI CBC projects portrayed in this exhibition:<br/> 
+                        select them using the above options, or directly passing your mouse on the map to the right
                     </p> }
                     
+                    {/* a country is hovered (body) */}
                     {
                         countryHovered && !countrySelected && <>
                         <p>
-                            Participating in <b>{ regionsToProgrammes.countries[countryHovered]?.filter(pp=> pp.length).length } programme{regionsToProgrammes.countries[countryHovered].length > 1 && 's' } </b> 
+                            <b>{ regionsToProgrammes.countries[countryHovered]?.filter(pp=> pp.length).length } programme{regionsToProgrammes.countries[countryHovered].length > 1 && 's' } </b> 
                             { countriesToProjects[countryHovered]?.length ? <>
                                     and <br/>
                                     <b>{ countriesToProjects[countryHovered]?.length } project{countriesToProjects[countryHovered]?.length > 1 && 's' }</b>
-                                    &nbsp;projects portrayed in this exhibition.
+                                    &nbsp;projects are being implemented in this country
                                 </> : <>
-                                   <br/> Engaged in ENI CBC projects outside this exhibition
+                                   <br/> Eligible country, engaged in ENI CBC projects outside this exhibition
                                 </> 
                             }
                         </p>
                         <p className="TM_text-secondary">
-                            { countriesToProjects[countryHovered]?.length && <> <br/>Click on the country to display all projects </> }
+                            { countriesToProjects[countryHovered]?.length && <> <br/>Click on the country for more information </> }
                         </p>
                         </>
                     }
 
-
+                    {/* a country is selected (body) */}
                     { countrySelected && countriesToProjects[countrySelected] && (
                         <div className='InnerPanel-list-of-projects'>
+                            <footer className="TM_text-secondary">
+                                { countrySelected && countriesToProjects[countrySelected] && <>
+                                    <small>      Click on the icon to open the full description</small>
+                                </>
+                                }
+                            </footer>
                             <div className="tm_btn-wrapper" onClick={ e=>setCountrySelected(null)}>
                                 <button className="TM_btn-close ">
                                     ⇠
@@ -328,7 +399,7 @@ export default function Map( { allProgrammes, allProjects,
                         appOptions={appOptions}
                         projectInModal={projectInModal} setProjectInModal={setProjectInModal} />} */}
                     
-                    {/* If btn lookup by programme was clicked */}
+                    {/* All programmes, or A programme is selected */}
                     { appOptions.showProjectsType === 'all-programmes' && (
                         <PanelProgrammesSearch 
                             allProgrammes={allProgrammes} allProjects={allProjects}
@@ -338,13 +409,7 @@ export default function Map( { allProgrammes, allProjects,
                         />
                     )}
 
-                </div>
-                <footer className="TM_text-secondary">
-                    { countrySelected && countriesToProjects[countrySelected] && <>
-                        <small>Click on a project to open the full description</small>
-                    </>
-                    }
-                </footer>
+                </div>                
             </div>
         </div>
 
@@ -380,6 +445,11 @@ export default function Map( { allProgrammes, allProjects,
         <div className="tm_tesim-modal__wrapper" tabIndex="-1" role="dialog" aria-hidden="true"
             onClick={e=>setProjectInModal(null)}>
             <div className="tm_tesim-modal__inner">
+                <div className="tm_btn-wrapper" onClick={ e=>setProjectInModal(null)}>
+                                <button className="TM_btn-close ">
+                                    ⇠
+                                </button>
+                </div>
                 <iframe src={ projectInModal.permalink?? allProjects.find(p=>p.ID===projectInModal).permalink }>
 
                 </iframe>

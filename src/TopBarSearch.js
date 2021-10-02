@@ -199,7 +199,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
         if (!projectInModal) {
             // remove dropdown
             if (PHProjectDropdown) {
-                PHProjectDropdown.textContent = 'search by project';
+                PHProjectDropdown.textContent = 'Look for a project';
             }
         }
     }, [projectInModal]);//WATCH:projectInModal
@@ -226,7 +226,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
                   }))
                 }>
             {appOptions.showProjectsType === 'all-programmes' ? 
-          <span>Close list of programmes</span>: <span>List of all ENI CBC Programmes</span>}
+          <span>Close list of programmes</span>: <span>LIST OF 15 ENI CBC PROGRAMMES</span>}
         </button>
 
         <div className='tm_nav-item search-by-country TM_col-6 TM_col-md-3'>

@@ -61,6 +61,7 @@ function App() {
             countToProj[code] = (countToProj[code] || [] ).concat([projectObj.ID])
           )
       });
+      
       setAllProgrammes(res.programmes);
       setCountriesToProjects(countToProj);
 

@@ -4,14 +4,11 @@
 // shown when there is nothing selected. 
 .TM_left-panel {
 
-    position: absolute;
+    
     z-index: 9;
     left: 0px;
     // mobile
-    right: 0px;
-    top: 238px;
-    text-align: center; 
-    height: 261px;
+    background-color: white;
     padding: 0px 5px 10px;
     transition: all 1s;
     
@@ -24,6 +21,7 @@
         .TM_h2 {
             font-size: 1.4rem;;
         }   
+        position: absolute;
         right: 50%;
         border: 1px solid var(--tm-primary);
         box-shadow: 5px 5px 5px rgba(0,0,0,0.7);
@@ -88,32 +86,6 @@
     // When selected (list of programmes / country     
 
 
-    // btn close,on the top right of the panel
-    .tm_btn-wrapper {
-        position: absolute;
-        background-color: var(--tm-light);
-        right: -25px;
-        top: -25px;
-        z-index: 9;
-        padding: 25px;
-        border: 4px solid $primary;
-        border-radius: 50%;
-        display: flex;
-        justify-self: center;
-        align-items: center;
-        cursor: pointer;
-        &:hover {
-            background-color: $dark;
-            button { color: white; }
-        }
-        button {
-            cursor: pointer;
-            position: absolute;
-            transform: translate(-50%, -10%);
-            border: 0;
-            background-color: transparent;
-        }
-    }
 }
 
 // inside the left panel 
@@ -200,7 +172,8 @@
         grid-auto-columns: 100px;
         > li {
             cursor: pointer;
-            background-color: var(--tm-light);
+            background-color: var(--tm-gray);
+            box-shadow: 2px 3px 3px rgb(0 0 0 / 50%);
             .tm_img-wrapper {
                 border: 2px solid salmon;
                 height: 68px;
@@ -216,6 +189,7 @@
                 font-size: 0.8rem;
                 line-height: 1rem;
                 p { margin: 0;}
+                &.long-title-5 .sub-title { display: none; } // if title is too long the subtitle not shown.
             }
             border: 2px solid transparent;
             &:hover {
@@ -238,3 +212,61 @@
             }
         }
     }
+
+// btn close,on the top right of the panel
+.tm_btn-wrapper {
+    position: absolute;
+    background-color: var(--tm-light);
+    right: -25px;
+    top: -25px;
+    z-index: 9;
+    padding: 25px;
+    border: 4px solid $primary;
+    border-radius: 50%;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+        background-color: $dark;
+        button { color: white; }
+
+        .TM_btn-close {
+            font-size: 2rem;
+            padding: 3px 5px;
+            border-radius: 50%;
+            background: none;
+        }
+    }
+    button {
+        cursor: pointer;
+        position: absolute;
+        transform: translate(-50%, -10%);
+        border: 0;
+        background-color: transparent;
+    }
+}
+
+
+.TM_character-over-left-panel {
+    display:none;
+    @media only screen and (min-width: 600px) {
+        display: flex;
+        position: absolute;
+        left: 100px;
+        width: 150px;
+        z-index: 10;
+        transition: opacity 3s;
+        opacity: 1;
+        img {
+            width: 100%;
+            margin-top: 49px;
+        }
+    }
+
+    .TM_container--active-state & {
+        z-index: 1;
+        transition: opacity 0.2s;
+        opacity: 0;
+    }
+}

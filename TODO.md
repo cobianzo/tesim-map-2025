@@ -1,3 +1,19 @@
+GRAFFICA mejorra con gran imagen de fondo!!
+DONE: San Marino OUT! - but it can be still in the cache!
+DONE Non sono ordine alfabetico quando cliccki su un programma. !!! 
+dONE: Accettiamo logo tesim. SI
+Vedere
+Spiegare come arrivare qui dall'exhibition.
+DONE: Activar thumbnail in ACF
+
+Mandar un mail respondiendo y cosa por cosa.
+Explicar que arregle lode los ':'
+DONE: Solucionar cuando el titulo es demasiado largo: ej Russia : Improving children and adults ...
+          Explicar
+
+) Mobile view , tablet view
+
+
 Muchos cambios hechos, en la page-template, y en todo inc/ . Actualizar y ya. 
 
 FALTA

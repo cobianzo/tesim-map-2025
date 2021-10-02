@@ -399,16 +399,6 @@
         "pin": "hidden nofill",
         "zoom": 1
     },
-    "sm": {
-        "id": "sm",
-        "title": "San Marino",
-        "description": "<p>SAN MARINO<\/p>",
-        "x": "0.6479",
-        "y": "0.8118",
-        "category": "eu-partners",
-        "pin": "hidden nofill",
-        "zoom": 6
-    },
     "rs": {
         "id": "rs",
         "title": "Serbia",

@@ -1,16 +1,8 @@
-TODO:
-- The thumbnails of posters are calculated using the WP PDF thumbnails. I should use wp interreg with a field for the thumbnail, uploaded to tesim site. Then export it to json and use that field ad thumbnail.
-QUE HACER
+# To update the site, I had to upload the files:  
+- all /inc folder 
+- page-templates/page-map-standalone.php and page-templates/homepage2021.php
+- single-project.php
 
-
-TESIM:
-Grafica colores.
-CUANDO SE SELECCIONA UN PAIS, QUE SE VEA LAS REGIONES ANIMADAS, NO EL BORDER DEL PAIS.
-Testear los paises que vayan bien. Seleccion de una region, muestra un pais
-Hover region, muestra el pais. Muestra el nombre de la region en el lado.
-Crear un dropdown de programmes 
-
-Ricerca:
 
 
 # TEST in Tesim page Simulation  

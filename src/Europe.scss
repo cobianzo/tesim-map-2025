@@ -20,6 +20,10 @@ $color-norway-selectable: #444444;
 	from {stroke: $secondary;}
 	to {stroke: $info;}
 }
+@keyframes country-stroke-animation-red {
+	from {stroke: #a79a6e; stroke-width: 4px !important;}
+	to {stroke: #d3c9a9; stroke-width: 4px !important;}
+}
 @keyframes country-fill-animation {
 	from {fill: $secondary !important;}
 	to {fill: $info !important;}
@@ -96,6 +100,14 @@ $color-norway-selectable: #444444;
 		.selectable {
 			fill: country-fill-animation 1s infinite;
 		}
+	}
+	.programme-with-country-hovered {
+		animation: country-stroke-animation-red 1s infinite;
+		stroke-width: 5px !important;
+	}
+	.programme-with-country-selected {
+		animation: country-stroke-animation 3s infinite;
+		stroke-width: 5px !important;
 	}
 }
 

@@ -63,6 +63,10 @@ b {
     }
 }
 
+.TM_App {
+    background: white;
+}
+
 .TM_container {
     max-width: 1400px;
     margin: auto;
@@ -110,4 +114,21 @@ b {
 
 .react-select__menu {
     border: 5px solid red;
+}
+
+
+
+
+
+
+
+/////// ÑAPA: empezamos todo con mobile first, pero ahora ya vale la pena hacer los ultimos ajustes asi, solo para bolie
+
+// MOBILE
+@media only screen and (max-width: 600px){
+
+
+
+
+
 }
