@@ -102,6 +102,9 @@ export default function Map( { allProgrammes, allProjects,
         var PHCountry = document.querySelector('.search-by-country div[class*="placeholder"]');
         if (!PHCountry) PHCountry = document.querySelector('.search-by-country div[class*="singleValue"]'); // if there was a value on it already.
 
+        // there is some kind o f bug, I repeat this.
+        let path = refContainer.current.querySelector('.country-selected');
+        if (path) path.classList.remove('country-selected');
         if (countrySelected && regionsToProgrammes && regionsToProgrammes.countries[countrySelected]) { 
             // first, the mode of lookup comes back to 'map'.
             setAppOptions(Object.assign( {...appOptions}, { showProjectsType: 'map' }));
@@ -110,6 +113,8 @@ export default function Map( { allProgrammes, allProjects,
             if (path) path.classList.remove('country-selected');
             path = refContainer.current.querySelector('#' + countrySelected + '0'); // path#es0
             if (path) path.classList.add('country-selected');
+            const c = refContainer.current.querySelectorAll('.programme-with-country-selected');
+            c.forEach( cc => cc.classList.remove('programme-with-country-selected') )
 
             PHCountry.textContent = allCountriesInfo[countrySelected].title; // dropdown value needs to be changed by hand if selected from map
         }
@@ -415,9 +420,24 @@ export default function Map( { allProgrammes, allProjects,
 
                 </div>                
             </div>
+        </div> 
+        {/* <!-- end left panel --> */}
+
+        {/* Below the left panel when nothing is selected deactivate dwith d-none because Armenia becomes Argentina */}
+        <div className={` TM_below-left-panel ${countryHovered && 'country-hovered'} ${countrySelected && 'country-selected'}`}>
+             {/* <img src={"https://www.countryflags.io/be/shiny/64.png"} alt={countryHovered} */}
+            { countryHovered && <>
+            <img src={"https://www.countryflags.io/"+(countryHovered==='el'? 'gr' : countryHovered)+"/flat/64.png"} 
+                className="nnaaa" alt={countryHovered}
+            /> 
+            <h3>{ allCountriesInfo[countryHovered]?.title }</h3>
+            </> }
+            
         </div>
 
-        {/* Panel on the right: shows infor of hovered region */}
+
+
+        {/* Panel on the right: shows infor of hovered region. Not used anymore */}
         { hovered && !regionSelected && 
                     <PanelHoveredRegion allProgrammes={allProgrammes} allProjects={allProjects} 
                                         allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}

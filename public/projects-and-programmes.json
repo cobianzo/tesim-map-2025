@@ -1,6 +1,51 @@
 {
     "projects": [
         {
+            "ID": 7162,
+            "post_title": "BRIDGE",
+            "post_subtitle": "Let\u2019s be ready when emergency breaks out on the mountains",
+            "post_title_official": "BRIDGE - Improvement of the population safety and security level in the cross-border area by enhancing the joint training and cooperation actions in emergency management",
+            "permalink": "https:\/\/tesim-enicbc.eu\/project\/bridge-ro-ua\/",
+            "pdf_link": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/10\/BRIDGE.pdf",
+            "external_featured_image": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/10\/BRIDGE.jpg",
+            "links_and_map": "Keep: https:\/\/keep.eu\/projects\/22948\/Improvement-of-the-populati-EN\/\r\nProject page: https:\/\/ro-ua.net\/ro\/about-the-programme-ro\/proiecte-contractate\/154-map-with-projects\/1051-improvement-of-the-population-safety-and-security-level-in-the-cross-border-area-by-enhancing-the-joint-training-and-cooperation-actions-in-emergency-management-bridge.html\r\nFacebook: https:\/\/www.facebook.com\/igsu.situatiideurgenta",
+            "color": "infrastructures",
+            "image_poster": null,
+            "subthematic": "JOINT RESPONSE ACTIONS",
+            "programme": 240,
+            "countries": "ro,ua"
+        },
+        {
+            "ID": 7161,
+            "post_title": "EWA",
+            "post_subtitle": "Helping women of Latvia and Russia to adapt to labor markets",
+            "post_title_official": "EWA \u2013 Entrepreneurship, women and advice: a network of resource centers in the border areas",
+            "permalink": "https:\/\/tesim-enicbc.eu\/project\/ewa\/",
+            "pdf_link": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/03\/EWA.pdf",
+            "external_featured_image": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/01\/Helping-women-of-Latvia-and-Russia.png",
+            "links_and_map": "KEEP https:\/\/keep.eu\/projects\/24690\/Entrepreneurship-women-and--EN\/\r\nProject page http:\/\/latruscbc.eu\/projects\/ewa\/   \r\nWebsite http:\/\/ewaproject.com\/",
+            "color": "economical",
+            "image_poster": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/04\/EWA-copy-297x420.jpg",
+            "subthematic": "ENTREPRENEURSHIP",
+            "programme": 158,
+            "countries": "ru,lv"
+        },
+        {
+            "ID": 7160,
+            "post_title": "CGTN",
+            "post_subtitle": "A cross-border network of charging stations for electric vehicles",
+            "post_title_official": "CGTN \u2013 Cross-border green transport network",
+            "permalink": "https:\/\/tesim-enicbc.eu\/project\/cgtn\/",
+            "pdf_link": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/02\/CGTN.pdf",
+            "external_featured_image": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/01\/CGTN.png",
+            "links_and_map": "KEEP: https:\/\/keep.eu\/projects\/23032\/Cross-border-green-transpor-EN\/\r\nTESIM article: https:\/\/tesim-enicbc.eu\/voices\/ihor-popodyuk\/\r\nWebsite: https:\/\/huskroua-cbc.eu\/projects\/financed-projects-database\/cross-border-green-transport-network \r\nFacebook: https:\/\/www.facebook.com\/CGTN.HUSKROUA\/",
+            "color": "infrastructures",
+            "image_poster": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/04\/CGTN-297x420.jpg",
+            "subthematic": "TRANSPORT AND LOGISTICS",
+            "programme": 239,
+            "countries": "ua,sk,ro,hu"
+        },
+        {
             "ID": 7095,
             "post_title": "BORDERLESS",
             "post_subtitle": "Masterclasses and joint concerts to expand music across border cities",
@@ -761,7 +806,7 @@
             "links_and_map": "KEEP: https:\/\/keep.eu\/projects\/23730\/Enhancing-environmental-saf-EN\/ \r\nProject factsheet: https:\/\/www.sefrcbc.fi\/wp-content\/uploads\/2020\/10\/KS1144-Green-InterTraffic-portfolio_en-scaled.jpg \r\nWebsite: https:\/\/en.greenintertraffic.ru\/ \r\nFacebook: https:\/\/www.facebook.com\/greenintertraffic\/?ref=page_internal \r\nTwitter: https:\/\/twitter.com\/GIntertraffic ",
             "color": "environment",
             "image_poster": null,
-            "subthematic": "RISK AND CLIMATE CHANGE",
+            "subthematic": "RISKS AND CLIMATE CHANGE",
             "programme": 244,
             "countries": "ru,fi,"
         },
@@ -776,7 +821,7 @@
             "links_and_map": "KEEP: https:\/\/keep.eu\/projects\/23160\/Extension-of-the-operationa-EN\/ \r\nProject page: https:\/\/huskroua-cbc.eu\/projects\/financed-projects-database\/extension-of-the-operational-space-emergency-system-towards-monitoring-of-dangerous-natural-and-man-made-geo-processes-in-the-hu-sk-ro-ua-cross-border-region  \r\nWebsite: https:\/\/geoses.ro\/ \r\nFacebook: https:\/\/www.facebook.com\/ut.cluj ",
             "color": "environment",
             "image_poster": null,
-            "subthematic": "RISK AND CLIMATE CHANGE",
+            "subthematic": "RISKS AND CLIMATE CHANGE",
             "programme": 239,
             "countries": "sk,ro,ua,hu"
         },
@@ -791,7 +836,7 @@
             "links_and_map": "KEEP: https:\/\/keep.eu\/projects\/24885\/JOINT-EMERGENCY-RESPONSE-AC-EN\/ \r\nProject page: https:\/\/ro-ua.net\/en\/about-the-programme\/awarded-projects\/154-map-with-projects\/1147-2soft-4-2-70.html ",
             "color": "environment",
             "image_poster": null,
-            "subthematic": "RISK AND CLIMATE CHANGE",
+            "subthematic": "RISKS AND CLIMATE CHANGE",
             "programme": 240,
             "countries": "ro,ua"
         },
@@ -806,7 +851,7 @@
             "links_and_map": "Keep: https:\/\/keep.eu\/projects\/24963\/Increase-Of-Cooperation-And-EN\/ \r\nProject page:  https:\/\/www.eni-cbc.eu\/lr\/en\/projects\/approved-projects-of-the-2-call-for-proposals\/lt-ru-2-074\/1323 \r\nFacebook: https:\/\/www.facebook.com\/HQ.RESPOND\/?ref=page_internal \r\n",
             "color": "environment",
             "image_poster": null,
-            "subthematic": "RISK AND CLIMATE CHANGE",
+            "subthematic": "RISKS AND CLIMATE CHANGE",
             "programme": 243,
             "countries": "lt,ru"
         },
@@ -821,7 +866,7 @@
             "links_and_map": "Keep: https:\/\/keep.eu\/projects\/24974\/Supporting-Environmental-Ec-EN\/ \r\nProject page: https:\/\/kolarctic.info\/news-and-events\/update-your-vision-of-mining\/ \r\nWebsite: https:\/\/seesima.eu\/ \r\n",
             "color": "environment",
             "image_poster": null,
-            "subthematic": "RISK AND CLIMATE CHANGE",
+            "subthematic": "RISKS AND CLIMATE CHANGE",
             "programme": 246,
             "countries": "no,ru,se,fi"
         },
@@ -928,7 +973,7 @@
             "image_poster": null,
             "subthematic": "SKILLS",
             "programme": 240,
-            "countries": "ro,ua,ro"
+            "countries": "ro,ua"
         },
         {
             "ID": 6901,
@@ -1018,7 +1063,7 @@
             "image_poster": null,
             "subthematic": "OPEN INNOVATION",
             "programme": 13,
-            "countries": "sp,lb,eg,tn,it,tn"
+            "countries": "sp,lb,eg,tn,it"
         },
         {
             "ID": 6881,
@@ -1103,7 +1148,7 @@
             "permalink": "https:\/\/tesim-enicbc.eu\/project\/connected-by-amber\/",
             "pdf_link": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/09\/CONNECTED-BY-AMBER.pdf",
             "external_featured_image": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/09\/CONNECTED-BY-AMBER.jpg",
-            "links_and_map": "KEEP: https:\/\/keep.eu\/projects\/24856\/Connected-by-amber-Joint-ac-EN\/\r\nTESIM interview: https:\/\/tbc\r\nProject page: https:\/\/www.plru.eu\/en\/news\/516,Connected-by-amber-Joint-actions-to-share-the-amber-heritage\r\nWebsite: https:\/\/muzeumgdansk.pl\/o-muzeum-gdanska\/fundusze-europejskie\/connected-by-amber-joint-actions-to-share-the-amber-heritage-polaczeni-bursztynem-wspolne-dzialania-w-celu-udostepnienia-bursztynowego-dziedzictwa-akronim-amber-heritage\/\r\nFacebook: https:\/\/www.facebook.com\/muzeumbursztynu",
+            "links_and_map": "KEEP: https:\/\/keep.eu\/projects\/24856\/Connected-by-amber-Joint-ac-EN\/\r\nTESIM interview: https:\/\/tesim-enicbc.eu\/voices\/kinga-krause\/\r\nProject page: https:\/\/www.plru.eu\/en\/news\/516,Connected-by-amber-Joint-actions-to-share-the-amber-heritage\r\nWebsite: https:\/\/muzeumgdansk.pl\/o-muzeum-gdanska\/fundusze-europejskie\/connected-by-amber-joint-actions-to-share-the-amber-heritage-polaczeni-bursztynem-wspolne-dzialania-w-celu-udostepnienia-bursztynowego-dziedzictwa-akronim-amber-heritage\/\r\nFacebook: https:\/\/www.facebook.com\/muzeumbursztynu",
             "color": "economical",
             "image_poster": null,
             "subthematic": "ENTREPRENEURSHIP",
@@ -1323,7 +1368,7 @@
         {
             "ID": 6764,
             "post_title": "52 ways to experience the Carpathian heritage",
-            "post_subtitle": "52 Carpathian Lifestyle Experiences: Reinventing Traditional Work Cultures",
+            "post_subtitle": "",
             "post_title_official": "52 Carpathian Lifestyle Experiences: Reinventing Traditional Work Cultures",
             "permalink": "https:\/\/tesim-enicbc.eu\/project\/52-ways-to-experience-the-carpathian-heritage\/",
             "pdf_link": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/02\/52-CARPATIAN-LIFESTYLES.pdf",
@@ -2156,7 +2201,7 @@
             "links_and_map": "https:\/\/keep.eu\/projects\/22495\/HAZardous-chemicaLs-in-the--EN\/\r\nProject page https:\/\/www.estoniarussia.eu\/projects\/hazless\/\r\nWebsite https:\/\/hazless.msi.ttu.ee\/?lang=en\r\nFacebook https:\/\/www.facebook.com\/HazlessProject\/",
             "color": "environment",
             "image_poster": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/04\/HAZLESS-297x420.jpg",
-            "subthematic": "RISK AND CLIMATE CHANGE",
+            "subthematic": "RISKS AND CLIMATE CHANGE",
             "programme": 159,
             "countries": "ee,ru"
         },
@@ -2171,7 +2216,7 @@
             "links_and_map": "https:\/\/keep.eu\/projects\/22905\/Clean-river-EN\/\r\nProject page https:\/\/ro-ua.net\/en\/154-map-with-projects\/1049-clean-river.html\r\nFacebook https:\/\/www.facebook.com\/rau.curat.3",
             "color": "environment",
             "image_poster": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/04\/CLEAN-RIVER-297x420.jpg",
-            "subthematic": "RISK AND CLIMATE CHANGE",
+            "subthematic": "RISKS AND CLIMATE CHANGE",
             "programme": 240,
             "countries": "ua,ro"
         },
@@ -2186,7 +2231,7 @@
             "links_and_map": "https:\/\/keep.eu\/projects\/23193\/Development-of-forest-fire--EN\/\r\nTESIM interview https:\/\/tesim-enicbc.eu\/voices\/elisa-korpelainen\/\r\nProject page https:\/\/kareliacbc.fi\/en\/projects\/fire-brake-ka2013#home",
             "color": "environment",
             "image_poster": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/04\/FIREBRAKE-297x420.jpg",
-            "subthematic": "RISK AND CLIMATE CHANGE",
+            "subthematic": "RISKS AND CLIMATE CHANGE",
             "programme": 245,
             "countries": "fi,ru"
         },
@@ -2201,7 +2246,7 @@
             "links_and_map": "https:\/\/keep.eu\/projects\/22897\/Strengthening-of-cross-bord-EN\/\r\nProject page https:\/\/huskroua-cbc.eu\/projects\/financed-projects-database\/strengthening-of-cross-border-safety-by-joint-measures-aimed-at-flood-and-inland-water-prevention-in-the-interfluves-of-tisza-tur-rivers\r\nWebsite https:\/\/safetisza.buvrtysa.gov.ua\r\nFacebook https:\/\/www.facebook.com\/Safetisza\/",
             "color": "environment",
             "image_poster": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/04\/SAFETISZA-297x420.jpg",
-            "subthematic": "RISK AND CLIMATE CHANGE",
+            "subthematic": "RISKS AND CLIMATE CHANGE",
             "programme": 239,
             "countries": "ua,hu"
         },
@@ -2216,7 +2261,7 @@
             "links_and_map": "https:\/\/keep.eu\/projects\/23046\/The-Curonian-Spit-fighting--EN\/\r\nProject page https:\/\/eni-cbc.eu\/lr\/en\/projects\/approved-projects-of-the-1-call-for-proposals\/lt-ru-1-002\/1236\r\nFacebook https:\/\/www.facebook.com\/groups\/432418377477088\/",
             "color": "environment",
             "image_poster": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/04\/THE-CURONIAN-SPIT-297x420.jpg",
-            "subthematic": "RISK AND CLIMATE CHANGE",
+            "subthematic": "RISKS AND CLIMATE CHANGE",
             "programme": 243,
             "countries": "ru,lt"
         },
@@ -2478,7 +2523,7 @@
         {
             "ID": 6683,
             "post_title": "Pabrad\u0117 Foreigners",
-            "post_subtitle": "",
+            "post_subtitle": "New facilities for border staff and immigrants at LT-BY border",
             "post_title_official": "Reconstruction and Building of Pabrad\u0117 Foreigners\u2019 Registration Centre",
             "permalink": "https:\/\/tesim-enicbc.eu\/project\/pabrade-foreigners\/",
             "pdf_link": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2021\/01\/RECONSTRUCTION-OF-PABRADE-FRC.pdf",
@@ -2563,7 +2608,7 @@
         },
         "244": {
             "ID": 244,
-            "post_title": "South East Finland-Russia",
+            "post_title": "South-East Finland-Russia",
             "post_name": "south-east-finland-russia",
             "logo": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2016\/10\/enicbc-South-East-Finland-Russia-logo.png",
             "nuts3": "fi1c5,fi1c4,fi1d1,ru-len,ru-spe",
@@ -2599,7 +2644,7 @@
             "post_name": "hungary-slovakia-romania-ukraine",
             "logo": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2016\/10\/enicbc-Hungary-slovakia-romania-ukraine-logo.png",
             "nuts3": "hu323,hu311,ro215,ro114,ro115,sk042,sk041,uab08,ua006,ua003",
-            "countries": "ro,sk,ua,hu"
+            "countries": "ua,sk,ro,hu"
         },
         "159": {
             "ID": 159,
@@ -2615,7 +2660,7 @@
             "post_name": "latvia-russia-eni-cbc",
             "logo": "https:\/\/tesim-enicbc.eu\/wp-content\/uploads\/2016\/09\/enicbc-LatRus-logo-420x280.jpg",
             "nuts3": "lv005,lv007,lv006,lv008,lv009,ru-len,ru-psk,ru-spe",
-            "countries": "lv,ru"
+            "countries": "ru,lv"
         },
         "133": {
             "ID": 133,

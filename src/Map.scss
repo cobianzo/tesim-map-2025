@@ -1,5 +1,7 @@
 @import './styles/custom.scss';
 
+// The fixing of the map. On top of this, we need to evaluate the 
+// adjustMapResolution() in Map.js
 .TM_map-wrapper {
     // mobile
     height: 235px;
@@ -22,7 +24,15 @@
         }
     }
     @media only screen and (min-width: 1000px) { 
-        min-height: 550px;
+        min-height: 600px;
+        &.tm_border {
+            box-sizing: content-box;
+            border-width: 25px;
+            border-style: solid;
+            border-image: linear-gradient(to right bottom, var(--tm-secondary), var(--tm-primary));
+            border-image-slice: 1;
+            border-radius: 10px;
+        }
         > svg {
             transform: scale(1); // more or less it works ok. At 550 already some parts of the bottom of the map are off the canvas, but its ok.
             height: 100%;
@@ -129,3 +139,4 @@
         cursor: pointer;
     }
 }
+

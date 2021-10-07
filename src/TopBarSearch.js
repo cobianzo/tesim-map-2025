@@ -126,7 +126,9 @@ export default function TopBarSearch( {   regionsToProgrammes,
             let thematic = proj.color;
             if (thematic.toLowerCase() === 'economical') thematic = 'Economic development';
             else if (thematic.toLowerCase() === 'infrastructures') thematic = 'Cross-border infrastructure';
-            const groupLabel = `${thematic}` + (proj.subthematic? ' - ' + proj.subthematic : '' ).replace('&amp;', '&');
+            let subthematic = proj.subthematic.replace(/well functioning /ig, '');
+            subthematic = subthematic.replace('&amp;', '&');
+            const groupLabel = `${thematic}` + (subthematic? ' - ' + subthematic : '' );
             var groupIndex = groupedOptions.findIndex( gr => gr.label === groupLabel );
             // if (groupIndex === -1) groupIndex = groupedOptions.findIndex( gr => gr.label === proj.color );
             if (groupIndex === -1) { // not found -> create the group
@@ -138,21 +140,12 @@ export default function TopBarSearch( {   regionsToProgrammes,
                 value: proj.ID
             });
         })
+        
         // now sort alphabetically
-        groupedOptions.forEach( (grouped, i) => {
-            grouped.options.sort((a, b) => a.label.localeCompare(b.label))
-        });
-
+        groupedOptions.sort((a, b) => a.label > b.label ? 1 : -1 );
+        
         setOptionsProjects(groupedOptions);
-        // 4 different selects. - we dont use it in the end
-        // if (groupedOptions[0]?.options)
-        //     setOptionsProjectsInfrastructures(groupedOptions[0].options);
-        // if (groupedOptions[1]?.options)
-        //     setOptionsProjectsEnvironment(groupedOptions[1].options);
-        // if (groupedOptions[2]?.options)
-        //     setOptionsProjectsP2p(groupedOptions[2].options);
-        // if (groupedOptions[3]?.options)
-        //     setOptionsProjectsEconomic(groupedOptions[3].options);
+
     }, [allProjects]);
 
     // on mount when countries info is ready

@@ -48,7 +48,7 @@
             transform: none;
             top: 80px;
             height: auto;
-            max-height: 444px;
+            max-height: 523px;
             }
         
         .TM_card {
@@ -268,5 +268,19 @@
         z-index: 1;
         transition: opacity 0.2s;
         opacity: 0;
+    }
+}
+
+/* adorno bajo el left panel */
+.TM_below-left-panel {
+    display: none;
+    @media only screen and (min-width: 600px) {
+        position: absolute;
+        // display: block;  // DEACTIVATED 
+        bottom: 8%;
+        left: 15%;
+        z-index: 6;
+        img { width: 200px; }
+        h3 { margin-top: -30px; text-align:  center;}
     }
 }

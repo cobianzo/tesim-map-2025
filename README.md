@@ -1,9 +1,11 @@
 # To update the site, I had to upload the files:  
 - all /inc folder 
-- `page-templates/page-map-standalone.php` and `page-templates/homepage2021.php`
+- `page-templates/page-map-standalone.php` and `page-templates/page-virtual-tour-standalone.php`  (and created, but not made publish: `page-templates/homepage2021.php`)
 - single-project.php
 
 
+Screen del Village: 1920x1080px
+When clicking on the play icon inside  1728x932px
 
 # TEST in Tesim page Simulation  
 - We downloaded the site using httrack, it is in `/Sites/httrack-3.49.2/tesim-enicbc.eu`
