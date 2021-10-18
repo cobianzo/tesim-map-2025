@@ -62,6 +62,16 @@ $color-norway-selectable: #444444;
 			fill: $color-candidates-selectable;
 		}
 	}
+		#landmarks-rs, #landmarks-rks, #landmarks-ba, #landmarks-mk, #landmarks-al,
+		#landmarks-tr, #landmarks-montenegro {
+			fill: $color-partners-non-selectable;
+			&.selectable {
+				fill: $color-partners-selectable;
+			}
+		}
+
+
+
 	#landmarks-non-eu-but-partners {
 		fill: $color-partners-non-selectable;
 		.selectable {

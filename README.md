@@ -1,7 +1,10 @@
-# To update the site, I had to upload the files:  
+# To update the site:  
+1) update the app locally, buinding it inside the /inc folder.
+    - we do so by using sh deploy-tesimwebsite.sh
+2) upload the files, usign the WP file manager:
 - all /inc folder 
 - `page-templates/page-map-standalone.php` and `page-templates/page-virtual-tour-standalone.php`  (and created, but not made publish: `page-templates/homepage2021.php`)
-- single-project.php
+- `single-project.php`
 
 
 Screen del Village: 1920x1080px
