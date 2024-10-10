@@ -6,26 +6,26 @@ $app-min-width: 1024px;
 
 $primary: #6b2d6d;
 $secondary: #273989;
-$info:  #e6d822;
-$light:  #EBDEEA;
-$gray: #EEE;
-$dark:  darken($primary, 20%);
+$info: #e6d822;
+$light: #ebdeea;
+$gray: #eee;
+$dark: darken($primary, 20%);
 
 :root {
-    --tm-primary: #{$primary};
-    --tm-secondary: #{$secondary};
-    --tm-info: #{$info};
-    --tm-light: #{$light};
-    --tm-dark: #{$dark};
-    --tm-gray: #{$gray};
+  --tm-primary: #{$primary};
+  --tm-secondary: #{$secondary};
+  --tm-info: #{$info};
+  --tm-light: #{$light};
+  --tm-dark: #{$dark};
+  --tm-gray: #{$gray};
 
-    --tm-environment: #59a05d;
-    --tm-p2p: #9a2c6f;
-    --tm-economic: #296180;
-    --tm-infrastructure: #c9493e;
+  --tm-environment: #59a05d;
+  --tm-p2p: #9a2c6f;
+  --tm-economic: #296180;
+  --tm-infrastructure: #c9493e;
 }
 
 // Required parts of Bootstrap
-@import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/mixins';
+// @import '~bootstrap/scss/functions';
+// @import "~bootstrap/scss/variables";
+// @import "~bootstrap/scss/mixins";
