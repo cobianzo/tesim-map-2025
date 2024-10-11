@@ -1,54 +1,59 @@
-# To update the site:  
-1) update the app locally, buinding it inside the /inc folder.
-    - we do so by using sh deploy-tesimwebsite.sh
-2) upload the files, usign the WP file manager:
-- all /inc folder 
-- `page-templates/page-map-standalone.php` and `page-templates/page-virtual-tour-standalone.php`  (and created, but not made publish: `page-templates/homepage2021.php`)
+# To update the site:
+
+1. update the app locally, building it inside the /inc folder.
+   - we do so by using sh deploy-tesimwebsite.sh
+2. upload the files, usign the WP file manager:
+
+- all /inc folder
+- `page-templates/page-map-standalone.php` and `page-templates/page-virtual-tour-standalone.php` (and created, but not made publish: `page-templates/homepage2021.php`)
 - `single-project.php`
 
-
 Screen del Village: 1920x1080px
-When clicking on the play icon inside  1728x932px
+When clicking on the play icon inside 1728x932px
 
-# TEST in Tesim page Simulation  
+# TEST in Tesim page Simulation
+
 - We downloaded the site using httrack, it is in `/Sites/httrack-3.49.2/tesim-enicbc.eu`
-- /Sites/httrack-3.49.2/tesim-enicbc.eu , run apache in localhost:9000. 
-    - the index.php calls the snippet-for-web.php, in this project.
-    - the http://localhost is always pointing to /Sites, so the .env has to 
-    - go to the folder 
-    `/Sites/httrack-3.49.2/tesim-enicbc.eu/wp-content/themes/understrap-child-master/tesim-map-react-snippet/`  
-    - `git pull` from the `https://bitbucket.org/cobianzoltddreamteam/tesim-map-react-built/src/master/` project
-    - edit `tesim-map.php`, it has to call the right css and js from the built react.  
-    - copy them from /build/index.html  
+- /Sites/httrack-3.49.2/tesim-enicbc.eu , run apache in localhost:9000.
+  - the index.php calls the snippet-for-web.php, in this project.
+  - the http://localhost is always pointing to /Sites, so the .env has to
+  - go to the folder
+    `/Sites/httrack-3.49.2/tesim-enicbc.eu/wp-content/themes/understrap-child-master/tesim-map-react-snippet/`
+  - `git pull` from the `https://bitbucket.org/cobianzoltddreamteam/tesim-map-react-built/src/master/` project
+  - edit `tesim-map.php`, it has to call the right css and js from the built react.
+  - copy them from /build/index.html
 
-# DATA  
-EXTERNAL DATA
----
-- List of programmes and their projects: in a json with format at 
-    - `projects-and-programmes.json`  . We get this one from 'interreg' project with a php fn called `get_all_eni_projects()`. We can also retrieve from API, but it's not tested live
-    - .projects
-    - .programmes
+# DATA
+
+## EXTERNAL DATA
+
+- List of programmes and their projects: in a json with format at
+  - `projects-and-programmes.json` . We get this one from 'interreg' project with a php fn called `get_all_eni_projects()`. We can also retrieve from API, but it's not tested live
+  - .projects
+  - .programmes
 - List of nuts3 and their projects
 - WE DONT USE THIS ONE BUT THE ENDPOINT WORKS: Info of a single project: given post ID, json from API interreg.eu, returning a post and acf fields Object.
 - The images of poster are, at the moment, calculated by using the thumbnail that WP generates at tesim. But normally I should use an image
 
+## REPRESENTATION OF DATA IN REACT
 
-REPRESENTATION OF DATA IN REACT  
----  
-List of Programmes: see App.js State  
-List of Projects: see App.js State  
-List of regions: Appjs state in 2 vars: 
-                allRegionsInfo : info about the name of the region, given the code  
-                regionsToProgrammes: given a region, returns programmes  associated. Calculated in run time.  
-List of countries:  
+List of Programmes: see App.js State
+List of Projects: see App.js State
+List of regions: Appjs state in 2 vars:
+allRegionsInfo : info about the name of the region, given the code
+regionsToProgrammes: given a region, returns programmes associated. Calculated in run time.
+List of countries:
 
-# DEPLOY  
-> sh deploy-build.sh  
-Creates the built-git and pushes into `https://bitbucket.org/cobianzoltddreamteam/tesim-map-react-built/`. That is the definitive project which goes live.  
-# The MAP IN SVG  
-App.js > Map.js (all html) > SVGEurope.js , created from nuts3-eni.svg   
+# DEPLOY
+
+> sh deploy-build.sh
+> Creates the built-git and pushes into `https://bitbucket.org/cobianzoltddreamteam/tesim-map-react-built/`. That is the definitive project which goes live.
+
+# The MAP IN SVG
+
+App.js > Map.js (all html) > SVGEurope.js , created from nuts3-eni.svg
 and `https://svg2jsx.com/`
-we need to remove the <def> tag to make it parseable  
+we need to remove the <def> tag to make it parseable
 and remove the parent width=1000 height=600. It will be calculated according to the parent div size.
 
 # Getting Started with Create React App

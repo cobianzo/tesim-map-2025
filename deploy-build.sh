@@ -1,5 +1,5 @@
 rm -rf built-git
-npm run build
+yarn build
 mkdir built-git
 cd built-git
 git clone git@bitbucket.org:cobianzoltddreamteam/tesim-map-react-built.git .
