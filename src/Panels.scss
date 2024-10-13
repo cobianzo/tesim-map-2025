@@ -1,286 +1,315 @@
-@import './styles/variables.scss';
+@import "./styles/variables.scss";
 
 // THE LEFT PANEL
-// shown when there is nothing selected. 
+// shown when there is nothing selected.
 .TM_left-panel {
+  z-index: 9;
+  left: 0px;
+  // mobile
+  background-color: white;
+  padding: 0px 5px 10px;
+  transition: all 1s;
 
-    
-    z-index: 9;
-    left: 0px;
-    // mobile
-    background-color: white;
-    padding: 0px 5px 10px;
-    transition: all 1s;
-    
+  .TM_h2 {
+    font-size: 1rem;
+  }
+  color: black;
+  // Desktop
+  @media only screen and (min-width: 600px) {
     .TM_h2 {
-        font-size: 1rem;;
+      font-size: 1.4rem;
     }
-    color: black;
-    // Desktop
-    @media only screen and (min-width: 600px) {
-        .TM_h2 {
-            font-size: 1.4rem;;
-        }   
-        position: absolute;
-        right: 50%;
-        border: 1px solid var(--tm-primary);
-        box-shadow: 5px 5px 5px rgba(0,0,0,0.7);
-        border-radius: 5px;
-        text-align: left; // desktop
-        padding: 20px 15px 10px;
-        margin-left: 1rem;
-        margin-right: 1rem;
-        top: 200px;
-        min-height: 261px; // Refine this for tablet (to fit the parent container)
-        
-    } 
-
-    // when nothig is selected 
-    .TM_container.TM_container--no-selection & {
-
-    }
-
-    // when there is a selection: List of programmes / Country selected 
-    .TM_container--selection & {
-
-        // The panel becomes bigger convering the maximun
-        @media only screen and (min-width: 600px) {
-            transform: none;
-            top: 80px;
-            height: auto;
-            max-height: 523px;
-            }
-        
-        .TM_card {
-          // doesnt need anything
-        }
-        .TM_card-body { // this cointainer scrolls if content is too big
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-            overflow-y: auto; // scroll only if needed
-            @media only screen and (min-width: 600px) {
-                max-height: 350px;
-            }
-        }
-
-    } // particularities of selections
-    // selection country: // when a country is selected the heading says more things and the height is smaller
-    @media only screen and (min-width: 600px) {
-        .TM_container.country-selected & {
-            .TM_card-body {
-                max-height: 315px; 
-            }
-        }
-    }
-
-    // when there is a selection or hovering
-    .TM_container--active-state & {
-        // padding: 1rem;
-        // border-radius: 5px;
-        // @media only screen and (min-width: 600px) {
-        //     max-width: 50%;
-        //     // overflow-x: scroll ;
-        // }
-    }
-
-    // When selected (list of programmes / country     
-
-
-}
-
-// inside the left panel 
-.TM_Panel {
     position: absolute;
-    z-index: 9;
-    background-color: rgba(255,255,255,0.8);
-    padding: 1rem 2rem;
+    right: 50%;
+    border: 1px solid var(--tm-primary);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.7);
     border-radius: 5px;
-    max-width: 150px;
-    &--hoveredregion {
-        left: auto;
-        right: 0;
+    text-align: left; // desktop
+    padding: 20px 15px 10px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    top: 200px;
+    min-height: 261px; // Refine this for tablet (to fit the parent container)
+  }
 
-        .region-title {
-            font-size: 1.3rem;
-            margin: 0;
-            line-height: 1;
-        }
+  // when nothig is selected
+  .TM_container.TM_container--no-selection & {
+  }
+
+  // when there is a selection: List of programmes / Country selected
+  .TM_container--selection & {
+    // The panel becomes bigger convering the maximun
+    @media only screen and (min-width: 600px) {
+      transform: none;
+      top: 80px;
+      height: auto;
+      max-height: 523px;
     }
+
+    .TM_card {
+      // doesnt need anything
+    }
+    .TM_card-body {
+      // this cointainer scrolls if content is too big
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+      overflow-y: auto; // scroll only if needed
+      @media only screen and (min-width: 600px) {
+        max-height: 350px;
+      }
+    }
+  } // particularities of selections
+  // selection country: // when a country is selected the heading says more things and the height is smaller
+  @media only screen and (min-width: 600px) {
+    .TM_container.country-selected & {
+      .TM_card-body {
+        max-height: 315px;
+      }
+    }
+  }
+
+  // when there is a selection or hovering
+  .TM_container--active-state & {
+    // padding: 1rem;
+    // border-radius: 5px;
+    // @media only screen and (min-width: 600px) {
+    //     max-width: 50%;
+    //     // overflow-x: scroll ;
+    // }
+  }
+
+  // When selected (list of programmes / country
 }
 
+// inside the left panel
+.TM_Panel {
+  position: absolute;
+  z-index: 9;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  max-width: 150px;
+  &--hoveredregion {
+    left: auto;
+    right: 0;
 
-
-
-    // when selected button Show Listo fo Programmes 
-    ul.TM_List-of-programmes {
-
-        .TM_container.showing-programmes-selected.programme-selected & {
-            display: none;   // if the programme is selected, the list of programmes is hidden
-        }
-
-        list-style: none;
-        padding: 0;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr; // 3 cols
-        > li {
-            cursor: pointer;
-            text-align: center;
-            align-items: start;
-            display: grid;
-            border-bottom: 1px solid $secondary;
-            padding: 5px 10px;
-            margin-bottom: 10px;
-            grid-template-columns: auto; // 1 col
-            &:hover {
-                background-color: $info;
-            }
-            &.selected {
-                background-color: $info;
-            }
-            p { 
-                font-size: 0.8rem;
-                line-height: 1rem;
-                margin: 0; 
-            }
-            img.logo-programme {
-                margin: auto;
-                max-width: 50px;
-            }
-            
-        }
-
-        
+    .region-title {
+      font-size: 1.3rem;
+      margin: 0;
+      line-height: 1;
     }
+  }
+}
 
-    .InnerPanel-list-of-projects {
-        
-        .TM_btn-close {
+// when selected button Show Listo fo Programmes
+ul.TM_List-of-programmes {
+  .TM_container.showing-programmes-selected.programme-selected & {
+    display: none; // if the programme is selected, the list of programmes is hidden
+  }
 
-        }
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; // 3 cols
+  > li {
+    cursor: pointer;
+    text-align: center;
+    align-items: start;
+    display: grid;
+    border-bottom: 1px solid $secondary;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    grid-template-columns: auto; // 1 col
+    &:hover {
+      background-color: $info;
     }
+    &.selected {
+      background-color: $info;
+    }
+    p {
+      font-size: 0.8rem;
+      line-height: 1rem;
+      margin: 0;
+    }
+    img.logo-programme {
+      margin: auto;
+      max-width: 50px;
+    }
+  }
+}
 
+.InnerPanel-list-of-projects {
+  .TM_btn-close {
+  }
+}
 
-
-    .TM_list-of-projects {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-gap: 1px;
-        list-style: none;
-        padding: 0;
+.TM_list-of-projects {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 1px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  grid-auto-flow: row;
+  grid-auto-columns: 100px;
+  > li {
+    cursor: pointer;
+    background-color: var(--tm-gray);
+    box-shadow: 2px 3px 3px rgb(0 0 0 / 50%);
+    .tm_img-wrapper {
+      border: 2px solid salmon;
+      height: 68px;
+      overflow: hidden;
+      img {
+        margin: auto;
+        width: 100%;
+      }
+    }
+    .project-title {
+      text-align: center;
+      width: 100%;
+      font-size: 0.8rem;
+      line-height: 1rem;
+      p {
         margin: 0;
-        grid-auto-flow: row;
-        grid-auto-columns: 100px;
-        > li {
-            cursor: pointer;
-            background-color: var(--tm-gray);
-            box-shadow: 2px 3px 3px rgb(0 0 0 / 50%);
-            .tm_img-wrapper {
-                border: 2px solid salmon;
-                height: 68px;
-                overflow: hidden;
-                img {
-                    margin: auto;
-                    width: 100%;
-                }
-            }
-            .project-title {
-                text-align: center;
-                width: 100%;
-                font-size: 0.8rem;
-                line-height: 1rem;
-                p { margin: 0; word-break: break-word;}
-                &.long-title-5 .sub-title { display: none; } // if title is too long the subtitle not shown.
-            }
-            border: 2px solid transparent;
-            &:hover {
-                border: 2px solid $secondary;
-                background-color: var(--tm-info);
-            }
-
-            // particularities of olours depending on the thematic 
-            &.project-environment .tm_img-wrapper {
-                border-color: var(--tm-environment);
-            }
-            &.project-p2p .tm_img-wrapper {
-                border-color: var(--tm-p2p);
-            }
-            &.project-infrastructures .tm_img-wrapper {
-                border-color: var(--tm-infrastructure);
-            }
-            &.project-economical .tm_img-wrapper {
-                border-color: var(--tm-economic);
-            }
-        }
+        word-break: break-word;
+      }
+      &.long-title-5 .sub-title {
+        display: none;
+      } // if title is too long the subtitle not shown.
     }
+    border: 2px solid transparent;
+    &:hover {
+      border: 2px solid $secondary;
+      background-color: var(--tm-info);
+    }
+
+    // particularities of olours depending on the thematic
+    &.project-environment .tm_img-wrapper {
+      border-color: var(--tm-environment);
+    }
+    &.project-p2p .tm_img-wrapper {
+      border-color: var(--tm-p2p);
+    }
+    &.project-infrastructures .tm_img-wrapper {
+      border-color: var(--tm-infrastructure);
+    }
+    &.project-economical .tm_img-wrapper {
+      border-color: var(--tm-economic);
+    }
+  }
+}
+
+.TM_list-of-projects:is(:empty)::after {
+  content: "No projects for " attr(data-theme);
+  grid-column-start: 1;
+  grid-column-end: -1;
+}
 
 // btn close,on the top right of the panel
 .tm_btn-wrapper {
-    position: absolute;
-    background-color: var(--tm-light);
-    right: -25px;
-    top: -25px;
-    z-index: 9;
-    padding: 25px;
-    border: 4px solid $primary;
-    border-radius: 50%;
-    display: flex;
-    justify-self: center;
-    align-items: center;
-    cursor: pointer;
-    &:hover {
-        background-color: $dark;
-        button { color: white; }
-
-        .TM_btn-close {
-            font-size: 2rem;
-            padding: 3px 5px;
-            border-radius: 50%;
-            background: none;
-        }
-    }
+  position: absolute;
+  background-color: var(--tm-light);
+  right: -25px;
+  top: -25px;
+  z-index: 9;
+  padding: 25px;
+  border: 4px solid $primary;
+  border-radius: 50%;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background-color: $dark;
     button {
-        cursor: pointer;
-        position: absolute;
-        transform: translate(-50%, -10%);
-        border: 0;
-        background-color: transparent;
+      color: white;
     }
+
+    .TM_btn-close {
+      font-size: 2rem;
+      padding: 3px 5px;
+      border-radius: 50%;
+      background: none;
+    }
+  }
+  button {
+    cursor: pointer;
+    position: absolute;
+    transform: translate(-50%, -10%);
+    border: 0;
+    background-color: transparent;
+  }
 }
 
-
 .TM_character-over-left-panel {
-    display:none;
-    @media only screen and (min-width: 600px) {
-        display: flex;
-        position: absolute;
-        left: 100px;
-        width: 150px;
-        z-index: 10;
-        transition: opacity 3s;
-        opacity: 1;
-        img {
-            width: 100%;
-            margin-top: 49px;
-        }
+  display: none;
+  @media only screen and (min-width: 600px) {
+    display: flex;
+    position: absolute;
+    left: 100px;
+    width: 150px;
+    z-index: 10;
+    transition: opacity 3s;
+    opacity: 1;
+    img {
+      width: 100%;
+      margin-top: 49px;
     }
+  }
 
-    .TM_container--active-state & {
-        z-index: 1;
-        transition: opacity 0.2s;
-        opacity: 0;
-    }
+  .TM_container--active-state & {
+    z-index: 1;
+    transition: opacity 0.2s;
+    opacity: 0;
+  }
 }
 
 /* adorno bajo el left panel */
 .TM_below-left-panel {
-    display: none;
-    @media only screen and (min-width: 600px) {
-        position: absolute;
-        // display: block;  // DEACTIVATED 
-        bottom: 8%;
-        left: 15%;
-        z-index: 6;
-        img { width: 200px; }
-        h3 { margin-top: -30px; text-align:  center;}
+  display: none;
+  @media only screen and (min-width: 600px) {
+    position: absolute;
+    // display: block;  // DEACTIVATED
+    bottom: 8%;
+    left: 15%;
+    z-index: 6;
+    img {
+      width: 200px;
     }
+    h3 {
+      margin-top: -30px;
+      text-align: center;
+    }
+  }
+}
+
+.TM_filter-by-theme {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 6px 6px 0 0;
+  gap: 1rem;
+
+  li {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-align: center;
+    line-height: 1;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    align-items: center;
+    display: flex;
+
+    &:hover {
+      background-color: var(--tm-info);
+    }
+    &.active {
+      background-color: var(--tm-primary);
+      color: white;
+      box-shadow: none;
+      outline: 5px solid var(--tm-light);
+    }
+  }
 }
