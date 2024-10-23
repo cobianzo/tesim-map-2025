@@ -2,9 +2,9 @@
 
 - Use WP Local for a WP installation
 - Clone this project with git in the WP root folder (`/public`)
-- You might need to fix issues: use `node 14`.
-- `yarn`
-- Setup the `.env` cloning the `.env localtesimsite`
+- You might need to fix issues: use `node 14` or `node 16`.
+- `yarn`, to install all dependencies.
+- ~~Setup the `.env` cloning the `.env localtesimsite`~~
 - run `deploy-tesimwebsite.sh`, to copy build into `understrap-child-master/inc/react-map`
 - The list of projects is regenrated when `on_save` a project in WP. You might need to trigger it.
 

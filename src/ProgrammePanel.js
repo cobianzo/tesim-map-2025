@@ -49,6 +49,8 @@ export default function ProgrammePanel({
       <FilterByThematic
         filterByTheme={filterByTheme}
         setFilterByTheme={setFilterByTheme}
+        projects={allProgrammes[programmeId].projects}
+        allProjects={allProjects}
       />
 
       <ul

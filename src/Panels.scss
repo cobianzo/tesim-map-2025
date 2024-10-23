@@ -6,8 +6,10 @@
   z-index: 9;
   left: 0px;
   // mobile
+  position: absolute;
   background-color: white;
   padding: 0px 5px 10px;
+  box-shadow: 5px 4px 3px 0 rgba(0, 0, 0, 0.4);
   transition: all 1s;
 
   .TM_h2 {
@@ -15,7 +17,8 @@
   }
   color: black;
   // Desktop
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 960px) {
+    position: relative;
     .TM_h2 {
       font-size: 1.4rem;
     }
@@ -39,7 +42,7 @@
   // when there is a selection: List of programmes / Country selected
   .TM_container--selection & {
     // The panel becomes bigger convering the maximun
-    @media only screen and (min-width: 600px) {
+    @media only screen and (min-width: 960px) {
       transform: none;
       top: 80px;
       height: auto;
@@ -54,13 +57,13 @@
       padding-bottom: 10px;
       margin-bottom: 15px;
       overflow-y: auto; // scroll only if needed
-      @media only screen and (min-width: 600px) {
+      @media only screen and (min-width: 960px) {
         max-height: 350px;
       }
     }
   } // particularities of selections
   // selection country: // when a country is selected the heading says more things and the height is smaller
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 960px) {
     .TM_container.country-selected & {
       .TM_card-body {
         max-height: 315px;
@@ -72,7 +75,7 @@
   .TM_container--active-state & {
     // padding: 1rem;
     // border-radius: 5px;
-    // @media only screen and (min-width: 600px) {
+    // @media only screen and (min-width: 960px) {
     //     max-width: 50%;
     //     // overflow-x: scroll ;
     // }
@@ -244,7 +247,7 @@ ul.TM_List-of-programmes {
 
 .TM_character-over-left-panel {
   display: none;
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 960px) {
     display: flex;
     position: absolute;
     left: 100px;
@@ -268,7 +271,7 @@ ul.TM_List-of-programmes {
 /* adorno bajo el left panel */
 .TM_below-left-panel {
   display: none;
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 960px) {
     position: absolute;
     // display: block;  // DEACTIVATED
     bottom: 8%;
@@ -289,18 +292,31 @@ ul.TM_List-of-programmes {
   flex-direction: row;
   list-style: none;
   padding: 6px 6px 0 0;
-  gap: 1rem;
+  margin: 0.5rem 0 1rem 0;
+  justify-content: space-around;
+  gap: 0.3rem;
+
+  flex-wrap: wrap;
+  @media only screen and (min-width: 960px) {
+    flex-wrap: nowrap;
+  }
 
   li {
     padding: 0.5rem 1rem;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     text-align: center;
     line-height: 1;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     align-items: center;
     display: flex;
+
+    &[data-count="0"] {
+      opacity: 0.5;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
 
     &:hover {
       background-color: var(--tm-info);

@@ -526,6 +526,8 @@ export default function Map({
                   <FilterByThematic
                     filterByTheme={filterByTheme}
                     setFilterByTheme={setFilterByTheme}
+                    projects={countriesToProjects[countrySelected]}
+                    allProjects={allProjects}
                   />
                   <footer className="TM_text-secondary">
                     {countrySelected &&
