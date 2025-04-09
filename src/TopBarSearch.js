@@ -4,14 +4,14 @@ import Select from 'react-select'
 /**
  * DROPDOWN for the countries (also regions, but it was removed).
  */
-export default function TopBarSearch( {   regionsToProgrammes, 
+export default function TopBarSearch( {   regionsToProgrammes,
                                             allRegionsInfo, allCountriesInfo,
                                             hovered, countryHovered,
                                             selected, setRegionSelected,
                                             countrySelected, setCountrySelected,
                                             allProjects, projectInModal, setProjectInModal,
                                             appOptions, setAppOptions } ) {
-    
+
     // **** STATES *****
     const [optionsRegionsByCountry, setOptionsRegionsByCountry] = React.useState([]); // not in use anymore. It works though
     const [optionsCountry, setOptionsCountry] = React.useState([]);
@@ -24,7 +24,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
     const [placeholderRef, setPlaceholderRef] = React.useState(null); // works better the shabby solution used for dropdown project.
     const [placeholderCountryRef, setPlaceholderCountryRef] = React.useState(null);
     // const [placeholderProjectRef, setPlaceholderProjectRef] = React.useState(null);
-    
+
 
     // **** ON MOUNT *****
     React.useEffect(() => {
@@ -35,7 +35,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
         if (!regionsToProgrammes || !regionsToProgrammes.countries || Object.keys(regionsToProgrammes.countries).length === 0) return;
         // if (options.length) return; //it was already initialized, so dont repeat.
         // if (optionsCountry.length) return; //it was already initialized, so dont repeat.
-        
+
         // set up options
         const newOptions = [];
         const allCountriesArray = []; // [es, it ... ]
@@ -53,8 +53,8 @@ export default function TopBarSearch( {   regionsToProgrammes,
             }
 
             const regionInfo = allRegionsInfo[nuts3Code];
-            
-            if (currentGroupCountry !== countryCode) { 
+
+            if (currentGroupCountry !== countryCode) {
                 // change of country group. init.
                 if (tempGroupedOptions) {
                     newOptions.push(tempGroupedOptions); // add it to the Select
@@ -63,10 +63,10 @@ export default function TopBarSearch( {   regionsToProgrammes,
                 tempGroupedOptions = { label, options: [] }; // init to empty list of regions
                 currentGroupCountry = countryCode;
 
-                allCountriesArray.push({ label, value: countryCode}); // 
-            } 
+                allCountriesArray.push({ label, value: countryCode}); //
+            }
             tempGroupedOptions.options.push({label: regionInfo?.title, value: nuts3Code});
-            
+
             // if (regionsToProgrammes[nuts3Code]?.length) {
             //     newOptions.push({label: regionInfo.title, value: nuts3Code});
             // }
@@ -78,9 +78,9 @@ export default function TopBarSearch( {   regionsToProgrammes,
             END OF options for search for region (nuts3)
             START of options for search by country
         */
-    
-        
-        
+
+
+
         // eliminate duplicates
         var allCountriesArrayUnique = [];
         allCountriesArrayUnique = allCountriesArray.filter((thing, index, self) =>
@@ -112,16 +112,16 @@ export default function TopBarSearch( {   regionsToProgrammes,
         // cleanup
         }
     }, [allRegionsInfo, regionsToProgrammes, allCountriesInfo, countrySelected]);
-    
+
     // Initialize the dropdown values for All proyects
     React.useEffect( () => {
         if (!allProjects || !allProjects.length ) return;
         if (optionsProjects.length) return;
         var groupedOptions = [];
-        
+
         // to create a title we can use   { value: 'blue', label: 'Blue', color: '#0052CC', isDisabled: true },
         allProjects.forEach( proj => {
-            // find the option with that label 
+            // find the option with that label
             // we group projects by thematic, prop.color (environment, p2p, economic, infrastr)
             let thematic = proj.color;
             if (thematic.toLowerCase() === 'economical') thematic = 'Economic development';
@@ -140,10 +140,10 @@ export default function TopBarSearch( {   regionsToProgrammes,
                 value: proj.ID
             });
         })
-        
+
         // now sort alphabetically
         groupedOptions.sort((a, b) => a.label > b.label ? 1 : -1 );
-        
+
         setOptionsProjects(groupedOptions);
 
     }, [allProjects]);
@@ -157,7 +157,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
         if (!allRegionsInfo[hovered]) {
             if (selected) {
                 placeholderRef.textContent = allRegionsInfo[selected].title;
-                return    
+                return
             }
             placeholderRef.textContent = 'Select a region';
             return;
@@ -169,7 +169,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
         if (!allCountriesInfo[countryHovered]) { // if the country exists
             if (countrySelected) {
                 placeholderCountryRef.textContent = allCountriesInfo[countrySelected].title;
-                return;  
+                return;
             }
             placeholderCountryRef.textContent = 'Select a country';
             return;
@@ -204,7 +204,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
     // *** HANDLERS
     // const handleSelectRegion = e => { setRegionSelected(e.value); }
     const handleSelectCountry = e => {
-        setRegionSelected(null); 
+        setRegionSelected(null);
         setCountrySelected(e.value);
     }
 
@@ -213,38 +213,38 @@ export default function TopBarSearch( {   regionsToProgrammes,
 
 
     // *** T E M P L A T E ******    JXS    *******************************
-    /**********************************************************************/     
+    /**********************************************************************/
     return (<>
 
         <button className={`tm_nav-item TM_col-12 TM_col-md-3 TM_btn TM_btn-primary ${appOptions.showProjectsType}`}
-              onClick={ e => 
+              onClick={ e =>
                   setAppOptions( Object.assign( {...appOptions}, {
                     showProjectsType: appOptions.showProjectsType === 'all-programmes'? 'map' : 'all-programmes'
                   }))
                 }>
-            {appOptions.showProjectsType === 'all-programmes' ? 
-          <span>Close list of programmes</span>: <span>LIST OF 15 ENI CBC PROGRAMMES</span>}
+            {appOptions.showProjectsType === 'all-programmes' ?
+          <span>Close list of programmes</span>: <span>LIST OF PROGRAMMES</span>}
         </button>
 
         <div className='tm_nav-item search-by-country TM_col-6 TM_col-md-3'>
-            <Select options={optionsCountry} 
-                    placeholder="Lookup by country" 
+            <Select options={optionsCountry}
+                    placeholder="Lookup by country"
                     defaultValue={''} // I didnt find a way to change the value automatically.
                     // onInputChange={ handleSelectRegion }
                     onChange={handleSelectCountry}/>
         </div>
         {/* <div className='search-by-region TM_col-6 TM_col-md-4'>
-            <Select options={optionsRegionsByCountry} 
-                    placeholder="Lookup by region name" 
+            <Select options={optionsRegionsByCountry}
+                    placeholder="Lookup by region name"
                     defaultValue={hovered}
                     // onInputChange={ handleSelectRegion }
                     onChange={null}/>
         </div> */}
         <div className='tm_nav-item search-by-project TM_col-6 TM_col-md-3'>
-            <Select options={optionsProjects} 
-                    placeholder="Lookup by project" 
+            <Select options={optionsProjects}
+                    placeholder="Lookup by project"
                     defaultValue={projectInModal}
-                    styles={ {groupHeading: (styles) => Object.assign({ ...styles }, { 
+                    styles={ {groupHeading: (styles) => Object.assign({ ...styles }, {
                                                     fontSize: '22px',
                                                     background: 'gray',
                                                     color: 'white'
@@ -255,13 +255,13 @@ export default function TopBarSearch( {   regionsToProgrammes,
 
         {/* { Dropdown for every thematic - we dont want this in the end
         <div className='tm_nav-item search-by-project TM_col-6 TM_col-md-3'>
-            <Select options={optionsProjectsEnvironment} 
-                    placeholder="Environment projects" 
+            <Select options={optionsProjectsEnvironment}
+                    placeholder="Environment projects"
                     defaultValue={null}
                     // onInputChange={ handleSelectRegion }
                     onChange={ e => setProjectInModal(e.value) }/>
         </div> */}
-        
+
         {/* reg hover <b>{ hovered}</b> //
         reg sel <b>{ selected}</b> //
         country hob <b>{ countryHovered}</b> //

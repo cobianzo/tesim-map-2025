@@ -4,7 +4,7 @@
 - Clone this project with git in the WP root folder (`/public`)
 - You might need to fix issues: use `node 14` or `node 16`.
 - `yarn`, to install all dependencies.
-- ~~Setup the `.env` cloning the `.env localtesimsite`~~
+- ~~Setup the `.env` cloning the `.env localtesimsite`~~ Replaced for getBaseUrl() instead
 - run `deploy-tesimwebsite.sh`, to copy build into `understrap-child-master/inc/react-map`
 - The list of projects is regenrated when `on_save` a project in WP. You might need to trigger it.
 
@@ -26,7 +26,7 @@ When clicking on the play icon inside 1728x932px
 - We downloaded the site using httrack, it is in `/Sites/httrack-3.49.2/tesim-enicbc.eu`
 - /Sites/httrack-3.49.2/tesim-enicbc.eu , run apache in localhost:9000.
   - the index.php calls the snippet-for-web.php, in this project.
-  - the http://localhost is always pointing to /Sites, so the .env has to
+  ~~- the http://localhost is always pointing to /Sites, so the .env has to~~ using getBaseUrl isntead
   - go to the folder
     `/Sites/httrack-3.49.2/tesim-enicbc.eu/wp-content/themes/understrap-child-master/tesim-map-react-snippet/`
   - `git pull` from the `https://bitbucket.org/cobianzoltddreamteam/tesim-map-react-built/src/master/` project
@@ -38,7 +38,9 @@ When clicking on the play icon inside 1728x932px
 ## EXTERNAL DATA
 
 - List of programmes and their projects: in a json with format at
-  - `projects-and-programmes.json` . We get this one from 'interreg' project with a php fn called `get_all_eni_projects()`. We can also retrieve from API, but it's not tested live
+  - `projects-and-programmes.json` . We get this one from 'interreg' project with a php fn called `get_all_eni_projects()`. (the interreg.eu project has been replaced in 2025, so this is not valid anymore)  We can also retrieve from API, but it's not tested live
+  - Nowadays that `projects-and-programmes.json` is overwritten by interregtesimnext.eu, which holds this map in production, on `save_post`.
+    - We need to make sure that the permissions are ok for this file with `chown www-data:www-data projects-and-programmes.json`
   - .projects
   - .programmes
 - List of nuts3 and their projects
