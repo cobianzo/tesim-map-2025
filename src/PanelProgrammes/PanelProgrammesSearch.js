@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import ProgrammeInfoPanel from "./ProgrammeInfoPanel";
-import ProgrammePanel from "./ProgrammePanel";
+import ProgrammeInfoPanel from "../ProgrammeInfoPanel";
+import ProgrammePanel from "../ProgrammePanel";
 import queryString from "query-string";
-import ProjectInfo from "./ProjectInfo";
+import ProjectInfo from "../ProjectInfo";
 
 /* TODO:
 when hovering a ProgrammeInfoPanel, the regions in the map are shown

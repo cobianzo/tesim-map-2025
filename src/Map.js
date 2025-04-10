@@ -10,8 +10,7 @@ import "./Map.scss";
 import TopBarSearch from "./TopBarSearch";
 import ProjectInfo from "./ProjectInfo";
 import PanelHoveredRegion from "./PanelHoveredRegion"; // works but they dont want it
-// import PanelSelectedRegion from './PanelSelectedRegion';
-import PanelProgrammesSearch from "./PanelProgrammesSearch";
+import PanelProgrammes from "./PanelProgrammes/PanelProgrammes";
 
 export default function Map({
   allProgrammes,
@@ -219,6 +218,12 @@ export default function Map({
     }
   }, [appOptions.showProjectsType]); //WATCH (change from/to 'select country in map' - 'show programmes and select one')
 
+  // COMPPUTED
+  const showProgrammesPanel = React.useMemo(() => {
+    return appOptions.showProjectsType === "all-programmes" && !countryHovered;
+  }, [appOptions.showProjectsType, countryHovered]);
+
+
   // **** HANDLERS *****
   const handleMouseMove = (e) => {
     // grab the hovered svg path and update the 'hovered' var with that code , ie es032
@@ -276,7 +281,7 @@ export default function Map({
     if (countryHovered) classes.push("country-hovered");
     if (regionSelected) classes.push("region-selected");
     if (countrySelected) classes.push("country-selected");
-    if (appOptions.showProjectsType === "all-programmes")
+    if (showProgrammesPanel)
       classes.push("showing-programmes-selected");
     if (selectedProgramme) classes.push("programme-selected");
     if (projectInModal) classes.push("project-opened");
@@ -334,10 +339,9 @@ export default function Map({
           setRegionSelected={setRegionSelected}
           countrySelected={countrySelected}
           setCountrySelected={setCountrySelected}
-          allRegionsInfo={allRegionsInfo}
+          showProgrammesPanel={showProgrammesPanel}
           appOptions={appOptions}
           setAppOptions={setAppOptions}
-          allProjects={allProjects}
           projectInModal={projectInModal}
           setProjectInModal={setProjectInModal}
         />
@@ -354,69 +358,149 @@ export default function Map({
           />
         </div>
 
+        {
+          showProgrammesPanel &&
+            <PanelProgrammes
+              allProgrammes={allProgrammes}
+              allProjects={allProjects}
+              setProjectInModal={setProjectInModal}
+              hoveredProgramme={hoveredProgramme}
+              setHoveredProgramme={setHoveredProgramme}
+              selectedProgramme={selectedProgramme}
+              setSelectedProgramme={setSelectedProgramme}
+              appOptions={appOptions}
+              showProgrammesPanel={showProgrammesPanel}
+              countryHovered={countryHovered}
+            />
+        }
+
+
+
         {/* Panel on the left. Shows info of selected country or shows Search by programme */}
-        <div className={"TM_left-panel"}>
-          <div className="TM_card">
-            {/********** HEAD of PANEL **********/}
-            <div className="TM_card-header">
-              {currentStateClasses.length === 0 && (
-                <>
-                  {/* Help info when nothing is selected */}
-                  <h2 className="TM_h2">
-                    Search by programme, country or project
-                  </h2>
-                </>
-              )}
+        { !showProgrammesPanel && (
+          <div className={"TM_left-panel"}>
+            <div className="TM_card">
+              {/********** HEAD of PANEL **********/}
+              <div className="TM_card-header">
+                {currentStateClasses.length === 0 && (
+                  <>
+                    {/* Help info when nothing is selected */}
+                    <h2 className="TM_h2">
+                      Search by programme, country or project
+                    </h2>
+                  </>
+                )}
 
-              {/* Show all programmes is selected */}
-              {appOptions.showProjectsType === "all-programmes" &&
-                (selectedProgramme ? (
-                  <h2 className="TM_h2">
-                    <b>{allProgrammes[selectedProgramme].post_title}</b>
-                  </h2>
-                ) : (
-                  <h2 className="TM_h2">Select an ENI CBC programme</h2>
-                ))}
-
-              {/* a country is hovered */}
-              {countryHovered && !countrySelected && (
-                <h2 className="TM_h2 tm_mt-0">
-                  <b>{allCountriesInfo[countryHovered]?.title}</b>
-                </h2>
-              )}
-
-              {/* a country is selected */}
-              {countrySelected && (
-                <>
+                {/* a country is hovered */}
+                {countryHovered && !countrySelected && (
                   <h2 className="TM_h2 tm_mt-0">
-                    <b>{allCountriesInfo[countrySelected]?.title}</b>
+                    <b>{allCountriesInfo[countryHovered]?.title}</b>
                   </h2>
-                  {regionsToProgrammes.countries[countrySelected].length && (
+                )}
+
+                {/* a country is selected */}
+                {countrySelected && (
+                  <>
+                    <h2 className="TM_h2 tm_mt-0">
+                      <b>{allCountriesInfo[countrySelected]?.title}</b>
+                    </h2>
+                    {regionsToProgrammes.countries[countrySelected].length && (
+                      <p>
+                        {" "}
+                        Participating in{" "}
+                        {
+                          regionsToProgrammes.countries[countrySelected].filter(
+                            (pp) => pp.length
+                          ).length
+                        }{" "}
+                        Programme
+                        {regionsToProgrammes.countries[countrySelected].length >
+                          1 && "s"}
+                        :
+                        {regionsToProgrammes.countries[countrySelected].map(
+                          (code, i) => (
+                            <b key={`pro-${i}`}>
+                              {" "}
+                              {i > 0 && "; "} {allProgrammes[code].post_title}{" "}
+                            </b>
+                          )
+                        )}
+                        <br />
+                        {countriesToProjects[countrySelected]?.length ? (
+                          <span>
+                            <b>{countriesToProjects[countrySelected].length}</b>{" "}
+                            {countriesToProjects[countrySelected].length > 1 ? (
+                              <>
+                                <b>projects</b> are
+                              </>
+                            ) : (
+                              <>
+                                <b>project</b> is
+                              </>
+                            )}
+                            &nbsp; shown in this exhibition
+                          </span>
+                        ) : (
+                          allCountriesInfo[countrySelected] && (
+                            <span>
+                              {" "}
+                              <br />
+                              Engaged in ENI CBC projects outside this exhibition
+                            </span>
+                          )
+                        )}
+                      </p>
+                    )}
+                    <div
+                      className="tm_btn-wrapper"
+                      onClick={(e) => setCountrySelected(null)}
+                    >
+                      <button className="TM_btn-close ">⇠</button>
+                    </div>
+                  </>
+                )}
+                {/* @BOOK:SELECTBYREGION not needed since we dont select region anymore
+                      {regionSelected &&
+                      <button onClick={ e => { setRegionSelected(null); setCountrySelected(null); }}
+                          className='TM_btn TM_btn-secondary'>
+                          Close selection
+                      </button>} */}
+              </div>
+              {/********** END OF HEAD **********/}
+
+              {/********** BODY of PANEL **********/}
+              <div className="TM_card-body">
+                {/* Just info when nothing is selected */}
+                {currentStateClasses.length === 0 && (
+                  <p>
+                    Here you can access information about the ENI CBC projects
+                    portrayed in this exhibition: select them using the above
+                    options, or directly passing your mouse on the map to the
+                    right
+                  </p>
+                )}
+
+                {/* a country is hovered (body) */}
+                {countryHovered && !countrySelected && (
+                  <>
                     <p>
                       {" "}
                       Participating in{" "}
-                      {
-                        regionsToProgrammes.countries[countrySelected].filter(
-                          (pp) => pp.length
-                        ).length
-                      }{" "}
-                      Programme
-                      {regionsToProgrammes.countries[countrySelected].length >
-                        1 && "s"}
-                      :
-                      {regionsToProgrammes.countries[countrySelected].map(
-                        (code, i) => (
-                          <b key={`pro-${i}`}>
-                            {" "}
-                            {i > 0 && "; "} {allProgrammes[code].post_title}{" "}
-                          </b>
-                        )
-                      )}
+                      <b>
+                        {
+                          regionsToProgrammes.countries[countryHovered].filter(
+                            (pp) => pp.length
+                          ).length
+                        }{" "}
+                        Programme
+                        {regionsToProgrammes.countries[countryHovered].length >
+                          1 && "s"}
+                      </b>
                       <br />
-                      {countriesToProjects[countrySelected]?.length ? (
+                      {countriesToProjects[countryHovered]?.length ? (
                         <span>
-                          <b>{countriesToProjects[countrySelected].length}</b>{" "}
-                          {countriesToProjects[countrySelected].length > 1 ? (
+                          <b>{countriesToProjects[countryHovered].length}</b>{" "}
+                          {countriesToProjects[countryHovered].length > 1 ? (
                             <>
                               <b>projects</b> are
                             </>
@@ -428,7 +512,7 @@ export default function Map({
                           &nbsp; shown in this exhibition
                         </span>
                       ) : (
-                        allCountriesInfo[countrySelected] && (
+                        allCountriesInfo[countryHovered] && (
                           <span>
                             {" "}
                             <br />
@@ -437,161 +521,69 @@ export default function Map({
                         )
                       )}
                     </p>
-                  )}
-                  <div
-                    className="tm_btn-wrapper"
-                    onClick={(e) => setCountrySelected(null)}
-                  >
-                    <button className="TM_btn-close ">⇠</button>
-                  </div>
-                </>
-              )}
-              {/* @BOOK:SELECTBYREGION not needed since we dont select region anymore
-                    {regionSelected &&
-                    <button onClick={ e => { setRegionSelected(null); setCountrySelected(null); }}
-                        className='TM_btn TM_btn-secondary'>
-                        Close selection
-                    </button>} */}
-            </div>
-            {/********** END OF HEAD **********/}
-
-            {/********** BODY of PANEL **********/}
-            <div className="TM_card-body">
-              {/* Just info when nothing is selected */}
-              {currentStateClasses.length === 0 && (
-                <p>
-                  Here you can access information about the ENI CBC projects
-                  portrayed in this exhibition: select them using the above
-                  options, or directly passing your mouse on the map to the
-                  right
-                </p>
-              )}
-
-              {/* a country is hovered (body) */}
-              {countryHovered && !countrySelected && (
-                <>
-                  <p>
-                    {" "}
-                    Participating in{" "}
-                    <b>
-                      {
-                        regionsToProgrammes.countries[countryHovered].filter(
-                          (pp) => pp.length
-                        ).length
-                      }{" "}
-                      Programme
-                      {regionsToProgrammes.countries[countryHovered].length >
-                        1 && "s"}
-                    </b>
-                    <br />
-                    {countriesToProjects[countryHovered]?.length ? (
-                      <span>
-                        <b>{countriesToProjects[countryHovered].length}</b>{" "}
-                        {countriesToProjects[countryHovered].length > 1 ? (
-                          <>
-                            <b>projects</b> are
-                          </>
-                        ) : (
-                          <>
-                            <b>project</b> is
-                          </>
-                        )}
-                        &nbsp; shown in this exhibition
-                      </span>
-                    ) : (
-                      allCountriesInfo[countryHovered] && (
-                        <span>
+                    <p className="TM_text-secondary">
+                      {countriesToProjects[countryHovered]?.length && (
+                        <>
                           {" "}
                           <br />
-                          Engaged in ENI CBC projects outside this exhibition
-                        </span>
-                      )
-                    )}
-                  </p>
-                  <p className="TM_text-secondary">
-                    {countriesToProjects[countryHovered]?.length && (
-                      <>
-                        {" "}
-                        <br />
-                        Click on the country for more information{" "}
-                      </>
-                    )}
-                  </p>
-                </>
-              )}
-
-              {/* a country is selected (body) */}
-              {countrySelected && countriesToProjects[countrySelected] && (
-                <div className="InnerPanel-list-of-projects">
-                  <FilterByThematic
-                    filterByTheme={filterByTheme}
-                    setFilterByTheme={setFilterByTheme}
-                    projects={countriesToProjects[countrySelected]}
-                    allProjects={allProjects}
-                  />
-                  <footer className="TM_text-secondary">
-                    {countrySelected &&
-                      countriesToProjects[countrySelected] && (
-                        <>
-                          <small>
-                            {" "}
-                            Click on the icon to open the full description
-                          </small>
+                          Click on the country for more information{" "}
                         </>
                       )}
-                  </footer>
-                  <div
-                    className="tm_btn-wrapper"
-                    onClick={(e) => setCountrySelected(null)}
-                  >
-                    <button className="TM_btn-close ">⇠</button>
-                  </div>
-                  <ul
-                    className="TM_list-of-projects"
-                    data-theme={themeToLabel(filterByTheme)}
-                  >
-                    {projectsInAlphabetic.map((projectId) => {
-                      const projInfo = allProjects.find(
-                        (pro) => projectId === pro.ID
-                      );
-                      return !filterByTheme.length ||
-                        themeToProjectColor(filterByTheme) ===
-                          projInfo?.color ? (
-                        <ProjectInfo
-                          key={`pp-${projectId}`}
-                          setProjectInModal={setProjectInModal}
-                          projectInfo={projInfo}
-                          key={`pi-${projectId}`}
-                        />
-                      ) : null;
-                    })}
-                  </ul>
-                </div>
-              )}
-              {/* @BOOK:SELECTBYREGION
-                    { regionSelected &&
-                    <PanelSelectedRegion allProgrammes={allProgrammes} allProjects={allProjects}
-                        allRegionsInfo={allRegionsInfo} allCountriesInfo={allCountriesInfo}
-                        regionsToProgrammes={regionsToProgrammes}
-                        regionSelected={regionSelected} setRegionSelected={setRegionSelected}
-                        appOptions={appOptions}
-                        projectInModal={projectInModal} setProjectInModal={setProjectInModal} />} */}
+                    </p>
+                  </>
+                )}
 
-              {/* All programmes, or A programme is selected */}
-              {appOptions.showProjectsType === "all-programmes" && (
-                <PanelProgrammesSearch
-                  allProgrammes={allProgrammes}
-                  allProjects={allProjects}
-                  setProjectInModal={setProjectInModal}
-                  hoveredProgramme={hoveredProgramme}
-                  setHoveredProgramme={setHoveredProgramme}
-                  selectedProgramme={selectedProgramme}
-                  setSelectedProgramme={setSelectedProgramme}
-                />
-              )}
+                {/* a country is selected (body) */}
+                {countrySelected && countriesToProjects[countrySelected] && (
+                  <div className="InnerPanel-list-of-projects">
+                    <FilterByThematic
+                      filterByTheme={filterByTheme}
+                      setFilterByTheme={setFilterByTheme}
+                      projects={countriesToProjects[countrySelected]}
+                      allProjects={allProjects}
+                    />
+                    <footer className="TM_text-secondary">
+                      {countrySelected &&
+                        countriesToProjects[countrySelected] && (
+                          <>
+                            <small>
+                              Click on the icon to open the full description
+                            </small>
+                          </>
+                        )}
+                    </footer>
+                    <div
+                      className="tm_btn-wrapper"
+                      onClick={(e) => setCountrySelected(null)}
+                    >
+                      <button className="TM_btn-close ">⇠</button>
+                    </div>
+                    <ul
+                      className="TM_list-of-projects"
+                      data-theme={themeToLabel(filterByTheme)}
+                    >
+                      {projectsInAlphabetic.map((projectId) => {
+                        const projInfo = allProjects.find(
+                          (pro) => projectId === pro.ID
+                        );
+                        return !filterByTheme.length ||
+                          themeToProjectColor(filterByTheme) ===
+                            projInfo?.color ? (
+                          <ProjectInfo
+                            key={`pp-${projectId}`}
+                            setProjectInModal={setProjectInModal}
+                            projectInfo={projInfo}
+                            key={`pi-${projectId}`}
+                          />
+                        ) : null;
+                      })}
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
         {/* <!-- end left panel --> */}
 
         {/* Below the left panel when nothing is selected deactivate dwith d-none because Armenia becomes Argentina */}

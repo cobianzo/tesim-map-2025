@@ -9,6 +9,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
                                             hovered, countryHovered,
                                             selected, setRegionSelected,
                                             countrySelected, setCountrySelected,
+                                            showProgrammesPanel,
                                             allProjects, projectInModal, setProjectInModal,
                                             appOptions, setAppOptions } ) {
 
@@ -222,8 +223,9 @@ export default function TopBarSearch( {   regionsToProgrammes,
                     showProjectsType: appOptions.showProjectsType === 'all-programmes'? 'map' : 'all-programmes'
                   }))
                 }>
-            {appOptions.showProjectsType === 'all-programmes' ?
-          <span>Close list of programmes</span>: <span>LIST OF PROGRAMMES</span>}
+            {showProgrammesPanel ?
+                <span>Close list of programmes</span> :
+                (countryHovered ? <span></span> : <span>LIST OF PROGRAMMES</span>) }
         </button>
 
         <div className='tm_nav-item search-by-country TM_col-6 TM_col-md-3'>
