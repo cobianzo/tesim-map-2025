@@ -11,10 +11,10 @@ export default function TopBarSearch( {   regionsToProgrammes,
                                             countrySelected, setCountrySelected,
                                             showProgrammesPanel,
                                             allProjects, projectInModal, setProjectInModal,
+                                            selectedPeriod,
                                             appOptions, setAppOptions } ) {
 
-    // **** STATES *****
-    const [optionsRegionsByCountry, setOptionsRegionsByCountry] = React.useState([]); // not in use anymore. It works though
+    // **** STATES ****
     const [optionsCountry, setOptionsCountry] = React.useState([]);
     const [optionsProjects, setOptionsProjects] = React.useState([]); // for select all projects
     // const [optionsProjectsEnvironment, setOptionsProjectsEnvironment] = React.useState([]); // for select all projects
@@ -73,7 +73,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
             // }
         });
         newOptions.push(tempGroupedOptions);
-        setOptionsRegionsByCountry(newOptions);
+
 
         /*  --------------
             END OF options for search for region (nuts3)
@@ -235,13 +235,6 @@ export default function TopBarSearch( {   regionsToProgrammes,
                     // onInputChange={ handleSelectRegion }
                     onChange={handleSelectCountry}/>
         </div>
-        {/* <div className='search-by-region TM_col-6 TM_col-md-4'>
-            <Select options={optionsRegionsByCountry}
-                    placeholder="Lookup by region name"
-                    defaultValue={hovered}
-                    // onInputChange={ handleSelectRegion }
-                    onChange={null}/>
-        </div> */}
         <div className='tm_nav-item search-by-project TM_col-6 TM_col-md-3'>
             <Select options={optionsProjects}
                     placeholder="Lookup by project"

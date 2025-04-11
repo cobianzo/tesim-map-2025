@@ -362,6 +362,7 @@ export default function Map({
           setAppOptions={setAppOptions}
           projectInModal={projectInModal}
           setProjectInModal={setProjectInModal}
+          selectedPeriod={selectedPeriod}
         />
       </div>
 

@@ -25,7 +25,7 @@ function App() {
     showProjectsType: "all-programmes",
   }); // programmes|map (by default)
 
-  // **** ON MOUNT *****
+  // **** ON MOUNT init the state vars *****
   React.useEffect(() => {
     setAppOptions({ showProjectsType: "map" });
     fetchProgrammesProjects();
