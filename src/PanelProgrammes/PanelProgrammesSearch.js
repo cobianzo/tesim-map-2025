@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
-import ProgrammeInfoPanel from "../ProgrammeInfoPanel";
+import React from "react";
+
 import ProgrammePanel from "../ProgrammePanel";
-import queryString from "query-string";
-import ProjectInfo from "../ProjectInfo";
+import DebugShowAllProgrammes from "./DebugShowAllProgrammes";
+import TogglePill from "../TogglePill";
+
+
 
 /* TODO:
 when hovering a ProgrammeInfoPanel, the regions in the map are shown
@@ -16,9 +18,9 @@ export default function PanelProgrammesSearch({
   setHoveredProgramme,
   selectedProgramme,
   setSelectedProgramme,
+  periods,
+  selectedPeriod, setSelectedPeriod
 }) {
-  const [periods, setPeriods] = React.useState([]);
-  const [selectedPeriod, setSelectedPeriod] = React.useState("");
   // CALCULATED/INIT Programmes in alphabetical order!
   var programmesIdsAlphabetical = React.useMemo(
     () =>
@@ -28,49 +30,15 @@ export default function PanelProgrammesSearch({
     [allProgrammes]
   );
 
-  // Calculate the periods. It will come out with ['eni-cbc', 'interreg-next'].
-  useEffect(() => {
-    if (!allProgrammes || !Object.keys(allProgrammes).length) return;
-    const periods = new Set();
-    Object.keys(allProgrammes).forEach((programmeID) => {
-      const programme = allProgrammes[programmeID];
-      if (!periods.has(programme.period)) {
-        periods.add(programme.period);
-      }
-    });
-    setPeriods(periods);
-  }, [allProgrammes, setPeriods]);
-
-  // ?debug=1 > DEBUG tool. Show all projects at once so we can knwo which one is not ok.
-  // -------------------   D E B U G    --------------------------------------
-  if (
-    Object.keys(queryString.parse(window.location.search)).includes("debug")
-  ) {
-    return (
-      <ul className="projects-list p-0 tm_row tm_list-unstyled">
-        {allProjects.map((project) => (
-          <li
-            onClick={(e) => {
-              setProjectInModal(project);
-            }}
-          >
-            <ProjectInfo
-              setProjectInModal={setProjectInModal}
-              projectInfo={project}
-            />
-          </li>
-        ))}{" "}
-      </ul>
-    );
-  }
-  // -------------------   end D E B U G    --------------------------------------
-
   if (!allProgrammes) return <p>Loading programmes</p>;
+  if (!periods) return <p>Loading programmes</p>;
   return (
     <>
+      <DebugShowAllProgrammes setProjectInModal={setProjectInModal} allProjects={allProjects} />
       {periods.size > 1 && (
         <div class="flex-row">
           <div>Periods</div>
+
           <ul className="tabs TM_filter-by-period">
             <li
               key={"all-periods"}
@@ -79,20 +47,13 @@ export default function PanelProgrammesSearch({
               }`}
               onClick={() => setSelectedPeriod("")}
             >
-              All
+              Show All Programmes
             </li>
-            {Array.from(periods).map((period) => (
-              <li
-                key={period}
-                className={`TM_Period TM_Period__${period} ${
-                  period === selectedPeriod ? "active" : ""
-                }`}
-                onClick={() => setSelectedPeriod(period)}
-              >
-                {period.toUpperCase().replace(/-/g, " ")}
-              </li>
-            ))}
           </ul>
+          <TogglePill optionA="eni-cbc" optionB="interreg-next"
+            optionALabel="ENI CBC" optionBLabel="Interreg Next"
+            selected={selectedPeriod} onToggle={setSelectedPeriod} />
+
         </div>
       )}
       {/* Show all programmes by period (eni-cbc and interreg-next periods */}

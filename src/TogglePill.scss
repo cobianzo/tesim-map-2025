@@ -1,0 +1,28 @@
+.toggle-pill {
+  display: inline-flex;
+  border: 1px solid #ccc;
+  border-radius: 9999px;
+  overflow: hidden;
+  font-family: sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.3s;
+  background-color: #fff;
+}
+
+.toggle-pill__option {
+  padding: 6px 16px;
+  transition: background-color 0.3s, color 0.3s;
+  white-space: nowrap;
+}
+
+.toggle-pill__option.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.toggle-pill__option.inactive {
+  background-color: #f8f9fa;
+  color: #333;
+}

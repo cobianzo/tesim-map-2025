@@ -1,226 +1,252 @@
-@import './styles/custom.scss';
-@import './styles/variables.scss';
+@import "./styles/custom.scss";
+@import "./styles/variables.scss";
 
 // SVG map
 
-$color-eu-non-selectable: #626BAB;
+$color-eu-non-selectable: #626bab;
 $color-eu-selectable: $secondary;
-$color-candidates-non-selectable: #A76EA4; // turkey ... 
+$color-candidates-non-selectable: #a76ea4; // turkey ...
 $color-candidates-selectable: $primary;
-$color-partners-non-selectable: lightgray; // turkey ... 
+$color-partners-non-selectable: lightgray; // turkey ...
 $color-partners-selectable: darkgray;
-$color-non-eu-non-selectable: #A76EA4; // light purple. Russia ... 
+$color-non-eu-non-selectable: #a76ea4; // light purple. Russia ...
 $color-non-eu-selectable: $primary; // deep purple. Nuts3 of Russia with programmes.
 
 $color-norway: gray;
 $color-norway-selectable: #444444;
 
-
 @keyframes country-stroke-animation {
-	from {stroke: $secondary;}
-	to {stroke: $info;}
+  from {
+    stroke: $secondary;
+  }
+  to {
+    stroke: $info;
+  }
 }
 @keyframes country-stroke-animation-red {
-	from {stroke: #a79a6e; stroke-width: 4px !important;}
-	to {stroke: #d3c9a9; stroke-width: 4px !important;}
+  from {
+    stroke: #a79a6e;
+    stroke-width: 4px !important;
+  }
+  to {
+    stroke: #d3c9a9;
+    stroke-width: 4px !important;
+  }
 }
 @keyframes country-fill-animation {
-	from {fill: $secondary !important;}
-	to {fill: $info !important;}
+  from {
+    fill: $secondary !important;
+  }
+  to {
+    fill: $info !important;
+  }
 }
 
+// Animation of zoom when interreg-next period is selected
 
+#svg-map-container {
+  margin-left: 200px;
+  margin-top: 0;
+  scale: 1;
+  transition: scale 0.5s ease-in-out, margin 0.5s ease-in-out;
+  border: 3px solid pink;
+  background: pink;
+  .TM_container.period-interreg-next & {
+    scale: 1.5;
+    margin-left: 100px;
+    margin-top: -150px;
+    border: 3px solid orange;
+    background: orange;
+  }
+}
 
 // class set up by react
 #svg-map-container {
-	
-	#sea {
-		stroke: none;
-	}
+  #sea {
+    stroke: none;
+  }
 
-	.selectable {
-		fill: $color-eu-non-selectable;
-		&:hover {
-			fill: $info;
-		}
-	}
-	#landmarks-eu {
-		fill: $color-eu-non-selectable;
-	}
-	#landmarks-eu .selectable {
-		fill: $color-eu-selectable;
-	}
-	#landmarks-non-eu-but-involved {
-		fill: $color-non-eu-non-selectable;
-	}
-	#landmarks-non-eu-but-involved .selectable {
-		fill: $color-non-eu-selectable;
-	}
-	#non-eu-but-candidates {
-		fill: $color-candidates-non-selectable;
-		.selectable {
-			fill: $color-candidates-selectable;
-		}
-	}
-		#landmarks-rs, #landmarks-rks, #landmarks-ba, #landmarks-mk, #landmarks-al,
-		#landmarks-montenegro {
-			fill: $color-partners-non-selectable;
-			&.selectable {
-				fill: $color-partners-selectable;
-			}
-		}
-		
-		
+  .selectable {
+    fill: $color-eu-non-selectable;
+    &:hover {
+      fill: $info;
+    }
+  }
+  #landmarks-eu {
+    fill: $color-eu-non-selectable;
+  }
+  #landmarks-eu .selectable {
+    fill: $color-eu-selectable;
+  }
+  #landmarks-non-eu-but-involved {
+    fill: $color-non-eu-non-selectable;
+  }
+  #landmarks-non-eu-but-involved .selectable {
+    fill: $color-non-eu-selectable;
+  }
+  #non-eu-but-candidates {
+    fill: $color-candidates-non-selectable;
+    .selectable {
+      fill: $color-candidates-selectable;
+    }
+  }
+  #landmarks-rs,
+  #landmarks-rks,
+  #landmarks-ba,
+  #landmarks-mk,
+  #landmarks-al,
+  #landmarks-montenegro {
+    fill: $color-partners-non-selectable;
+    &.selectable {
+      fill: $color-partners-selectable;
+    }
+  }
 
+  #landmarks-non-eu-but-partners {
+    fill: $color-partners-non-selectable;
+    .selectable {
+      fill: $color-partners-selectable;
+    }
+  }
+  #landmarks-no {
+    fill: $color-norway;
+    .selectable {
+      fill: $color-norway-selectable;
+    }
+  }
+  #countries-non-interactive {
+    fill: $color-candidates-non-selectable;
+    .selectable {
+      fill: $color-candidates-selectable;
+    }
+  }
 
-	#landmarks-non-eu-but-partners {
-		fill: $color-partners-non-selectable;
-		.selectable {
-			fill: $color-partners-selectable;
-		}
-	}
-	#landmarks-no {
-		fill: $color-norway;
-		.selectable {
-			fill: $color-norway-selectable;
-		}
-	}
-	#countries-non-interactive {
-		fill: $color-candidates-non-selectable;
-		.selectable {
-			fill: $color-candidates-selectable;
-		}
-
-	}
-
-	.selected {
-		fill: $info; //TODO: better with an animation
-	}
-	.country-hovered {
-		stroke: $info;
-		stroke-width: 3px !important;
-		// fill: $info;
-		.selectable {
-			fill: $info !important;
-		}
-	}
-	.country-selected {
-		// fill: $info;
-		animation: country-stroke-animation 1s infinite;
-		stroke-width: 2px !important;
-		.selectable {
-			fill: country-fill-animation 1s infinite;
-		}
-	}
-	.programme-with-country-hovered {
-		animation: country-stroke-animation-red 1s infinite;
-		stroke-width: 5px !important;
-	}
-	.programme-with-country-selected {
-		animation: country-stroke-animation 3s infinite;
-		stroke-width: 5px !important;
-	}
+  .selected {
+    fill: $info; //TODO: better with an animation
+  }
+  .country-hovered {
+    stroke: $info;
+    stroke-width: 3px !important;
+    // fill: $info;
+    .selectable {
+      fill: $info !important;
+    }
+  }
+  .country-selected {
+    // fill: $info;
+    animation: country-stroke-animation 1s infinite;
+    stroke-width: 2px !important;
+    .selectable {
+      fill: country-fill-animation 1s infinite;
+    }
+  }
+  .programme-with-country-hovered {
+    animation: country-stroke-animation-red 1s infinite;
+    stroke-width: 5px !important;
+  }
+  .programme-with-country-selected {
+    animation: country-stroke-animation 3s infinite;
+    stroke-width: 5px !important;
+  }
 }
 
 .cls-2 {
-	stroke: 	  #a8a8a8;
-	// fill:           $primary;
-	stroke-linecap: round;
-	stroke-linejoin: bevel;
-	stroke-width: 0.25px;
-    cursor:         pointer;
-    &:hover{
-      //  fill:           $info;
-    }
+  stroke: #a8a8a8;
+  // fill:           $primary;
+  stroke-linecap: round;
+  stroke-linejoin: bevel;
+  stroke-width: 0.25px;
+  cursor: pointer;
+  &:hover {
+    //  fill:           $info;
+  }
 }
 
 .cls-1 {
-	fill: #fff;
-	stroke: #000;
-	stroke-miterlimit: 10;
-	stroke-width: 0.5px;
+  fill: #fff;
+  stroke: #000;
+  stroke-miterlimit: 10;
+  stroke-width: 0.5px;
 }
 .cls-14 {
-	fill: #fff;
-	stroke: #000;
-	stroke-linecap: round;
-	stroke-linejoin: bevel;
+  fill: #fff;
+  stroke: #000;
+  stroke-linecap: round;
+  stroke-linejoin: bevel;
 }
 .cls-5 {
-	fill: #fff;
-	stroke: #000;
-	stroke-width: 0.5px;
-	stroke-linecap: round;
-	stroke-linejoin: bevel;
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 0.5px;
+  stroke-linecap: round;
+  stroke-linejoin: bevel;
 }
 .cls-10 {
-	stroke: #000;
-	stroke-linecap: round;
-	stroke-linejoin: bevel;
-	stroke-width: 0.25px;
-	fill: none;
-	isolation: isolate;
-	font-size: 12px;
-	font-family: ArialMT, Arial;
+  stroke: #000;
+  stroke-linecap: round;
+  stroke-linejoin: bevel;
+  stroke-width: 0.25px;
+  fill: none;
+  isolation: isolate;
+  font-size: 12px;
+  font-family: ArialMT, Arial;
 }
 .cls-12 {
-	stroke: #000;
-	stroke-linecap: round;
-	stroke-linejoin: bevel;
-	stroke-width: 0.25px;
-	fill: none;
-	isolation: isolate;
-	font-family: OpenSans-Italic, Open Sans;
-	font-style: italic;
-	font-size: 5px;
+  stroke: #000;
+  stroke-linecap: round;
+  stroke-linejoin: bevel;
+  stroke-width: 0.25px;
+  fill: none;
+  isolation: isolate;
+  font-family: OpenSans-Italic, Open Sans;
+  font-style: italic;
+  font-size: 5px;
 }
 .cls-13 {
-	stroke: #000;
-	stroke-linecap: round;
-	stroke-linejoin: bevel;
-	fill: none;
+  stroke: #000;
+  stroke-linecap: round;
+  stroke-linejoin: bevel;
+  fill: none;
 }
 
 .cls-4 {
-	stroke: #000;
-	stroke-width: 0.5px;
-	stroke-linecap: round;
-	stroke-linejoin: bevel;
-	fill: none;
+  stroke: #000;
+  stroke-width: 0.5px;
+  stroke-linecap: round;
+  stroke-linejoin: bevel;
+  fill: none;
 }
 .cls-7 {
-	stroke: #000;
-	stroke-linecap: round;
-	stroke-linejoin: bevel;
-	stroke-width: 0.25px;
-	fill: none;
-	isolation: isolate;
-	font-size: 12px;
-	font-family: OpenSans-Italic, Open Sans;
-	font-style: italic;
+  stroke: #000;
+  stroke-linecap: round;
+  stroke-linejoin: bevel;
+  stroke-width: 0.25px;
+  fill: none;
+  isolation: isolate;
+  font-size: 12px;
+  font-family: OpenSans-Italic, Open Sans;
+  font-style: italic;
 }
 .cls-3 {
-	opacity: 0.69;
+  opacity: 0.69;
 }
 .cls-11 {
-	isolation: isolate;
-	font-family: OpenSans-Italic, Open Sans;
-	font-style: italic;
-	font-size: 5px;
+  isolation: isolate;
+  font-family: OpenSans-Italic, Open Sans;
+  font-style: italic;
+  font-size: 5px;
 }
 .cls-6 {
-	isolation: isolate;
-	font-size: 12px;
-	font-family: OpenSans-Italic, Open Sans;
-	font-style: italic;
+  isolation: isolate;
+  font-size: 12px;
+  font-family: OpenSans-Italic, Open Sans;
+  font-style: italic;
 }
 .cls-8 {
-	isolation: isolate;
+  isolation: isolate;
 }
 .cls-9 {
-	isolation: isolate;
-	font-size: 12px;
-	font-family: ArialMT, Arial;
+  isolation: isolate;
+  font-size: 12px;
+  font-family: ArialMT, Arial;
 }
-
-

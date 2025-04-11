@@ -1,5 +1,12 @@
 @import "./styles/custom.scss";
 
+.togglepill-wrapper {
+  position: absolute;
+  z-index: 9;
+  right: 3rem;
+  top: 3rem;
+}
+
 // The fixing of the map. On top of this, we need to evaluate the
 // adjustMapResolution() in Map.js
 .TM_map-wrapper {
