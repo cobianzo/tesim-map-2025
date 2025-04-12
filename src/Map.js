@@ -5,7 +5,7 @@ import useKeyPress from "./helpers/useKeyPress";
 import { getBaseUrl } from "./helpers/utils";
 
 import "./Map.scss";
-import TopBarSearch from "./TopBarSearch";
+import TopBarSearch from "./TopBar/TopBarSearch";
 import PanelHoveredRegion from "./PanelHoveredRegion"; // works but they dont want it
 import PanelProgrammesContent from "./PanelProgrammes/PanelProgrammesContent";
 import PanelCountryContent from "./PanelCountry/PanelCountryContent";
@@ -28,7 +28,6 @@ export default function Map({
   const refSVG = React.useRef();
   const [countryHovered, setCountryHovered] = React.useState(null); // ID of region hovered: from here we calculat the programmes, and the projects
   const [hovered, setHovered] = React.useState(null); // ID of region hovered: from here we calculat the programmes, and the projects
-  const [regionSelected, setRegionSelected] = React.useState(null); // ID of region selected.
   const [countrySelected, setCountrySelected] = React.useState(null); // ID of region selected.
   const [projectInModal, setProjectInModal] = React.useState(null);
   const [filterByTheme, setFilterByTheme] = React.useState("");
@@ -77,7 +76,6 @@ export default function Map({
       setCountryHovered(null);
       return;
     }
-    // if (regionSelected) return;
     if (!regionsToProgrammes?.nuts3) return;
     // get the country from the region hovered
     const countryCode = hovered.substr(0, 2);
@@ -104,29 +102,6 @@ export default function Map({
       }
     }
   }, [countryHovered]); //WATCH
-
-  // watch selected region: WHEN clicking on a region in the map
-  React.useEffect(() => {
-    if (
-      regionSelected &&
-      regionsToProgrammes &&
-      regionsToProgrammes.nuts3[regionSelected]
-    ) {
-      // when selected region
-      // add classes to DOM svg els
-      let path = refContainer.current.querySelector(".selected");
-      if (path) path.classList.remove("selected");
-      path = refContainer.current.querySelector("#" + regionSelected);
-      if (path) path.classList.add("selected");
-
-      const countryCode = regionSelected.substr(0, 2);
-      setCountrySelected(countryCode);
-      return;
-    }
-    // CLEANUP: when selected region
-    const path = refContainer.current.querySelector(".selected");
-    if (path) path.classList.remove("selected");
-  }, [regionSelected]); //WATCH. selected is a region ID. Not applicable anymore since we can only select countries.
 
   // watch selection of country in dropdown.
   React.useEffect(() => {
@@ -255,8 +230,6 @@ export default function Map({
     } else setHovered(null);
   };
   const handleClick = (e) => {
-    //if (hovered)
-    //    setRegionSelected(hovered);
     if (countryHovered) setCountrySelected(countryHovered);
   };
   // key escape listener: close the modal window with the project info
@@ -264,9 +237,8 @@ export default function Map({
     "Escape",
     () => {
       if (projectInModal) setProjectInModal(null);
-      else if (regionSelected) setRegionSelected(null);
     },
-    [regionSelected, projectInModal]
+    [projectInModal]
   );
 
   // **** FUNCTIONS *****
@@ -294,7 +266,6 @@ export default function Map({
     if (hovered && allRegionsInfo[hovered]) classes.push("region-hovered");
     if (countryHovered) classes.push("country-hovered");
     if (countrySelected) classes.push("country-selected");
-    if (regionSelected) classes.push("region-selected");
     if (showProgrammesPanel)
       classes.push("showing-programmes-selected");
     if (selectedProgramme) classes.push("programme-selected");
@@ -304,7 +275,6 @@ export default function Map({
   }, [
     allRegionsInfo,
     hovered,
-    regionSelected,
     showProgrammesPanel,
     countryHovered,
     countrySelected,
@@ -353,8 +323,6 @@ export default function Map({
           allCountriesInfo={allCountriesInfo}
           hovered={hovered}
           countryHovered={countryHovered}
-          regionSelected={regionSelected}
-          setRegionSelected={setRegionSelected}
           countrySelected={countrySelected}
           setCountrySelected={setCountrySelected}
           showProgrammesPanel={showProgrammesPanel}

@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select'
+import ListOfProgrammesButton from './ListOfProgrammesButton';
 
 /**
  * DROPDOWN for the countries (also regions, but it was removed).
@@ -7,7 +8,6 @@ import Select from 'react-select'
 export default function TopBarSearch( {   regionsToProgrammes,
                                             allRegionsInfo, allCountriesInfo,
                                             hovered, countryHovered,
-                                            selected, setRegionSelected,
                                             countrySelected, setCountrySelected,
                                             showProgrammesPanel,
                                             allProjects, projectInModal, setProjectInModal,
@@ -151,20 +151,6 @@ export default function TopBarSearch( {   regionsToProgrammes,
 
     // on mount when countries info is ready
 
-
-    // ** WATCH hovered, update (modo cutre) el placeholder del select (acessing the dom)
-    React.useEffect(()=>{
-        if (!placeholderRef) return;
-        if (!allRegionsInfo[hovered]) {
-            if (selected) {
-                placeholderRef.textContent = allRegionsInfo[selected].title;
-                return
-            }
-            placeholderRef.textContent = 'Select a region';
-            return;
-        }
-        placeholderRef.textContent = allRegionsInfo[hovered].title;
-    }, [hovered]);//WATCH:hovered in map
     React.useEffect(()=>{
         if (!placeholderCountryRef) return;
         if (!allCountriesInfo[countryHovered]) { // if the country exists
@@ -176,13 +162,8 @@ export default function TopBarSearch( {   regionsToProgrammes,
             return;
         }
         placeholderCountryRef.textContent = allCountriesInfo[countryHovered].title;
-    }, [countryHovered]);//WATCH:countryHoveredInMap
+    }, [countryHovered]); //WATCH:countryHoveredInMap
 
-    React.useEffect(()=>{
-        if (!placeholderRef || !selected) return;
-        if (!allRegionsInfo[selected]) return;
-        placeholderRef.textContent = allRegionsInfo[selected].title;
-    }, [selected]);
     React.useEffect(()=>{
         if (!placeholderCountryRef || !countrySelected) {
             if (placeholderCountryRef) placeholderCountryRef.textContent = '';
@@ -203,9 +184,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
     }, [projectInModal]);//WATCH:projectInModal
 
     // *** HANDLERS
-    // const handleSelectRegion = e => { setRegionSelected(e.value); }
     const handleSelectCountry = e => {
-        setRegionSelected(null);
         setCountrySelected(e.value);
     }
 
@@ -217,16 +196,8 @@ export default function TopBarSearch( {   regionsToProgrammes,
     /**********************************************************************/
     return (<>
 
-        <button className={`tm_nav-item TM_col-12 TM_col-md-3 TM_btn TM_btn-primary ${appOptions.showProjectsType}`}
-              onClick={ e =>
-                  setAppOptions( Object.assign( {...appOptions}, {
-                    showProjectsType: appOptions.showProjectsType === 'all-programmes'? 'map' : 'all-programmes'
-                  }))
-                }>
-            {showProgrammesPanel ?
-                <span>Close list of programmes</span> :
-                (countryHovered ? <span></span> : <span>LIST OF PROGRAMMES</span>) }
-        </button>
+        <ListOfProgrammesButton appOptions={appOptions} setAppOptions={setAppOptions}
+                showProgrammesPanel={showProgrammesPanel} countryHovered={countryHovered} />
 
         <div className='tm_nav-item search-by-country TM_col-6 TM_col-md-3'>
             <Select options={optionsCountry}
