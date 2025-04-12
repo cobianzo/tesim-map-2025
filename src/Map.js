@@ -266,8 +266,7 @@ export default function Map({
     if (hovered && allRegionsInfo[hovered]) classes.push("region-hovered");
     if (countryHovered) classes.push("country-hovered");
     if (countrySelected) classes.push("country-selected");
-    if (showProgrammesPanel)
-      classes.push("showing-programmes-selected");
+    if (showProgrammesPanel) classes.push("showing-programmes-selected");
     if (selectedProgramme) classes.push("programme-selected");
     if (projectInModal) classes.push("project-opened");
     if (selectedPeriod) classes.push("period-" + selectedPeriod);
@@ -280,7 +279,7 @@ export default function Map({
     countrySelected,
     projectInModal,
     selectedProgramme,
-    selectedPeriod
+    selectedPeriod,
   ]);
 
   // computed list of project in alphabetic order
@@ -330,6 +329,7 @@ export default function Map({
           setAppOptions={setAppOptions}
           projectInModal={projectInModal}
           setProjectInModal={setProjectInModal}
+          periods={periods}
           selectedPeriod={selectedPeriod}
         />
       </div>
@@ -345,154 +345,149 @@ export default function Map({
           />
         </div>
 
-
-
-
-
         {/* Panel on the left. Shows info of selected country or shows Search by programme */}
         <div className={"TM_left-panel"}>
-          <div className="TM_card">
-            {/********** HEAD of PANEL **********/}
-            <div className="TM_card-header">
-              {currentStateClasses.length === 0 && (
+          {!showCoutriesContent && !showProgrammesPanel && (
+            <div className="TM_card">
+              {/********** HEAD of PANEL **********/}
+              <div className="TM_card-header">
                 <>
                   {/* Help info when nothing is selected */}
                   <h2 className="TM_h2">
                     Search by programme, country or project
                   </h2>
                 </>
-              )}
-            </div>
-            {/********** END OF HEAD **********/}
+              </div>
+              {/********** END OF HEAD **********/}
 
-            {/********** BODY of PANEL **********/}
-            <div className="TM_card-body">
-              {/* Just info when nothing is selected */}
-              {currentStateClasses.length === 0 && (
+              {/********** BODY of PANEL **********/}
+              <div className="TM_card-body">
                 <p>
                   Here you can access information about the ENI CBC projects
                   portrayed in this exhibition: select them using the above
                   options, or directly passing your mouse on the map to the
                   right
                 </p>
-              )}
-
-
-              { showCoutriesContent && (
-                <PanelCountryContent
-                  allCountriesInfo={allCountriesInfo}
-                  allProjects={allProjects}
-                  allProgrammes={allProgrammes}
-                  countriesToProjects={countriesToProjects}
-                  regionsToProgrammes={regionsToProgrammes}
-                  countryHovered={countryHovered}
-                  countrySelected={countrySelected}
-                  setCountrySelected={setCountrySelected}
-                  filterByTheme={filterByTheme}
-                  setFilterByTheme={setFilterByTheme}
-                  setProjectInModal={setProjectInModal}
-                  projectsInAlphabetic={projectsInAlphabetic}
-                />
-              ) }
-
-              {
-                showProgrammesPanel &&
-                  <PanelProgrammesContent
-                    periods={periods}
-                    selectedPeriod={selectedPeriod}
-                    setSelectedPeriod={setSelectedPeriod}
-                    allProgrammes={allProgrammes}
-                    allProjects={allProjects}
-                    setProjectInModal={setProjectInModal}
-                    hoveredProgramme={hoveredProgramme}
-                    setHoveredProgramme={setHoveredProgramme}
-                    selectedProgramme={selectedProgramme}
-                    setSelectedProgramme={setSelectedProgramme}
-                    appOptions={appOptions}
-                    showProgrammesPanel={showProgrammesPanel}
-                    countryHovered={countryHovered}
-                  />
-                }
+              </div>
             </div>
-          </div>
-        </div>
+          )}
 
-        {/* <!-- end left panel --> */}
+          {showCoutriesContent && (
+            <PanelCountryContent
+              allCountriesInfo={allCountriesInfo}
+              allProjects={allProjects}
+              allProgrammes={allProgrammes}
+              countriesToProjects={countriesToProjects}
+              regionsToProgrammes={regionsToProgrammes}
+              countryHovered={countryHovered}
+              countrySelected={countrySelected}
+              setCountrySelected={setCountrySelected}
+              filterByTheme={filterByTheme}
+              setFilterByTheme={setFilterByTheme}
+              setProjectInModal={setProjectInModal}
+              projectsInAlphabetic={projectsInAlphabetic}
+            />
+          )}
 
-        {/* Below the left panel when nothing is selected deactivate with d-none because Armenia becomes Argentina */}
-        <div
-          className={` TM_below-left-panel ${
-            countryHovered && "country-hovered"
-          } ${countrySelected && "country-selected"}`}
-        >
-          {/* <img src={"https://www.countryflags.io/be/shiny/64.png"} alt={countryHovered} */}
-          {countryHovered && (
-            <>
-              <img
-                src={
-                  "https://www.countryflags.io/" +
-                  (countryHovered === "el" ? "gr" : countryHovered) +
-                  "/flat/64.png"
-                }
-                className="nnaaa"
-                alt={countryHovered}
-              />
-              <h3>{allCountriesInfo[countryHovered]?.title}</h3>
-            </>
+          {showProgrammesPanel && (
+            <PanelProgrammesContent
+              periods={periods}
+              selectedPeriod={selectedPeriod}
+              setSelectedPeriod={setSelectedPeriod}
+              allProgrammes={allProgrammes}
+              allProjects={allProjects}
+              setProjectInModal={setProjectInModal}
+              hoveredProgramme={hoveredProgramme}
+              setHoveredProgramme={setHoveredProgramme}
+              selectedProgramme={selectedProgramme}
+              setSelectedProgramme={setSelectedProgramme}
+              appOptions={appOptions}
+              showProgrammesPanel={showProgrammesPanel}
+              countryHovered={countryHovered}
+            />
           )}
         </div>
+      </div>
 
-        {/* The MAP */}
-        <div className="TM_map-wrapper TM_col-12 tm_border TM_overflow-hidden">
+      {/* <!-- end left panel --> */}
 
-          <div className="togglepill-wrapper">
-          <TogglePill optionA="eni-cbc" optionB="interreg-next"
-                      optionALabel="ENI CBC" optionBLabel="Interreg Next"
-                      selected={selectedPeriod} onToggle={setSelectedPeriod} />
-          </div>
-          <svg
-            ref={refSVG}
-            width="100%"
-            height="230px"
-            className="n"
-            id="svg-map-container"
-            xmlns="http://www.w3.org/2000/svg"
-            onMouseMove={handleMouseMove}
-            onClick={handleClick}
-          >
-            <Europe />
-          </svg>
-        </div>
-
-        {/* The footer with help information */}
-        <footer></footer>
-
-        {/* The MODAL WINDOW for the selected project PDF */}
-        {projectInModal && (
-          <div
-            className="tm_tesim-modal__wrapper"
-            tabIndex="-1"
-            role="dialog"
-            aria-hidden="true"
-            onClick={(e) => setProjectInModal(null)}
-          >
-            <div className="tm_tesim-modal__inner">
-              <div
-                className="tm_btn-wrapper"
-                onClick={(e) => setProjectInModal(null)}
-              >
-                <button className="TM_btn-close ">⇠</button>
-              </div>
-              <iframe
-                src={
-                  projectInModal.permalink ??
-                  allProjects.find((p) => p.ID === projectInModal).permalink
-                }
-              ></iframe>
-            </div>
-          </div>
+      {/* Below the left panel when nothing is selected deactivate with d-none because Armenia becomes Argentina */}
+      <div
+        className={` TM_below-left-panel ${
+          countryHovered && "country-hovered"
+        } ${countrySelected && "country-selected"}`}
+      >
+        {/* <img src={"https://www.countryflags.io/be/shiny/64.png"} alt={countryHovered} */}
+        {countryHovered && (
+          <>
+            <img
+              src={
+                "https://www.countryflags.io/" +
+                (countryHovered === "el" ? "gr" : countryHovered) +
+                "/flat/64.png"
+              }
+              className="nnaaa"
+              alt={countryHovered}
+            />
+            <h3>{allCountriesInfo[countryHovered]?.title}</h3>
+          </>
         )}
       </div>
+
+      {/* The MAP */}
+      <div className="TM_map-wrapper TM_col-12 tm_border TM_overflow-hidden">
+        <div className="togglepill-wrapper">
+          <TogglePill
+            optionA="eni-cbc"
+            optionB="interreg-next"
+            optionALabel="ENI CBC"
+            optionBLabel="Interreg Next"
+            selected={selectedPeriod}
+            onToggle={setSelectedPeriod}
+          />
+        </div>
+        <svg
+          ref={refSVG}
+          width="100%"
+          height="230px"
+          className="n"
+          id="svg-map-container"
+          xmlns="http://www.w3.org/2000/svg"
+          onMouseMove={handleMouseMove}
+          onClick={handleClick}
+        >
+          <Europe />
+        </svg>
+      </div>
+
+      {/* The footer with help information */}
+      <footer></footer>
+
+      {/* The MODAL WINDOW for the selected project PDF */}
+      {projectInModal && (
+        <div
+          className="tm_tesim-modal__wrapper"
+          tabIndex="-1"
+          role="dialog"
+          aria-hidden="true"
+          onClick={(e) => setProjectInModal(null)}
+        >
+          <div className="tm_tesim-modal__inner">
+            <div
+              className="tm_btn-wrapper"
+              onClick={(e) => setProjectInModal(null)}
+            >
+              <button className="TM_btn-close ">⇠</button>
+            </div>
+            <iframe
+              src={
+                projectInModal.permalink ??
+                allProjects.find((p) => p.ID === projectInModal).permalink
+              }
+            ></iframe>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

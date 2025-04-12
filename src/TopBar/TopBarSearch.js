@@ -6,12 +6,13 @@ import ListOfProgrammesButton from './ListOfProgrammesButton';
  * DROPDOWN for the countries (also regions, but it was removed).
  */
 export default function TopBarSearch( {   regionsToProgrammes,
+                                            allProgrammes,
                                             allRegionsInfo, allCountriesInfo,
                                             hovered, countryHovered,
                                             countrySelected, setCountrySelected,
                                             showProgrammesPanel,
                                             allProjects, projectInModal, setProjectInModal,
-                                            selectedPeriod,
+                                            periods, selectedPeriod,
                                             appOptions, setAppOptions } ) {
 
     // **** STATES ****
@@ -114,16 +115,32 @@ export default function TopBarSearch( {   regionsToProgrammes,
         }
     }, [allRegionsInfo, regionsToProgrammes, allCountriesInfo, countrySelected]);
 
+
+    React.useEffect( () => {
+        console.log('TODELETE< all programmes', allProgrammes);
+    }, [allProgrammes]);
+
     // Initialize the dropdown values for All proyects
     React.useEffect( () => {
         if (!allProjects || !allProjects.length ) return;
-        if (optionsProjects.length) return;
+        if (!allProgrammes || !Object.keys(allProgrammes).length) return;
+        // if (optionsProjects.length) return;
         var groupedOptions = [];
-
+        console.log('TODELETE< all projects', allProjects);
         // to create a title we can use   { value: 'blue', label: 'Blue', color: '#0052CC', isDisabled: true },
         allProjects.forEach( proj => {
             // find the option with that label
             // we group projects by thematic, prop.color (environment, p2p, economic, infrastr)
+            let period = '';
+            if (allProgrammes && Object.keys(allProgrammes).length) {
+                const programme = allProgrammes[proj.programme];
+                period = programme.period;
+            }
+            if ( period && selectedPeriod && period !== selectedPeriod ) {
+                return;
+            }
+
+
             let thematic = proj.color;
             if (thematic.toLowerCase() === 'economical') thematic = 'Economic development';
             else if (thematic.toLowerCase() === 'infrastructures') thematic = 'Cross-border infrastructure';
@@ -137,7 +154,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
                 groupIndex = groupedOptions.length - 1;
             }
             groupedOptions[groupIndex].options.push({
-                label: proj.post_title,
+                label: `${proj.post_title} - ${period}`,
                 value: proj.ID
             });
         })
@@ -145,9 +162,10 @@ export default function TopBarSearch( {   regionsToProgrammes,
         // now sort alphabetically
         groupedOptions.sort((a, b) => a.label > b.label ? 1 : -1 );
 
+        console.log('%c Regenrating group: ', 'font-size:2rem', selectedPeriod, groupedOptions);
         setOptionsProjects(groupedOptions);
 
-    }, [allProjects]);
+    }, [allProjects, allProgrammes, selectedPeriod]);
 
     // on mount when countries info is ready
 
@@ -178,7 +196,8 @@ export default function TopBarSearch( {   regionsToProgrammes,
         if (!projectInModal) {
             // remove dropdown
             if (PHProjectDropdown) {
-                PHProjectDropdown.textContent = 'Look for a project';
+                const selectedPeriodText = selectedPeriod.replace(/-/g, ' ').toUpperCase();
+                PHProjectDropdown.textContent = `Look for a project${selectedPeriodText? ` in ${selectedPeriodText} period` : ''}`;
             }
         }
     }, [projectInModal]);//WATCH:projectInModal
