@@ -5,8 +5,9 @@ import useKeyPress from "./helpers/useKeyPress";
 import { getBaseUrl } from "./helpers/utils";
 
 import "./Map.scss";
+import './Panels.scss';
+
 import TopBarSearch from "./TopBar/TopBarSearch";
-import PanelHoveredRegion from "./PanelHoveredRegion"; // works but they dont want it
 import PanelProgrammesContent from "./PanelProgrammes/PanelProgrammesContent";
 import PanelCountryContent from "./PanelCountry/PanelCountryContent";
 import TogglePill from "./TogglePill";
@@ -52,9 +53,22 @@ export default function Map({
       return;
     Object.keys(regionsToProgrammes.nuts3).forEach((regCode) => {
       const path = refSVG.current.getElementById(regCode);
+
+      // this makes the nuts3 change colout and react on hover.
       if (path) path.classList.add("selectable");
+
+      const periodsInvolved = new Set();
+      const programmesIds = regionsToProgrammes.nuts3[regCode]
+      programmesIds.forEach(progID => {
+        periodsInvolved.add(allProgrammes[progID].period);
+      })
+      periodsInvolved.forEach((period) => {
+        if (path) path.classList.add(`period-${period}`);
+      });
+
+
     });
-  }, [regionsToProgrammes.nuts3]);
+  }, [regionsToProgrammes, regionsToProgrammes.nuts3]);
 
   // Calculate the periods. It will come out with ['eni-cbc', 'interreg-next'].
   React.useEffect(() => {
@@ -386,6 +400,7 @@ export default function Map({
               setFilterByTheme={setFilterByTheme}
               setProjectInModal={setProjectInModal}
               projectsInAlphabetic={projectsInAlphabetic}
+              periods={periods} selectedPeriod={selectedPeriod}
             />
           )}
 

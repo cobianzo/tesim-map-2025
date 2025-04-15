@@ -66,28 +66,64 @@ $color-norway-selectable: #444444;
     stroke: none;
   }
 
-  .selectable {
-    fill: $color-eu-non-selectable;
-    &:hover {
-      fill: $info;
+  .period-eni-cbc.selectable {
+    .period-eni-cbc.TM_container & {
+      fill: $color-eu-non-selectable;
+      &:hover {
+        fill: $info;
+      }
     }
   }
+  .period-interreg-next.selectable {
+    .period-interreg-next.TM_container & {
+      fill: $color-eu-non-selectable;
+      &:hover {
+        fill: $info;
+      }
+    }
+  }
+
   #landmarks-eu {
     fill: $color-eu-non-selectable;
   }
-  #landmarks-eu .selectable {
-    fill: $color-eu-selectable;
+  #landmarks-eu {
+    .period-eni-cbc.selectable {
+      .period-eni-cbc.TM_container & {
+        fill: $color-eu-selectable;
+      }
+    }
+    .period-interreg-next.selectable {
+      .period-interreg-next.TM_container & {
+        fill: $color-eu-selectable;
+      }
+    }
   }
   #landmarks-non-eu-but-involved {
     fill: $color-non-eu-non-selectable;
   }
-  #landmarks-non-eu-but-involved .selectable {
-    fill: $color-non-eu-selectable;
+  #landmarks-non-eu-but-involved {
+    .period-eni-cbc.selectable {
+      .period-eni-cbc.TM_container & {
+        fill: $color-non-eu-selectable;
+      }
+    }
+    .period-interreg-next.selectable {
+      .period-interreg-next.TM_container & {
+        fill: $color-non-eu-selectable;
+      }
+    }
   }
   #non-eu-but-candidates {
     fill: $color-candidates-non-selectable;
-    .selectable {
-      fill: $color-candidates-selectable;
+    .period-eni-cbc.selectable {
+      .period-eni-cbc.TM_container & {
+        fill: $color-candidates-selectable;
+      }
+    }
+    .period-interreg-next.selectable {
+      .period-interreg-next.TM_container & {
+        fill: $color-candidates-selectable;
+      }
     }
   }
   #landmarks-rs,
@@ -97,27 +133,55 @@ $color-norway-selectable: #444444;
   #landmarks-al,
   #landmarks-montenegro {
     fill: $color-partners-non-selectable;
-    &.selectable {
-      fill: $color-partners-selectable;
+    &.period-eni-cbc.selectable {
+      .period-eni-cbc.TM_container & {
+        fill: $color-partners-selectable;
+      }
+    }
+    &.period-interreg-next.selectable {
+      .period-interreg-next.TM_container & {
+        fill: $color-partners-selectable;
+      }
     }
   }
 
   #landmarks-non-eu-but-partners {
     fill: $color-partners-non-selectable;
-    .selectable {
-      fill: $color-partners-selectable;
+    .period-eni-cbc.selectable {
+      .period-eni-cbc.TM_container & {
+        fill: $color-partners-selectable;
+      }
+    }
+    .period-interreg-next.selectable {
+      .period-interreg-next.TM_container & {
+        fill: $color-partners-selectable;
+      }
     }
   }
   #landmarks-no {
     fill: $color-norway;
-    .selectable {
-      fill: $color-norway-selectable;
+    .period-eni-cbc.selectable {
+      .period-eni-cbc.TM_container & {
+        fill: $color-norway-selectable;
+      }
+    }
+    .period-interreg-next.selectable {
+      .period-interreg-next.TM_container & {
+        fill: $color-norway-selectable;
+      }
     }
   }
   #countries-non-interactive {
     fill: $color-candidates-non-selectable;
-    .selectable {
-      fill: $color-candidates-selectable;
+    .period-eni-cbc.selectable {
+      .period-eni-cbc.TM_container & {
+        fill: $color-candidates-selectable;
+      }
+    }
+    .period-interreg-next.selectable {
+      .period-interreg-next.TM_container & {
+        fill: $color-candidates-selectable;
+      }
     }
   }
 
@@ -128,16 +192,30 @@ $color-norway-selectable: #444444;
     stroke: $info;
     stroke-width: 3px !important;
     // fill: $info;
-    .selectable {
-      fill: $info !important;
+    .period-eni-cbc.selectable {
+      .period-eni-cbc.TM_container & {
+        fill: $info !important;
+      }
+    }
+    .period-interreg-next.selectable {
+      .period-interreg-next.TM_container & {
+        fill: $info !important;
+      }
     }
   }
   .country-selected {
     // fill: $info;
     animation: country-stroke-animation 1s infinite;
     stroke-width: 2px !important;
-    .selectable {
-      fill: country-fill-animation 1s infinite;
+    .period-eni-cbc.selectable {
+      .period-eni-cbc.TM_container & {
+        fill: country-fill-animation 1s infinite;
+      }
+    }
+    .period-interreg-next.selectable {
+      .period-interreg-next.TM_container & {
+        fill: country-fill-animation 1s infinite;
+      }
     }
   }
   .programme-with-country-hovered {

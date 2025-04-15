@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProjectInfo from "../ProjectInfo";
 import { themeToLabel, themeToProjectColor } from "../helpers/utils";
 import FilterByThematic from "../FilterByThematic";
 import { useMemo } from "react";
+
+/**
+ *
+ * @param {} param0
+ * @returns
+ */
 
 function PanelCountryContent({
   allCountriesInfo,
@@ -17,11 +23,62 @@ function PanelCountryContent({
   setFilterByTheme,
   setProjectInModal,
   projectsInAlphabetic,
+  periods, selectedPeriod
 }) {
 
+  const [projectsForSelectedCountry, setProjectsForSelectedCountry] = React.useState([]);
+
+  // Computed
   const selectedCountryInfo = useMemo(() => {
     return countrySelected ? allCountriesInfo[countrySelected] : null;
   }, [countrySelected, allCountriesInfo]);
+
+  useEffect( () => {
+    if (!allProgrammes) return;
+    if (!allProjects) return;
+    if (!projectsInAlphabetic) return;
+    console.log('todelete', projectsInAlphabetic);
+    let tempProjectsToShow = [];
+    projectsInAlphabetic.forEach(projectID => {
+      let validProject = true;
+      const project = allProjects.find((pp) => pp.ID === projectID);
+      if (!project) return;
+
+      const programmeForProject = allProgrammes[project.programme];
+
+      // filter by thematic button
+      if (filterByTheme.length) {
+        const projectThemes = project.themes || [];
+        if (!filterByTheme.some((theme) => projectThemes.includes(theme))) {
+          validProject = false;
+        }
+      }
+
+      // filter by period eni-cbc or interreg-next
+      if (selectedPeriod) {
+        if (programmeForProject && programmeForProject.period !== selectedPeriod) {
+          validProject = false;
+        }
+      }
+
+      // filter by country selected
+      if (countrySelected) {
+        const countries = project.countries.split(',');
+        if (!countries.includes(countrySelected)) {
+          validProject = false;
+        }
+      }
+
+      if (validProject) {
+        tempProjectsToShow.push(projectID);
+      }
+
+    });
+
+    setProjectsForSelectedCountry(tempProjectsToShow);
+
+  }, [selectedPeriod, countrySelected, filterByTheme, projectsInAlphabetic, allProgrammes, allProjects] );
+
 
   return (
     <div className="TM_card">
@@ -156,18 +213,17 @@ function PanelCountryContent({
               className="TM_list-of-projects"
               data-theme={themeToLabel(filterByTheme)}
             >
-              {projectsInAlphabetic.map((projectId) => {
+              {projectsForSelectedCountry.map((projectId) => {
                 const projInfo = allProjects.find(
                   (pro) => projectId === pro.ID
                 );
-                return !filterByTheme.length ||
-                  themeToProjectColor(filterByTheme) === projInfo?.color ? (
+                return  (
                   <ProjectInfo
                     key={`pp-${projectId}`}
                     setProjectInModal={setProjectInModal}
                     projectInfo={projInfo}
                   />
-                ) : null;
+                );
               })}
             </ul>
           </div>
