@@ -227,7 +227,7 @@ ul.TM_List-of-programmes {
 }
 
 .TM_list-of-projects:is(:empty)::after {
-  content: "No projects for " attr(data-theme);
+  content: "No projects ";
   grid-column-start: 1;
   grid-column-end: -1;
 }

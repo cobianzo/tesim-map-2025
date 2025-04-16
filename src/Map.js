@@ -300,7 +300,7 @@ export default function Map({
   const projectsInAlphabetic = React.useMemo(() => {
     if (!countriesToProjects[countrySelected]) return null;
     let projectsArray = [...countriesToProjects[countrySelected]];
-    return projectsArray.sort((proID_1, proID_2) => {
+    const alphabeticResult = projectsArray.sort((proID_1, proID_2) => {
       const [project1, project2] = [
         allProjects.find((pp) => pp.ID === proID_1),
         allProjects.find((pp) => pp.ID === proID_2),
@@ -310,6 +310,8 @@ export default function Map({
       if (name1 > name2) return 1;
       return -1;
     });
+    console.log('TODELEEEEE alphabetic',alphabeticResult);
+    return alphabeticResult;
   }, [countrySelected, allProjects, countriesToProjects]);
 
   // *** T E M P L A T E ******    JSX    *******************************
