@@ -1,6 +1,9 @@
 import { useMemo } from "react";
 
-//
+// allProjects: [
+//     { ID: xxx, color:  },
+//     {...}
+// ]
 function useAlphabeticProjects(allProjects) {
   return useMemo(() => {
     const projectIDs = allProjects.map((project) => project.ID);

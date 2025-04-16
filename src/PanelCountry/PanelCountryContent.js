@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import useFilteredProgrammesForCountry from "./useFilteredProgrammesForCountry";
 import useFilteredProjectsForCountry from "./useFilteredProjectsForCountry";
 import InfoProgrammesAndProjectsForCountry from "./InfoProgrammesAndProjectsForCountry";
+import BackPanelButton from "../BackPanelButton";
 
 /**
  *
@@ -17,7 +18,6 @@ function PanelCountryContent({
   allCountriesInfo,
   allProjects,
   allProgrammes,
-  regionsToProgrammes,
   countryHovered,
   countrySelected,
   setCountrySelected,
@@ -58,35 +58,22 @@ function PanelCountryContent({
             selectedPeriod={selectedPeriod}
           />
         ) : null}
-        {countrySelected ? (
-          <div
-            className="tm_btn-wrapper"
-            onClick={(e) => {
-              setCountrySelected(null);
-              setFilterByTheme(null);
-            }}
-          >
-            <button className="TM_btn-close ">⇠</button>
-          </div>
-        ) : null}
+        {countrySelected && (
+          <BackPanelButton onClickHandle={ () => { setCountrySelected(); setFilterByTheme(); } } />
+        )}
       </div>
       {/********** END OF HEAD **********/}
 
       {/********** BODY **********/}
       <div className="TM_card-body">
         {/* a country is hovered (body) */}
-        {(countryHovered && !countrySelected) ? (
-          <>
-            <p className="TM_text-secondary">
-              {(projectsForSelectedCountry?.length > 0) ? (
-                <>
-                  <br />
-                  Click on the country for more information
-                </>
-              ) : <p>No projects for this country {selectedPeriod? ` for the period ${selectedPeriod.replace(/-/g, " ").toUpperCase()}` : `` }</p>}
-            </p>
-          </>
-        ) : null}
+        {countryHovered && !countrySelected && (
+          <p className="TM_text-secondary">
+            {(projectsForSelectedCountry?.length > 0) ?
+                `Click on the country for more information`
+              : <span>No projects for this country {selectedPeriod? ` for the period ${selectedPeriod.replace(/-/g, " ").toUpperCase()}` : `` }</span>}
+          </p>
+        )}
 
         {/* a country is selected (body) */}
         {(countrySelected && projectsForSelectedCountry) ? (
@@ -104,15 +91,7 @@ function PanelCountryContent({
                 </>
               )}
             </footer>
-            <div
-              className="tm_btn-wrapper"
-              onClick={(e) => {
-                setCountrySelected(null);
-                setFilterByTheme(null);
-              }}
-            >
-              <button className="TM_btn-close ">⇠</button>
-            </div>
+            <BackPanelButton onClickHandle={ () => { setCountrySelected(); setFilterByTheme(); } } />
 
             {/* List all the projects applying all filters ( country selected, period) */}
             <ul

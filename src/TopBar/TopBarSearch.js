@@ -8,25 +8,18 @@ import ListOfProgrammesButton from './ListOfProgrammesButton';
 export default function TopBarSearch( {   regionsToProgrammes,
                                             allProgrammes,
                                             allRegionsInfo, allCountriesInfo,
-                                            hovered, countryHovered,
+                                            countryHovered,
                                             countrySelected, setCountrySelected,
                                             showProgrammesPanel,
                                             allProjects, projectInModal, setProjectInModal,
-                                            periods, selectedPeriod,
+                                            selectedPeriod,
                                             appOptions, setAppOptions } ) {
 
     // **** STATES ****
     const [optionsCountry, setOptionsCountry] = React.useState([]);
     const [optionsProjects, setOptionsProjects] = React.useState([]); // for select all projects
-    // const [optionsProjectsEnvironment, setOptionsProjectsEnvironment] = React.useState([]); // for select all projects
-    // const [optionsProjectsEconomic, setOptionsProjectsEconomic] = React.useState([]); // for select all projects
-    // const [optionsProjectsP2p, setOptionsProjectsP2p] = React.useState([]); // for select all projects
-    // const [optionsProjectsInfrastructures, setOptionsProjectsInfrastructures] = React.useState([]); // for select all projects
 
-    const [placeholderRef, setPlaceholderRef] = React.useState(null); // works better the shabby solution used for dropdown project.
     const [placeholderCountryRef, setPlaceholderCountryRef] = React.useState(null);
-    // const [placeholderProjectRef, setPlaceholderProjectRef] = React.useState(null);
-
 
     // **** ON MOUNT *****
     React.useEffect(() => {
@@ -35,8 +28,6 @@ export default function TopBarSearch( {   regionsToProgrammes,
         if (!allCountriesInfo || Object.keys(allCountriesInfo).length === 0) return;
         if (!regionsToProgrammes || !regionsToProgrammes.nuts3 || Object.keys(regionsToProgrammes.nuts3).length === 0) return;
         if (!regionsToProgrammes || !regionsToProgrammes.countries || Object.keys(regionsToProgrammes.countries).length === 0) return;
-        // if (options.length) return; //it was already initialized, so dont repeat.
-        // if (optionsCountry.length) return; //it was already initialized, so dont repeat.
 
         // set up options
         const newOptions = [];
@@ -69,9 +60,6 @@ export default function TopBarSearch( {   regionsToProgrammes,
             }
             tempGroupedOptions.options.push({label: regionInfo?.title, value: nuts3Code});
 
-            // if (regionsToProgrammes[nuts3Code]?.length) {
-            //     newOptions.push({label: regionInfo.title, value: nuts3Code});
-            // }
         });
         newOptions.push(tempGroupedOptions);
 
@@ -94,39 +82,20 @@ export default function TopBarSearch( {   regionsToProgrammes,
             setOptionsCountry(allCountriesArrayUnique); // [ {label:Bulgaria, value:bg}, { ...} ]
         /** ------ ------ ------ ------ ------ ------  */
 
-
-
-        // shabby solution to access to the placeholder. I can't find another way as it is part of a library.
-        const PH = document.querySelector('.search-by-region div[class*="placeholder"]');
-        setPlaceholderRef(PH);
-
         const PHCountry = document.querySelector('.search-by-country div[class*="placeholder"]');
         setPlaceholderCountryRef(PHCountry);
-
-        // const PHProject = document.querySelector('.search-by-project div[class*="placeholder"]');
-        // setPlaceholderProjectRef(PHProject);
-
-
-
-
 
         return () => {
         // cleanup
         }
-    }, [allRegionsInfo, regionsToProgrammes, allCountriesInfo, countrySelected]);
-
-
-    React.useEffect( () => {
-        console.log('TODELETE< all programmes', allProgrammes);
-    }, [allProgrammes]);
+    }, [allRegionsInfo, regionsToProgrammes, allCountriesInfo, countrySelected, optionsCountry.length]);
 
     // Initialize the dropdown values for All proyects
     React.useEffect( () => {
         if (!allProjects || !allProjects.length ) return;
         if (!allProgrammes || !Object.keys(allProgrammes).length) return;
-        // if (optionsProjects.length) return;
         var groupedOptions = [];
-        console.log('TODELETE< all projects', allProjects);
+
         // to create a title we can use   { value: 'blue', label: 'Blue', color: '#0052CC', isDisabled: true },
         allProjects.forEach( proj => {
             // find the option with that label
@@ -139,7 +108,6 @@ export default function TopBarSearch( {   regionsToProgrammes,
             if ( period && selectedPeriod && period !== selectedPeriod ) {
                 return;
             }
-
 
             let thematic = proj.color;
             if (thematic.toLowerCase() === 'economical') thematic = 'Economic development';
@@ -180,7 +148,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
             return;
         }
         placeholderCountryRef.textContent = allCountriesInfo[countryHovered].title;
-    }, [countryHovered]); //WATCH:countryHoveredInMap
+    }, [countryHovered, allCountriesInfo, countrySelected, placeholderCountryRef]); //WATCH:countryHoveredInMap
 
     React.useEffect(()=>{
         if (!placeholderCountryRef || !countrySelected) {
@@ -188,7 +156,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
             return;
         }
         placeholderCountryRef.textContent = allCountriesInfo[countrySelected].title;
-    }, [countrySelected]);
+    }, [countrySelected, allCountriesInfo, placeholderCountryRef]);
 
     React.useEffect(()=>{
         var PHProjectDropdown = document.querySelector('.search-by-project div[class*="placeholder"]')
@@ -200,7 +168,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
                 PHProjectDropdown.textContent = `Look for a project${selectedPeriodText? ` in ${selectedPeriodText} period` : ''}`;
             }
         }
-    }, [projectInModal]);//WATCH:projectInModal
+    }, [projectInModal, selectedPeriod]);//WATCH:projectInModal
 
     // *** HANDLERS
     const handleSelectCountry = e => {

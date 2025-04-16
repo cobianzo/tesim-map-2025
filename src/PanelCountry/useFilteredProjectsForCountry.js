@@ -1,6 +1,5 @@
 import React from "react";
 import useAlphabeticProjects from "../useAlphabeticProjects";
-import { themeToProjectColor } from "../helpers/utils";
 
 function useFilteredProjectsForCountry({
   selectedPeriod,
@@ -13,7 +12,6 @@ function useFilteredProjectsForCountry({
 
 
   const projectsIdsInAlphabetic = useAlphabeticProjects(allProjects);
-  console.log('TOELE alphabetic all proejcts', projectsIdsInAlphabetic);
   React.useEffect(() => {
     if (!allProgrammes || !allProgrammes.length) setFilteredProjects([]);
     if (!allProjects) setFilteredProjects([]);

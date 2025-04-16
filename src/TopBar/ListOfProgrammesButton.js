@@ -14,7 +14,7 @@ function ListOfProgrammesButton({
                 }>
             {showProgrammesPanel ?
                 <span>Close list of programmes</span> :
-                (countryHovered ? <span></span> : <span>LIST OF PROGRAMMES</span>) }
+                <span>LIST OF PROGRAMMES</span>}
     </button>
   )
 }

@@ -1,7 +1,8 @@
 import React from "react";
-import ProjectInfo from "./ProjectInfo";
-import FilterByThematic from "./FilterByThematic";
-import { themeToLabel, themeToProjectColor } from "./helpers/utils";
+import ProjectInfo from "../ProjectInfo";
+import FilterByThematic from "../FilterByThematic";
+import { themeToLabel, themeToProjectColor } from "../helpers/utils";
+import useAlphabeticProjects from "../useAlphabeticProjects";
 
 /**
  *
@@ -16,20 +17,9 @@ export default function ProgrammePanel({
 }) {
   const [filterByTheme, setFilterByTheme] = React.useState("");
   // computed list of project in alphabetic order
-  const projectsInAlphabetic = React.useMemo(() => {
-    if (!allProjects) return null;
-    let projectsArray = [...allProgrammes[programmeId].projects]; // arary of ids
-    return projectsArray.sort((proID_1, proID_2) => {
-      const [project1, project2] = [
-        allProjects.find((pp) => pp.ID === proID_1),
-        allProjects.find((pp) => pp.ID === proID_2),
-      ];
-      var name1 = project1.post_title + project1.post_subtitle;
-      var name2 = project2.post_title + project2.post_subtitle;
-      if (name1 > name2) return 1;
-      return -1;
-    });
-  }, [programmeId, allProjects]);
+
+  const currentProjectsForProgramme = !allProjects ? [] : allProjects.filter( pro => allProgrammes[programmeId]?.projects?.includes(pro.ID) );
+  const projectsInAlphabetic = useAlphabeticProjects(currentProjectsForProgramme);
 
   if (
     !allProgrammes[programmeId] ||

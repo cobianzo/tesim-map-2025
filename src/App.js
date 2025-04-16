@@ -106,31 +106,6 @@ function App() {
           countries: countryToProg,
         });
 
-        // fetchAllRegionsNames();
-
-        // let allProjectsTogether = [];
-        // let allRegionsToProgrammes = {};
-        // res.forEach( prog => {
-        //   // project preparation of ids
-        //   if (prog.projects?.length)
-        //     allProjectsTogether = [...new Set([...allProjectsTogether,...prog.projects])]; // O(n)
-        //   // regions set up of array. { bg323: [black-sea], ... ]}
-
-        //   // capture the regions for every programme
-        //   const regionsIds = prog.regions.split(',');
-        //   if (regionsIds.length) {
-        //     regionsIds.forEach(regId => {
-        //       if (!allRegionsToProgrammes[regId])
-        //         allRegionsToProgrammes[regId] = [];
-        //       if (!allRegionsToProgrammes[regId].includes(prog.ID))
-        //         allRegionsToProgrammes[regId].push(prog.ID);
-        //     });
-        //   }
-        // });
-
-        // fetchProjectByIds(allProjectsTogether);
-        // if (allRegionsToProgrammes)
-        //   setRegionsToProgrammes(allRegionsToProgrammes); // called only once
       })
       .catch((err) => {
         console.error("Propro res error: ", err);
@@ -160,10 +135,6 @@ function App() {
     (await fetch(endpointC))
       .json()
       .then((countriesList) => {
-        // sort alphabetically. Not needed here, needed in the select
-        // Object.keys(countriesList).sort(function(a, b) {
-        //   return countriesList[b].title.localeCompare(countriesList[a].title);
-        // });
         setAllCountriesInfo(countriesList);
       })
       .catch((err) => console.error("mal countries", err));

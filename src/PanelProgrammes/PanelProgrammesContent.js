@@ -1,5 +1,6 @@
 import React from 'react'
 import PanelProgrammesSearch from './PanelProgrammesSearch'
+import BackPanelButton from '../BackPanelButton'
 
 function PanelProgrammesContent({
   periods,
@@ -13,11 +14,20 @@ function PanelProgrammesContent({
   selectedProgramme,
   setSelectedProgramme,
   appOptions,
+  setAppOptions,
   showProgrammesPanel
 }) {
   /* Panel on the left. Shows info of selected country or shows Search by programme */
   return (
     <div className="TM_card">
+
+
+      <BackPanelButton onClickHandle={() => {
+        setAppOptions( Object.assign( {...appOptions}, {
+          showProjectsType: appOptions.showProjectsType === 'all-programmes'? 'map' : 'all-programmes'
+        }))
+      }} />
+
       {/********** HEAD of PANEL **********/}
       <div className="TM_card-header">
           {/* Show all programmes is selected and one programme is chosen */}

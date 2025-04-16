@@ -1,8 +1,9 @@
 import React from "react";
 
-import ProgrammePanel from "../ProgrammePanel";
+import ProgrammePanel from "./ProgrammePanel";
 import DebugShowAllProgrammes from "./DebugShowAllProgrammes";
 import TogglePill from "../TogglePill";
+import BackPanelButton from "../BackPanelButton";
 
 
 
@@ -14,7 +15,6 @@ export default function PanelProgrammesSearch({
   allProgrammes,
   allProjects,
   setProjectInModal,
-  hoveredProgramme,
   setHoveredProgramme,
   selectedProgramme,
   setSelectedProgramme,
@@ -94,17 +94,7 @@ export default function PanelProgrammesSearch({
       {/* A programme is selected  */}
       {selectedProgramme && (
         <div className="InnerPanel-list-of-projects">
-          <div
-            className="tm_btn-wrapper"
-            onClick={(e) => setSelectedProgramme(null)}
-          >
-            <button
-              className="TM_btn TM_btn-close "
-              style={{ fontSize: "2rem", paddingTop: "13px" }}
-            >
-              ⇠
-            </button>
-          </div>
+          <BackPanelButton onClickHandle={()=> setSelectedProgramme(null)} />
 
           <ProgrammePanel
             setProjectInModal={setProjectInModal}
