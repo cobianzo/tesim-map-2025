@@ -27,10 +27,7 @@ export default function ProgrammePanel({
   )
     return "no prog" + programmeId;
   return (
-    <div
-      className="programme-title"
-      key={`prg-${allProgrammes[programmeId].ID}`}
-    >
+    <>
       {/* <p className="h4">{ allProgrammes[programmeId].post_title }</p> */}
       <span className="badge badge-secondary d-block">
         {allProgrammes[programmeId].projects?.length} projects
@@ -43,32 +40,31 @@ export default function ProgrammePanel({
         allProjects={allProjects}
       />
 
-      <ul
-        className="TM_list-of-projects"
-        data-theme={themeToLabel(filterByTheme)}
-      >
-        {allProgrammes[programmeId].projects ? (
-          projectsInAlphabetic.map((ID) => {
-            const projInfo = allProjects
-              .filter(
-                (pinf) =>
-                  !filterByTheme.length ||
-                  themeToProjectColor(filterByTheme) === pinf?.color
-              )
-              .find((pro) => ID === pro.ID);
-            return projInfo ? (
-              <ProjectInfo
-                setProjectInModal={setProjectInModal}
-                filterByTheme={filterByTheme}
-                projectInfo={projInfo}
-                key={`pi-${ID}`}
-              />
-            ) : null;
-          })
-        ) : (
-          <pre> No projects found :(</pre>
-        )}
-      </ul>
-    </div>
+      <div className="TM_list-of-projects" data-theme={themeToLabel(filterByTheme)}>
+        <ul>
+          {allProgrammes[programmeId].projects ? (
+            projectsInAlphabetic.map((ID) => {
+              const projInfo = allProjects
+                .filter(
+                  (pinf) =>
+                    !filterByTheme.length ||
+                    themeToProjectColor(filterByTheme) === pinf?.color
+                )
+                .find((pro) => ID === pro.ID);
+              return projInfo ? (
+                <ProjectInfo
+                  setProjectInModal={setProjectInModal}
+                  filterByTheme={filterByTheme}
+                  projectInfo={projInfo}
+                  key={`pi-${ID}`}
+                />
+              ) : null;
+            })
+          ) : (
+            <pre> No projects found :(</pre>
+          )}
+        </ul>
+      </div>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react'
-import PanelProgrammesSearch from './PanelProgrammesSearch'
+import ProgrammesList from './ProgrammesList'
 import BackPanelButton from '../BackPanelButton'
+import ProgrammePanel from './ProgrammePanel'
 
 function PanelProgrammesContent({
   periods,
@@ -45,8 +46,20 @@ function PanelProgrammesContent({
       {/********** BODY of PANEL **********/}
       <div className="TM_card-body">
         {/* All programmes, or A programme is selected */}
-        {showProgrammesPanel && (
-          <PanelProgrammesSearch
+        {selectedProgramme ?
+          <div className="InnerPanel-list-of-projects">
+          <BackPanelButton onClickHandle={()=> setSelectedProgramme(null)} />
+
+          <ProgrammePanel
+            setProjectInModal={setProjectInModal}
+            programmeId={selectedProgramme}
+            allProgrammes={allProgrammes}
+            allProjects={allProjects}
+          />
+        </div>
+        :
+         showProgrammesPanel &&
+          <ProgrammesList
             allProgrammes={allProgrammes}
             allProjects={allProjects}
             setProjectInModal={setProjectInModal}
@@ -58,7 +71,7 @@ function PanelProgrammesContent({
             selectedPeriod={selectedPeriod}
             setSelectedPeriod={setSelectedPeriod}
           />
-        )}
+        }
       </div>
     </div>
 

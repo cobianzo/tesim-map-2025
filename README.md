@@ -21,18 +21,6 @@
 Screen del Village: 1920x1080px
 When clicking on the play icon inside 1728x932px
 
-# TEST in Tesim page Simulation
-
-- We downloaded the site using httrack, it is in `/Sites/httrack-3.49.2/tesim-enicbc.eu`
-- /Sites/httrack-3.49.2/tesim-enicbc.eu , run apache in localhost:9000.
-  - the index.php calls the snippet-for-web.php, in this project.
-  ~~- the http://localhost is always pointing to /Sites, so the .env has to~~ using getBaseUrl isntead
-  - go to the folder
-    `/Sites/httrack-3.49.2/tesim-enicbc.eu/wp-content/themes/understrap-child-master/tesim-map-react-snippet/`
-  - `git pull` from the `https://bitbucket.org/cobianzoltddreamteam/tesim-map-react-built/src/master/` project
-  - edit `tesim-map.php`, it has to call the right css and js from the built react.
-  - copy them from /build/index.html
-
 # DATA
 
 ## EXTERNAL DATA

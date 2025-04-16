@@ -2,7 +2,6 @@ import React from "react";
 import ProjectInfo from "../ProjectInfo";
 import { themeToLabel, themeToProjectColor } from "../helpers/utils";
 import FilterByThematic from "../FilterByThematic";
-import { useMemo } from "react";
 import useFilteredProgrammesForCountry from "./useFilteredProgrammesForCountry";
 import useFilteredProjectsForCountry from "./useFilteredProjectsForCountry";
 import InfoProgrammesAndProjectsForCountry from "./InfoProgrammesAndProjectsForCountry";
@@ -37,11 +36,6 @@ function PanelCountryContent({
     allProgrammes,
     allProjects,
   });
-
-  // Computed
-  const selectedCountryInfo = useMemo(() => {
-    return countrySelected ? allCountriesInfo[countrySelected] : null;
-  }, [countrySelected, allCountriesInfo]);
 
   return (
     <div className="TM_card">

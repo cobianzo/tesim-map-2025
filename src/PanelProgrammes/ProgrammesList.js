@@ -1,9 +1,6 @@
 import React from "react";
-
-import ProgrammePanel from "./ProgrammePanel";
 import DebugShowAllProgrammes from "./DebugShowAllProgrammes";
 import TogglePill from "../TogglePill";
-import BackPanelButton from "../BackPanelButton";
 
 
 
@@ -11,7 +8,7 @@ import BackPanelButton from "../BackPanelButton";
 when hovering a ProgrammeInfoPanel, the regions in the map are shown
 when selecting a programme, the panel expands to show all projects in that programme
 */
-export default function PanelProgrammesSearch({
+export default function ProgrammesList({
   allProgrammes,
   allProjects,
   setProjectInModal,
@@ -90,20 +87,6 @@ export default function PanelProgrammesSearch({
             </div>
           ))}
       </div>
-
-      {/* A programme is selected  */}
-      {selectedProgramme && (
-        <div className="InnerPanel-list-of-projects">
-          <BackPanelButton onClickHandle={()=> setSelectedProgramme(null)} />
-
-          <ProgrammePanel
-            setProjectInModal={setProjectInModal}
-            programmeId={selectedProgramme}
-            allProgrammes={allProgrammes}
-            allProjects={allProjects}
-          />
-        </div>
-      )}
     </>
   );
 }

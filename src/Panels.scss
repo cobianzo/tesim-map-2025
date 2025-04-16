@@ -170,58 +170,63 @@ ul.TM_List-of-programmes {
 }
 
 .TM_list-of-projects {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 1px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  grid-auto-flow: row;
-  grid-auto-columns: 100px;
-  > li {
-    cursor: pointer;
-    background-color: var(--tm-gray);
-    box-shadow: 2px 3px 3px rgb(0 0 0 / 50%);
-    .tm_img-wrapper {
-      border: 2px solid salmon;
-      height: 68px;
-      overflow: hidden;
-      img {
-        margin: auto;
-        width: 100%;
-      }
-    }
-    .project-title {
-      text-align: center;
-      width: 100%;
-      font-size: 0.8rem;
-      line-height: 1rem;
-      p {
-        margin: 0;
-        word-break: break-word;
-      }
-      &.long-title-5 .sub-title {
-        display: none;
-      } // if title is too long the subtitle not shown.
-    }
-    border: 2px solid transparent;
-    &:hover {
-      border: 2px solid $secondary;
-      background-color: var(--tm-info);
-    }
+  overflow-y: scroll;
+  height: 330px;
 
-    // particularities of olours depending on the thematic
-    &.project-environment .tm_img-wrapper {
-      border-color: var(--tm-environment);
-    }
-    &.project-p2p .tm_img-wrapper {
-      border-color: var(--tm-p2p);
-    }
-    &.project-infrastructures .tm_img-wrapper {
-      border-color: var(--tm-infrastructure);
-    }
-    &.project-economical .tm_img-wrapper {
-      border-color: var(--tm-economic);
+  > ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 1px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    grid-auto-flow: row;
+    grid-auto-columns: 100px;
+    > li {
+      cursor: pointer;
+      background-color: var(--tm-gray);
+      box-shadow: 2px 3px 3px rgb(0 0 0 / 50%);
+      .tm_img-wrapper {
+        border: 2px solid salmon;
+        height: 68px;
+        overflow: hidden;
+        img {
+          margin: auto;
+          width: 100%;
+        }
+      }
+      .project-title {
+        text-align: center;
+        width: 100%;
+        font-size: 0.8rem;
+        line-height: 1rem;
+        p {
+          margin: 0;
+          word-break: break-word;
+        }
+        &.long-title-5 .sub-title {
+          display: none;
+        } // if title is too long the subtitle not shown.
+      }
+      border: 2px solid transparent;
+      &:hover {
+        border: 2px solid $secondary;
+        background-color: var(--tm-info);
+      }
+
+      // particularities of olours depending on the thematic
+      &.project-environment .tm_img-wrapper {
+        border-color: var(--tm-environment);
+      }
+      &.project-p2p .tm_img-wrapper {
+        border-color: var(--tm-p2p);
+      }
+      &.project-infrastructures .tm_img-wrapper {
+        border-color: var(--tm-infrastructure);
+      }
+      &.project-economical .tm_img-wrapper {
+        border-color: var(--tm-economic);
+      }
     }
   }
 }
