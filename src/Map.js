@@ -417,20 +417,9 @@ export default function Map({
           countryHovered && "country-hovered"
         } ${countrySelected && "country-selected"}`}
       >
-        {/* <img src={"https://www.countryflags.io/be/shiny/64.png"} alt={countryHovered} */}
+
         {countryHovered && (
-          <>
-            <img
-              src={
-                "https://www.countryflags.io/" +
-                (countryHovered === "el" ? "gr" : countryHovered) +
-                "/flat/64.png"
-              }
-              className="nnaaa"
-              alt={countryHovered}
-            />
-            <h3>{allCountriesInfo[countryHovered]?.title}</h3>
-          </>
+          <h3>--{allCountriesInfo[countryHovered]?.title}</h3>
         )}
       </div>
 

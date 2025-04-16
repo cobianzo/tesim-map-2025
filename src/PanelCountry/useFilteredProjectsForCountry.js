@@ -30,7 +30,6 @@ function useFilteredProjectsForCountry({
         validProject = false;
       }
 
-      console.log('todelete prog for p', programmeForProject);
       // filter by period
       if (selectedPeriod) {
         if (programmeForProject.period !== selectedPeriod) {
@@ -51,7 +50,6 @@ function useFilteredProjectsForCountry({
       }
     });
 
-    console.log('TODELETE, updating projects by country ', tempProjectsToShow.length);
     setFilteredProjects(tempProjectsToShow);
 
   }, [
