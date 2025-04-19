@@ -3,8 +3,8 @@
  */
 
 export function getBaseUrl() {
-  return window.location.href.includes(".local")
-    ? "/wp-content/themes/understrap-child-master/inc/react-map/"
+  return window.location.href.includes(".local") || window.location.href.includes("interregtesimnext")
+    ? "./wp-content/themes/understrap-child-master/inc/react-map/"
     : "./";
 }
 

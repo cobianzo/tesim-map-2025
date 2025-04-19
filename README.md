@@ -5,13 +5,13 @@
 - You might need to fix issues: use `node 14` or `node 16`.
 - `yarn`, to install all dependencies.
 - ~~Setup the `.env` cloning the `.env localtesimsite`~~ Replaced for getBaseUrl() instead
-- run `deploy-tesimwebsite.sh`, to copy build into `understrap-child-master/inc/react-map`
+- run `deploy-tesimlocal.sh`, to copy build into `understrap-child-master/inc/react-map`
 - The list of projects is regenrated when `on_save` a project in WP. You might need to trigger it.
 
 # More
 
 1. update the app locally, building it inside the /inc folder.
-   - we do so by using sh deploy-tesimwebsite.sh
+   - we do so by using sh deploy-tesimlocal.sh
 2. upload the files, usign the WP file manager:
 
 - all /inc folder

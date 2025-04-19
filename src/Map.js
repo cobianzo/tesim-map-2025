@@ -5,13 +5,16 @@ import useKeyPress from "./helpers/useKeyPress";
 import { getBaseUrl } from "./helpers/utils";
 
 import "./Map.scss";
-import './Panels.scss';
+import "./Panels.scss";
 
 import TopBarSearch from "./TopBar/TopBarSearch";
 import PanelProgrammesContent from "./PanelProgrammes/PanelProgrammesContent";
 import PanelCountryContent from "./PanelCountry/PanelCountryContent";
 import TogglePill from "./TogglePill";
 import BackPanelButton from "./BackPanelButton";
+import PanelIntroInterregNext from "./PanelIntro/PanelIntroInterregNext";
+import PanelIntroDefault from "./PanelIntro/PanelIntroDefault";
+import PanelIntroENICBC from "./PanelIntro/PanelIntroENICBC";
 
 export default function Map({
   allProgrammes,
@@ -52,6 +55,7 @@ export default function Map({
       !Object.keys(regionsToProgrammes.nuts3).length
     )
       return;
+
     Object.keys(regionsToProgrammes.nuts3).forEach((regCode) => {
       const path = refSVG.current.getElementById(regCode);
 
@@ -59,15 +63,13 @@ export default function Map({
       if (path) path.classList.add("selectable");
 
       const periodsInvolved = new Set();
-      const programmesIds = regionsToProgrammes.nuts3[regCode]
-      programmesIds.forEach(progID => {
+      const programmesIds = regionsToProgrammes.nuts3[regCode];
+      programmesIds.forEach((progID) => {
         periodsInvolved.add(allProgrammes[progID].period);
-      })
+      });
       periodsInvolved.forEach((period) => {
         if (path) path.classList.add(`period-${period}`);
       });
-
-
     });
   }, [regionsToProgrammes, regionsToProgrammes.nuts3]);
 
@@ -285,6 +287,7 @@ export default function Map({
     if (selectedProgramme) classes.push("programme-selected");
     if (projectInModal) classes.push("project-opened");
     if (selectedPeriod) classes.push("period-" + selectedPeriod);
+    else classes.push("all-periods");
     return classes;
   }, [
     allRegionsInfo,
@@ -348,26 +351,13 @@ export default function Map({
         <div className={"TM_left-panel"}>
           {!showCoutriesContent && !showProgrammesPanel && (
             <div className="TM_card">
-              {/********** HEAD of PANEL **********/}
-              <div className="TM_card-header">
-                <>
-                  {/* Help info when nothing is selected */}
-                  <h2 className="TM_h2">
-                    Search by programme, country or project
-                  </h2>
-                </>
-              </div>
-              {/********** END OF HEAD **********/}
-
-              {/********** BODY of PANEL **********/}
-              <div className="TM_card-body">
-                <p>
-                  Here you can access information about the ENI CBC projects
-                  portrayed in this exhibition: select them using the above
-                  options, or directly passing your mouse on the map to the
-                  right
-                </p>
-              </div>
+              {"interreg-next" === selectedPeriod ? (
+                <PanelIntroInterregNext />
+              ) : "eni-cbc" === selectedPeriod ? (
+                <PanelIntroENICBC />
+              ) : (
+                <PanelIntroDefault />
+              )}
             </div>
           )}
 
@@ -384,7 +374,8 @@ export default function Map({
               filterByTheme={filterByTheme}
               setFilterByTheme={setFilterByTheme}
               setProjectInModal={setProjectInModal}
-              periods={periods} selectedPeriod={selectedPeriod}
+              periods={periods}
+              selectedPeriod={selectedPeriod}
             />
           )}
 
@@ -417,10 +408,7 @@ export default function Map({
           countryHovered && "country-hovered"
         } ${countrySelected && "country-selected"}`}
       >
-
-        {countryHovered && (
-          <h3>--{allCountriesInfo[countryHovered]?.title}</h3>
-        )}
+        {countryHovered && <h3>--{allCountriesInfo[countryHovered]?.title}</h3>}
       </div>
 
       {/* The MAP */}
@@ -462,7 +450,7 @@ export default function Map({
           onClick={(e) => setProjectInModal(null)}
         >
           <div className="tm_tesim-modal__inner">
-            <BackPanelButton onClickHandle={()=>setProjectInModal(null)} />
+            <BackPanelButton onClickHandle={() => setProjectInModal(null)} />
 
             <iframe
               src={

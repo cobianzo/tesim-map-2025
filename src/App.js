@@ -27,6 +27,7 @@ function App() {
 
   // **** ON MOUNT init the state vars *****
   React.useEffect(() => {
+    console.log('Starting Interactive map. BaseURL at' , getBaseUrl());
     setAppOptions({ showProjectsType: "map" });
     fetchProgrammesProjects();
     fetchAllRegionsNames();

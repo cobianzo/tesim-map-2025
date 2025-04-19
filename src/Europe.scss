@@ -67,7 +67,8 @@ $color-norway-selectable: #444444;
   }
 
   .period-eni-cbc.selectable {
-    .period-eni-cbc.TM_container & {
+    .period-eni-cbc.TM_container &,
+    .all-periods.TM_container & {
       fill: $color-eu-non-selectable;
       &:hover {
         fill: $info;
@@ -75,7 +76,8 @@ $color-norway-selectable: #444444;
     }
   }
   .period-interreg-next.selectable {
-    .period-interreg-next.TM_container & {
+    .period-interreg-next.TM_container &,
+    .all-periods.TM_container & {
       fill: $color-eu-non-selectable;
       &:hover {
         fill: $info;
@@ -88,12 +90,14 @@ $color-norway-selectable: #444444;
   }
   #landmarks-eu {
     .period-eni-cbc.selectable {
-      .period-eni-cbc.TM_container & {
+      .period-eni-cbc.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-eu-selectable;
       }
     }
     .period-interreg-next.selectable {
-      .period-interreg-next.TM_container & {
+      .period-interreg-next.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-eu-selectable;
       }
     }
@@ -103,12 +107,14 @@ $color-norway-selectable: #444444;
   }
   #landmarks-non-eu-but-involved {
     .period-eni-cbc.selectable {
-      .period-eni-cbc.TM_container & {
+      .period-eni-cbc.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-non-eu-selectable;
       }
     }
     .period-interreg-next.selectable {
-      .period-interreg-next.TM_container & {
+      .period-interreg-next.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-non-eu-selectable;
       }
     }
@@ -116,12 +122,14 @@ $color-norway-selectable: #444444;
   #non-eu-but-candidates {
     fill: $color-candidates-non-selectable;
     .period-eni-cbc.selectable {
-      .period-eni-cbc.TM_container & {
+      .period-eni-cbc.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-candidates-selectable;
       }
     }
     .period-interreg-next.selectable {
-      .period-interreg-next.TM_container & {
+      .period-interreg-next.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-candidates-selectable;
       }
     }
@@ -134,12 +142,14 @@ $color-norway-selectable: #444444;
   #landmarks-montenegro {
     fill: $color-partners-non-selectable;
     &.period-eni-cbc.selectable {
-      .period-eni-cbc.TM_container & {
+      .period-eni-cbc.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-partners-selectable;
       }
     }
     &.period-interreg-next.selectable {
-      .period-interreg-next.TM_container & {
+      .period-interreg-next.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-partners-selectable;
       }
     }
@@ -148,12 +158,14 @@ $color-norway-selectable: #444444;
   #landmarks-non-eu-but-partners {
     fill: $color-partners-non-selectable;
     .period-eni-cbc.selectable {
-      .period-eni-cbc.TM_container & {
+      .period-eni-cbc.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-partners-selectable;
       }
     }
     .period-interreg-next.selectable {
-      .period-interreg-next.TM_container & {
+      .period-interreg-next.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-partners-selectable;
       }
     }
@@ -161,12 +173,14 @@ $color-norway-selectable: #444444;
   #landmarks-no {
     fill: $color-norway;
     .period-eni-cbc.selectable {
-      .period-eni-cbc.TM_container & {
+      .period-eni-cbc.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-norway-selectable;
       }
     }
     .period-interreg-next.selectable {
-      .period-interreg-next.TM_container & {
+      .period-interreg-next.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-norway-selectable;
       }
     }
@@ -174,12 +188,14 @@ $color-norway-selectable: #444444;
   #countries-non-interactive {
     fill: $color-candidates-non-selectable;
     .period-eni-cbc.selectable {
-      .period-eni-cbc.TM_container & {
+      .period-eni-cbc.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-candidates-selectable;
       }
     }
     .period-interreg-next.selectable {
-      .period-interreg-next.TM_container & {
+      .period-interreg-next.TM_container &,
+      .all-periods.TM_container & {
         fill: $color-candidates-selectable;
       }
     }
@@ -193,12 +209,14 @@ $color-norway-selectable: #444444;
     stroke-width: 3px !important;
     // fill: $info;
     .period-eni-cbc.selectable {
-      .period-eni-cbc.TM_container & {
+      .period-eni-cbc.TM_container &,
+      .all-periods.TM_container & {
         fill: $info !important;
       }
     }
     .period-interreg-next.selectable {
-      .period-interreg-next.TM_container & {
+      .period-interreg-next.TM_container &,
+      .all-periods.TM_container & {
         fill: $info !important;
       }
     }
@@ -208,12 +226,14 @@ $color-norway-selectable: #444444;
     animation: country-stroke-animation 1s infinite;
     stroke-width: 2px !important;
     .period-eni-cbc.selectable {
-      .period-eni-cbc.TM_container & {
+      .period-eni-cbc.TM_container &,
+      .all-periods.TM_container & {
         fill: country-fill-animation 1s infinite;
       }
     }
     .period-interreg-next.selectable {
-      .period-interreg-next.TM_container & {
+      .period-interreg-next.TM_container &,
+      .all-periods.TM_container & {
         fill: country-fill-animation 1s infinite;
       }
     }
