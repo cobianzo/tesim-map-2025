@@ -1,3 +1,49 @@
+- Add clours corresponding to the new slugs --tm-governance-2025 etc..
+- Add those the colours into App.scss
+
+
+
+
+===
+A New version f the interactive map will be released,
+with:
+- ✅ The search filter will be improved, adding the
+possibility of one additional consultation by
+country/thematic cluster, once the country is selected
+20 hours 1300 EUR
+===
+- ✅ Adding a new filter to choose the results of the
+period ENI-CBC, or Interreg Next, or both
+- All new posters will be tagged for consultation in
+the interactive posters map
+- The cluster “Governance” will be included to the
+drop-down list, with 2 subclusters: Public
+administration and Citizen participation
+===
+The new version of the map will need to track the
+visits to the posters, and the clicks on the links below
+every poster, using Google Analytics.
+===
+Restructuring of the subclusters in the interactive map
+
+The clusters:
+- “People-to-people cooperation” will be enriched
+with one more sub-cluster
+“Tourism”
+- “Culture” and “Education” will become separate
+sub-clusters
+- The sub-cluster “Energy efficiency” will be
+renamed into “Energy”
+- The cluster “Cross-border infrastructure” will be
+revised as having only two sub-clusters:
+“Border management, mobility and safety”
+“Connectivity”
+===
+Extra zoom functionality
+Add an extra zoom to the map depending on the
+selected period.
+
+
 GRAFFICA mejorra con gran imagen de fondo!!
 DONE: San Marino OUT! - but it can be still in the cache!
 DONE Non sono ordine alfabetico quando cliccki su un programma. !!! 

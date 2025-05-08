@@ -14,6 +14,7 @@ export default function ProgrammePanel({
   allProgrammes,
   allProjects,
   setProjectInModal,
+  selectedPeriod
 }) {
   const [filterByTheme, setFilterByTheme] = React.useState("");
   // computed list of project in alphabetic order
@@ -28,17 +29,19 @@ export default function ProgrammePanel({
     return "no prog" + programmeId;
   return (
     <>
-      {/* <p className="h4">{ allProgrammes[programmeId].post_title }</p> */}
-      <span className="badge badge-secondary d-block">
-        {allProgrammes[programmeId].projects?.length} projects
-      </span>
 
+      {/* <p className="h4">{ allProgrammes[programmeId].post_title }</p> */}
       <FilterByThematic
         filterByTheme={filterByTheme}
         setFilterByTheme={setFilterByTheme}
         projects={allProgrammes[programmeId].projects}
         allProjects={allProjects}
+        selectedPeriod={selectedPeriod}
       />
+
+      <span className="badge badge-secondary d-block">
+        {allProgrammes[programmeId].projects?.length} projects
+      </span>
 
       <div className="TM_list-of-projects" data-theme={themeToLabel(filterByTheme)}>
         <ul>

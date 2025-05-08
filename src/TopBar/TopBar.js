@@ -5,17 +5,19 @@ import ListOfProgrammesButton from './ListOfProgrammesButton';
 /**
  * DROPDOWN for the countries (also regions, but it was removed).
  */
-export default function TopBarSearch( {   regionsToProgrammes,
-                                            allProgrammes,
-                                            allRegionsInfo, allCountriesInfo,
-                                            countryHovered,
-                                            countrySelected, setCountrySelected,
-                                            showProgrammesPanel,
-                                            allProjects, projectInModal, setProjectInModal,
-                                            selectedPeriod,
-                                            appOptions, setAppOptions } ) {
+export default function TopBar( {   regionsToProgrammes,
+                                    allProgrammes,
+                                    selectedProgramme, setSelectedProgramme,
+                                    allRegionsInfo, allCountriesInfo,
+                                    countryHovered,
+                                    countrySelected, setCountrySelected,
+                                    showProgrammesPanel,
+                                    allProjects, projectInModal, setProjectInModal,
+                                    selectedPeriod,
+                                    appOptions, setAppOptions } ) {
 
     // **** STATES ****
+    const [optionsProgrammes, setOptionsProgrammes] = React.useState([]);
     const [optionsCountry, setOptionsCountry] = React.useState([]);
     const [optionsProjects, setOptionsProjects] = React.useState([]); // for select all projects
 
@@ -71,6 +73,7 @@ export default function TopBarSearch( {   regionsToProgrammes,
 
 
 
+
         // eliminate duplicates
         var allCountriesArrayUnique = [];
         allCountriesArrayUnique = allCountriesArray.filter((thing, index, self) =>
@@ -89,6 +92,17 @@ export default function TopBarSearch( {   regionsToProgrammes,
         // cleanup
         }
     }, [allRegionsInfo, regionsToProgrammes, allCountriesInfo, countrySelected, optionsCountry.length]);
+
+    // Initialize the dropdown values for All Programmes
+    React.useEffect( () => {
+        if (!allProgrammes || !Object.keys(allProgrammes).length) return;
+        const allProgrammesArray = [];
+        Object.keys(allProgrammes).forEach(programmeId => {
+            const label = allProgrammes[programmeId].post_title;
+            allProgrammesArray.push({ label, value: programmeId}); //
+        })
+        setOptionsProgrammes(allProgrammesArray);
+    }, [selectedPeriod, allProgrammes]);
 
     // Initialize the dropdown values for All proyects
     React.useEffect( () => {
@@ -183,9 +197,18 @@ export default function TopBarSearch( {   regionsToProgrammes,
     /**********************************************************************/
     return (<>
 
-        <ListOfProgrammesButton appOptions={appOptions} setAppOptions={setAppOptions}
-                showProgrammesPanel={showProgrammesPanel} countryHovered={countryHovered} />
-
+        {/* <ListOfProgrammesButton appOptions={appOptions} setAppOptions={setAppOptions}
+                showProgrammesPanel={showProgrammesPanel} countryHovered={countryHovered}
+                allProgrammes={allProgrammes}
+                selectedProgramme={selectedProgramme}
+                /> */}
+        <div className='tm_nav-item search-by-programme TM_col-6 TM_col-md-3'>
+            <Select options={optionsProgrammes}
+                    placeholder="Lookup by Programme"
+                    defaultValue={''} // I didnt find a way to change the value automatically.
+                    // onInputChange={ handleSelectRegion }
+                    onChange={e => setSelectedProgramme(e.value) }/>
+        </div>
         <div className='tm_nav-item search-by-country TM_col-6 TM_col-md-3'>
             <Select options={optionsCountry}
                     placeholder="Lookup by country"

@@ -28,7 +28,8 @@ function App() {
   // **** ON MOUNT init the state vars *****
   React.useEffect(() => {
     console.log('Starting Interactive map. BaseURL at' , getBaseUrl());
-    setAppOptions({ showProjectsType: "map" });
+    // setAppOptions({ showProjectsType: "map" });
+    setAppOptions({ showProjectsType: "all-programmes" });
     fetchProgrammesProjects();
     fetchAllRegionsNames();
   }, []);
@@ -45,7 +46,7 @@ function App() {
     //            and prepare array for regions > update state
     const endpoint = `${getBaseUrl()}projects-and-programmes.json?v=1`; // created by interreg project with php fn:  get_all_eni_projects()
     console.log(
-      "openENDPOINT PDSoPro:--- " + process.env.NODE_ENV,
+      "openENDPOINT PDSoPro:--- ",
       endpoint,
       "%%%",
       getBaseUrl()

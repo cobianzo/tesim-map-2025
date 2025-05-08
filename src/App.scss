@@ -131,7 +131,11 @@ $tm-colors: (
   p2p,
   economic,
   infrastructure,
-  governance
+  environment-2025,
+  p2p-2025,
+  smart-grow-2025,
+  border-2025,
+  governance-2025
 );
 
 @each $color-name in $tm-colors {

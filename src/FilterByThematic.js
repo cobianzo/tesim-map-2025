@@ -6,10 +6,20 @@ export default function FilterByThematic({
   setFilterByTheme,
   projects = [],
   allProjects = [],
+  selectedPeriod
 }) {
+
+  // The themes are different depending on the period.
+  // The `themes` are associated to the projects, the `period` to the programmes
+  const themes = selectedPeriod === 'interreg-next' ?
+  ["environment-2025", "p2p-2025", "smart-grow-2025", "border-2025", "governance-2025"]
+  :
+  ["environment", "p2p", "economic", "infrastructure"]
+
+
   return (
     <ul className="tabs TM_filter-by-theme">
-      {["environment", "p2p", "economic", "infrastructure", "governance"].map(
+      {themes.map(
         (theme) => {
           const numberProjects = projects.filter((projectID) => {
             const projInfo = allProjects.find((pro) => projectID === pro.ID);

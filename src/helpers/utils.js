@@ -3,22 +3,32 @@
  */
 
 export function getBaseUrl() {
-  return window.location.href.includes(".local") || window.location.href.includes("interregtesimnext")
-    ? "./wp-content/themes/understrap-child-master/inc/react-map/"
-    : "./";
+  return window.location.href.includes("localhost")
+    ?
+    // "http://tesimnew.local/wp-content/themes/understrap-child-master/inc/react-map/" // doesnt work because of Cors
+    // if we dont have the local env open, use:
+    './'
+    : "./wp-content/themes/understrap-child-master/inc/react-map/";
 }
 
 export function themeToLabel(theme) {
   switch (theme) {
     case "environment":
+    case "environment-2025":
       return "Environment";
     case "p2p":
       return "People to People";
+      case "p2p-2025":
+      return "People to People Cooperation";
     case "economic":
       return "Economic Development";
+    case "smart-grow-2025":
+      return "Smart growth";
     case "infrastructure":
       return "Infrastructure";
-    case "governance":
+    case "border-2025":
+      return "Border management";
+    case "governance-2025":
       return "Governance";
     default:
       break;
@@ -40,4 +50,11 @@ export function themeToProjectColor(theme) {
     default:
       break;
   }
+}
+
+export function removeHighlightForCountriesHighlightedBySelectedProgramme(mapRef) {
+  const c = mapRef.current.querySelectorAll(
+    ".programme-with-country-selected"
+  );
+  c.forEach((cc) => cc.classList.remove("programme-with-country-selected", "programme-with-country-hovered"));
 }

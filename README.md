@@ -1,11 +1,13 @@
 # WORK IN LOCAL
 
-- Use WP Local for a WP installation
+- Use WP Local for a WP installation 
+- in local, the react app will look load into a mockedup index.html that loads the css from http://tesimnew.local/
 - Clone this project with git in the WP root folder (`/public`)
 - You might need to fix issues: use `node 14` or `node 16`.
 - `yarn`, to install all dependencies.
 - ~~Setup the `.env` cloning the `.env localtesimsite`~~ Replaced for getBaseUrl() instead
-- run `deploy-tesimlocal.sh`, to copy build into `understrap-child-master/inc/react-map`
+- run `deploy-tesimlocal.sh
+`, to copy build into `understrap-child-master/inc/react-map`
 - The list of projects is regenrated when `on_save` a project in WP. You might need to trigger it.
 
 # More

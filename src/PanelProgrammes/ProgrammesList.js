@@ -32,27 +32,7 @@ export default function ProgrammesList({
   return (
     <>
       <DebugShowAllProgrammes setProjectInModal={setProjectInModal} allProjects={allProjects} />
-      {periods.size > 1 && (
-        <div class="flex-row">
-          <div>Periods</div>
 
-          <ul className="tabs TM_filter-by-period">
-            <li
-              key={"all-periods"}
-              className={`TM_Period TM_Period__all ${
-                "" === selectedPeriod ? "active" : ""
-              }`}
-              onClick={() => setSelectedPeriod("")}
-            >
-              Show All Programmes
-            </li>
-          </ul>
-          <TogglePill optionA="eni-cbc" optionB="interreg-next"
-            optionALabel="ENI CBC" optionBLabel="Interreg Next"
-            selected={selectedPeriod} onToggle={setSelectedPeriod} />
-
-        </div>
-      )}
       {/* Show all programmes by period (eni-cbc and interreg-next periods */}
       <div className={`TM_Programmes-list-by-period ${selectedPeriod? "selected-period" : '' } ${selectedPeriod}`}>
         {Array.from(periods).length > 1 &&

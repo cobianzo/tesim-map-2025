@@ -16,47 +16,37 @@ function PanelProgrammesContent({
   setSelectedProgramme,
   appOptions,
   setAppOptions,
-  showProgrammesPanel
+  showProgrammesPanel,
+  countryHovered
+
 }) {
-  /* Panel on the left. Shows info of selected country or shows Search by programme */
+  /* Panel on the left. Shows info of all programmes or a selected programme */
   return (
     <div className="TM_card">
 
-
-      <BackPanelButton onClickHandle={() => {
-        setAppOptions( Object.assign( {...appOptions}, {
-          showProjectsType: appOptions.showProjectsType === 'all-programmes'? 'map' : 'all-programmes'
-        }))
-      }} />
-
-      {/********** HEAD of PANEL **********/}
       <div className="TM_card-header">
-          {/* Show all programmes is selected and one programme is chosen */}
-          {appOptions.showProjectsType === "all-programmes" &&
-                (selectedProgramme ? (
-          <h2 className="TM_h2">
-            <b>{allProgrammes[selectedProgramme].post_title}</b>
-          </h2>
-          ) : (
-          <h2 className="TM_h2">Select a programme</h2>
-          ))}
+        { selectedProgramme && (
+          <h2 class="TM_h2 tm_mt-0"><b>{
+            allProgrammes[selectedProgramme] ? allProgrammes[selectedProgramme].post_title : '--'
+          }</b></h2>
+        )}
       </div>
-      {/********** END OF HEAD **********/}
 
       {/********** BODY of PANEL **********/}
       <div className="TM_card-body">
         {/* All programmes, or A programme is selected */}
-        {selectedProgramme ?
+        {selectedProgramme && !countryHovered ?
           <div className="InnerPanel-list-of-projects">
-          <BackPanelButton onClickHandle={()=> setSelectedProgramme(null)} />
+            <BackPanelButton onClickHandle={()=> { setSelectedProgramme(null); }} color="dark" />
 
-          <ProgrammePanel
-            setProjectInModal={setProjectInModal}
-            programmeId={selectedProgramme}
-            allProgrammes={allProgrammes}
-            allProjects={allProjects}
-          />
-        </div>
+            <ProgrammePanel
+              setProjectInModal={setProjectInModal}
+              programmeId={selectedProgramme}
+              allProgrammes={allProgrammes}
+              allProjects={allProjects}
+              selectedPeriod={selectedPeriod}
+            />
+          </div>
         :
          showProgrammesPanel &&
           <ProgrammesList

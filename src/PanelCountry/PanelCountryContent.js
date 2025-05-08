@@ -53,7 +53,7 @@ function PanelCountryContent({
           />
         ) : null}
         {countrySelected && (
-          <BackPanelButton onClickHandle={ () => { setCountrySelected(); setFilterByTheme(); } } />
+          <BackPanelButton onClickHandle={ () => { setCountrySelected(); setFilterByTheme(); } } color="secondary"/>
         )}
       </div>
       {/********** END OF HEAD **********/}
@@ -72,11 +72,13 @@ function PanelCountryContent({
         {/* a country is selected (body) */}
         {(countrySelected && projectsForSelectedCountry) ? (
           <div className="InnerPanel-list-of-projects">
+
             <FilterByThematic
               filterByTheme={filterByTheme}
               setFilterByTheme={setFilterByTheme}
               projects={projectsForSelectedCountry}
               allProjects={allProjects}
+              selectedPeriod={selectedPeriod}
             />
             <footer className="TM_text-secondary">
               {countrySelected && projectsForSelectedCountry && (
@@ -85,37 +87,36 @@ function PanelCountryContent({
                 </>
               )}
             </footer>
-            <BackPanelButton onClickHandle={ () => { setCountrySelected(); setFilterByTheme(); } } />
+            <BackPanelButton onClickHandle={ () => { setCountrySelected(); setFilterByTheme(); } } color="gray" />
 
             {/* List all the projects applying all filters ( country selected, period) */}
-            <ul
-              className="TM_list-of-projects"
-              data-theme={themeToLabel(filterByTheme)}
-            >
-              {projectsForSelectedCountry?.length > 0 &&
-                projectsForSelectedCountry
-                  .filter((projID) => {
-                    if (!filterByTheme) return true;
-                    const projInfo = allProjects.find(
-                      (pro) => projID === pro.ID
-                    );
-                    return (
-                      themeToProjectColor(filterByTheme) === projInfo.color
-                    );
-                  })
-                  .map((projectId) => {
-                    const projInfo = allProjects.find(
-                      (pro) => projectId === pro.ID
-                    );
-                    return (
-                      <ProjectInfo
-                        key={`pp-${projectId}`}
-                        setProjectInModal={setProjectInModal}
-                        projectInfo={projInfo}
-                      />
-                    );
-                  })}
-            </ul>
+            <div className="TM_list-of-projects" data-theme={themeToLabel(filterByTheme)}>
+              <ul>
+                {projectsForSelectedCountry?.length > 0 &&
+                  projectsForSelectedCountry
+                    .filter((projID) => {
+                      if (!filterByTheme) return true;
+                      const projInfo = allProjects.find(
+                        (pro) => projID === pro.ID
+                      );
+                      return (
+                        themeToProjectColor(filterByTheme) === projInfo.color
+                      );
+                    })
+                    .map((projectId) => {
+                      const projInfo = allProjects.find(
+                        (pro) => projectId === pro.ID
+                      );
+                      return (
+                        <ProjectInfo
+                          key={`pp-${projectId}`}
+                          setProjectInModal={setProjectInModal}
+                          projectInfo={projInfo}
+                        />
+                      );
+                    })}
+              </ul>
+            </div>
           </div>
         ) : null }
       </div>

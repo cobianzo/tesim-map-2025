@@ -5,38 +5,29 @@
 .TM_left-panel {
   z-index: 9;
   left: 0px;
+  top: 80px;
   // mobile
   position: absolute;
   background-color: white;
-  padding: 0px 5px 10px;
+
   box-shadow: 5px 4px 3px 0 rgba(0, 0, 0, 0.4);
   transition: all 1s;
+  height: 500px;
+  right: 50%;
+  border: 1px solid var(--tm-primary);
+  border-radius: 5px;
+  text-align: left;
+  padding: 20px 15px 10px;
+  margin-left: 1rem;
+  margin-right: 1rem;
 
-  .TM_h2 {
-    font-size: 1rem;
-  }
   color: black;
   // Desktop
-  @media only screen and (min-width: 960px) {
-    position: relative;
-    .TM_h2 {
-      font-size: 1.4rem;
-    }
-    position: absolute;
-    right: 50%;
-    border: 1px solid var(--tm-primary);
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.7);
-    border-radius: 5px;
-    text-align: left; // desktop
-    padding: 20px 15px 10px;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    top: 200px;
-    min-height: 261px; // Refine this for tablet (to fit the parent container)
-  }
 
-  // when nothig is selected
-  .TM_container.TM_container--no-selection & {
+  .TM_card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .TM_card-header--with-logo {
@@ -46,54 +37,27 @@
     border-bottom: 1px solid var(--wp--preset--color--black);
     margin-bottom: 1rem;
     .TM_h2 {
-      flex: 1 0 73%;
+      flex: 1 0 50%;
       padding: 0;
       margin: 0;
+    }
+    img {
+      max-height: 50px;
     }
   }
 
   // when there is a selection: List of programmes / Country selected
   .TM_container--selection & {
     // The panel becomes bigger convering the maximun
-    @media only screen and (min-width: 960px) {
-      transform: none;
-      top: 80px;
-      height: auto;
-      max-height: 523px;
-    }
 
-    .TM_card {
-      // doesnt need anything
-    }
     .TM_card-body {
       // this cointainer scrolls if content is too big
+      height: 100%;
+      overflow: hidden;
       padding-bottom: 10px;
       margin-bottom: 15px;
-      @media only screen and (min-width: 960px) {
-        height: 400px;
-      }
     }
   } // particularities of selections
-  // selection country: // when a country is selected the heading says more things and the height is smaller
-  @media only screen and (min-width: 960px) {
-    .TM_container.country-selected & {
-      .TM_card-body {
-        max-height: 315px;
-      }
-    }
-  }
-
-  // when there is a selection or hovering
-  .TM_container--active-state & {
-    // padding: 1rem;
-    // border-radius: 5px;
-    // @media only screen and (min-width: 960px) {
-    //     max-width: 50%;
-    //     // overflow-x: scroll ;
-    // }
-  }
-
-  // When selected (list of programmes / country
 }
 
 // inside the left panel
@@ -177,15 +141,21 @@ ul.TM_List-of-programmes {
   }
 }
 
+// When you select a programme
+// When you select a country.
 .InnerPanel-list-of-projects {
-  .TM_btn-close {
-  }
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr;
+  /*                   tabs  text  projects*/
+  grid-template-rows: auto auto auto;
 }
 
 div.TM_list-of-projects,
 ul.TM_list-of-projects {
   overflow-y: scroll;
-  height: 330px;
+  height: calc(100%);
+  padding-bottom: 50px;
 }
 
 ul.TM_list-of-projects,
@@ -252,41 +222,7 @@ div.TM_list-of-projects > ul {
   grid-column-end: -1;
 }
 
-// btn close,on the top right of the panel
-.tm_btn-wrapper {
-  position: absolute;
-  background-color: var(--tm-light);
-  right: -25px;
-  top: -25px;
-  z-index: 9;
-  padding: 25px;
-  border: 4px solid $primary;
-  border-radius: 50%;
-  display: flex;
-  justify-self: center;
-  align-items: center;
-  cursor: pointer;
-  &:hover {
-    background-color: $dark;
-    button {
-      color: white;
-    }
-
-    .TM_btn-close {
-      font-size: 2rem;
-      padding: 3px 5px;
-      border-radius: 50%;
-      background: none;
-    }
-  }
-  button {
-    cursor: pointer;
-    position: absolute;
-    transform: translate(-50%, -10%);
-    border: 0;
-    background-color: transparent;
-  }
-}
+// TODELETE?
 
 .TM_character-over-left-panel {
   display: none;
@@ -311,25 +247,6 @@ div.TM_list-of-projects > ul {
   }
 }
 
-/* adorno bajo el left panel */
-.TM_below-left-panel {
-  display: none;
-  @media only screen and (min-width: 960px) {
-    position: absolute;
-    // display: block;  // DEACTIVATED
-    bottom: 8%;
-    left: 15%;
-    z-index: 6;
-    img {
-      width: 200px;
-    }
-    h3 {
-      margin-top: -30px;
-      text-align: center;
-    }
-  }
-}
-
 // Filter_by-theme
 .flex-row {
   display: flex;
@@ -345,6 +262,7 @@ div.TM_list-of-projects > ul {
   margin: 0.5rem 0 1rem 0;
   justify-content: space-around;
   gap: 0.3rem;
+  height: min-content;
 
   flex-wrap: wrap;
   @media only screen and (min-width: 960px) {

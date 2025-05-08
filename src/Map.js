@@ -2,12 +2,12 @@ import React from "react";
 import Europe from "./SVGEurope";
 
 import useKeyPress from "./helpers/useKeyPress";
-import { getBaseUrl } from "./helpers/utils";
+import { getBaseUrl, removeHighlightForCountriesHighlightedBySelectedProgramme } from "./helpers/utils";
 
 import "./Map.scss";
 import "./Panels.scss";
 
-import TopBarSearch from "./TopBar/TopBarSearch";
+import TopBar from "./TopBar/TopBar";
 import PanelProgrammesContent from "./PanelProgrammes/PanelProgrammesContent";
 import PanelCountryContent from "./PanelCountry/PanelCountryContent";
 import TogglePill from "./TogglePill";
@@ -37,7 +37,7 @@ export default function Map({
   const [projectInModal, setProjectInModal] = React.useState(null);
   const [filterByTheme, setFilterByTheme] = React.useState("");
   const [periods, setPeriods] = React.useState([]); // eni-cbc | interreg-next
-  const [selectedPeriod, setSelectedPeriod] = React.useState("");
+  const [selectedPeriod, setSelectedPeriod] = React.useState("interreg-next");
 
   // State for Mode search by programme
   const [hoveredProgramme, setHoveredProgramme] = React.useState(null);
@@ -45,8 +45,16 @@ export default function Map({
 
   // **** ON MOUNT *****
   React.useEffect(() => {
+    setFilterByTheme(null);
     // adjustMapResolution();
-  }, []);
+  }, [selectedPeriod]);
+
+  React.useEffect(() => {
+    setSelectedProgramme(null);
+  }, [countrySelected]);
+
+
+
   // window.addEventListener("resize", adjustMapResolution);
   React.useEffect(() => {
     if (
@@ -122,7 +130,29 @@ export default function Map({
 
   // watch selection of country in dropdown.
   React.useEffect(() => {
-    // shabby solution
+
+    // shabby solution accesing to DOM eleemnts.
+
+
+    var PHProgramme = document.querySelector(
+      '.search-by-programme div[class*="placeholder"]'
+    );
+    if (!PHProgramme)
+      PHProgramme = document.querySelector(
+        '.search-by-programme div[class*="singleValue"]'
+      ); // if there was a value on it already.
+
+    // when we come back grom the selected Programme
+    if ( ! selectedProgramme ) {
+      removeHighlightForCountriesHighlightedBySelectedProgramme(refContainer);
+      PHProgramme.textContent = 'Lookup by programme';
+    } else {
+      const programmeName = allProgrammes[selectedProgramme]?.post_title;
+      PHProgramme.textContent = programmeName;
+    }
+
+
+
     var PHCountry = document.querySelector(
       '.search-by-country div[class*="placeholder"]'
     );
@@ -141,17 +171,15 @@ export default function Map({
     ) {
       // first, the mode of lookup comes back to 'map'.
       setAppOptions(
-        Object.assign({ ...appOptions }, { showProjectsType: "map" })
+        Object.assign({ ...appOptions }, { showProjectsType: "all-programmes" })
       );
 
       let path = refContainer.current.querySelector(".country-selected");
       if (path) path.classList.remove("country-selected");
       path = refContainer.current.querySelector("#" + countrySelected + "0"); // path#es0
       if (path) path.classList.add("country-selected");
-      const c = refContainer.current.querySelectorAll(
-        ".programme-with-country-selected"
-      );
-      c.forEach((cc) => cc.classList.remove("programme-with-country-selected"));
+
+      removeHighlightForCountriesHighlightedBySelectedProgramme(refContainer);
 
       PHCountry.textContent = allCountriesInfo[countrySelected].title; // dropdown value needs to be changed by hand if selected from map
     }
@@ -166,7 +194,7 @@ export default function Map({
 
       PHCountry.textContent = "Select a country";
     }
-  }, [countrySelected]); //WATCH (click on a country or selected from dropdown)
+  }, [countrySelected, selectedProgramme]); //WATCH (click on a country or selected from dropdown)
 
   // Programme hovered, when the 15 programmes are listed.
   React.useEffect(() => {
@@ -213,6 +241,8 @@ export default function Map({
         if (path) path.classList.add("programme-with-country-selected");
       }
     });
+
+    setCountrySelected(null);
   }, [selectedProgramme]); //WATCH
 
   // when looking up by programme, if a country weas selected, we deselected it.
@@ -226,8 +256,8 @@ export default function Map({
 
   // COMPPUTED - flag to show or not the Programmes panel
   const showProgrammesPanel = React.useMemo(() => {
-    return appOptions.showProjectsType === "all-programmes";
-  }, [appOptions.showProjectsType]);
+    return appOptions.showProjectsType === "all-programmes" && !countryHovered && !countrySelected;
+  }, [appOptions.showProjectsType, countryHovered, countrySelected]);
 
   const showCoutriesContent = React.useMemo(() => {
     return countryHovered || countrySelected;
@@ -316,8 +346,9 @@ export default function Map({
       ref={refContainer}
     >
       <div id="TM_topbar" className="TM_row">
-        <TopBarSearch
+        <TopBar
           allProgrammes={allProgrammes}
+          selectedProgramme={selectedProgramme} setSelectedProgramme={setSelectedProgramme}
           allProjects={allProjects}
           regionsToProgrammes={regionsToProgrammes}
           allRegionsInfo={allRegionsInfo}
@@ -402,14 +433,6 @@ export default function Map({
 
       {/* <!-- end left panel --> */}
 
-      {/* Below the left panel when nothing is selected deactivate with d-none because Armenia becomes Argentina */}
-      <div
-        className={` TM_below-left-panel ${
-          countryHovered && "country-hovered"
-        } ${countrySelected && "country-selected"}`}
-      >
-        {countryHovered && <h3>--{allCountriesInfo[countryHovered]?.title}</h3>}
-      </div>
 
       {/* The MAP */}
       <div className="TM_map-wrapper TM_col-12 tm_border TM_overflow-hidden">
@@ -450,7 +473,7 @@ export default function Map({
           onClick={(e) => setProjectInModal(null)}
         >
           <div className="tm_tesim-modal__inner">
-            <BackPanelButton onClickHandle={() => setProjectInModal(null)} />
+            <BackPanelButton onClickHandle={() => setProjectInModal(null)} color="info" />
 
             <iframe
               src={
