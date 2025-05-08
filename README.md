@@ -1,6 +1,6 @@
 # WORK IN LOCAL
 
-- Use WP Local for a WP installation 
+- Use WP Local for a WP installation with this siteurl http://tesimnew.local/ (or update getBaseUrl fn)
 - in local, the react app will look load into a mockedup index.html that loads the css from http://tesimnew.local/
 - Clone this project with git in the WP root folder (`/public`)
 - You might need to fix issues: use `node 14` or `node 16`.

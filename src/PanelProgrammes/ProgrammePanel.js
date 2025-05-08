@@ -1,7 +1,7 @@
 import React from "react";
 import ProjectInfo from "../ProjectInfo";
 import FilterByThematic from "../FilterByThematic";
-import { themeToLabel, themeToProjectColor } from "../helpers/utils";
+import { themeToLabel } from "../helpers/utils";
 import useAlphabeticProjects from "../useAlphabeticProjects";
 
 /**
@@ -50,8 +50,7 @@ export default function ProgrammePanel({
               const projInfo = allProjects
                 .filter(
                   (pinf) =>
-                    !filterByTheme.length ||
-                    themeToProjectColor(filterByTheme) === pinf?.color
+                    !filterByTheme.length || (filterByTheme === pinf?.color)
                 )
                 .find((pro) => ID === pro.ID);
               return projInfo ? (

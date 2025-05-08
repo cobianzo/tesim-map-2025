@@ -134,6 +134,7 @@ export default function Map({
     // shabby solution accesing to DOM eleemnts.
 
 
+    // shabby slution
     var PHProgramme = document.querySelector(
       '.search-by-programme div[class*="placeholder"]'
     );
@@ -150,7 +151,6 @@ export default function Map({
       const programmeName = allProgrammes[selectedProgramme]?.post_title;
       PHProgramme.textContent = programmeName;
     }
-
 
 
     var PHCountry = document.querySelector(
@@ -242,7 +242,10 @@ export default function Map({
       }
     });
 
-    setCountrySelected(null);
+    // setCountrySelected(null);
+
+
+
   }, [selectedProgramme]); //WATCH
 
   // when looking up by programme, if a country weas selected, we deselected it.

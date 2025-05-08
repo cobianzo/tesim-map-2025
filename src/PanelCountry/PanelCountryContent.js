@@ -1,6 +1,6 @@
 import React from "react";
 import ProjectInfo from "../ProjectInfo";
-import { themeToLabel, themeToProjectColor } from "../helpers/utils";
+import { themeToLabel } from "../helpers/utils";
 import FilterByThematic from "../FilterByThematic";
 import useFilteredProgrammesForCountry from "./useFilteredProgrammesForCountry";
 import useFilteredProjectsForCountry from "./useFilteredProjectsForCountry";
@@ -99,9 +99,7 @@ function PanelCountryContent({
                       const projInfo = allProjects.find(
                         (pro) => projID === pro.ID
                       );
-                      return (
-                        themeToProjectColor(filterByTheme) === projInfo.color
-                      );
+                      return (filterByTheme === projInfo.color);
                     })
                     .map((projectId) => {
                       const projInfo = allProjects.find(

@@ -201,17 +201,13 @@ div.TM_list-of-projects > ul {
     }
 
     // particularities of olours depending on the thematic
-    &.project-environment .tm_img-wrapper {
-      border-color: var(--tm-environment);
-    }
-    &.project-p2p .tm_img-wrapper {
-      border-color: var(--tm-p2p);
-    }
-    &.project-infrastructures .tm_img-wrapper {
-      border-color: var(--tm-infrastructure);
-    }
-    &.project-economical .tm_img-wrapper {
-      border-color: var(--tm-economic);
+    $themes: environment, p2p, infrastructures, economical, environment-2025,
+      p2p-2025, smart-growth-2025, border-2025, governance-2025;
+
+    @each $theme in $themes {
+      &.project-#{$theme} .tm_img-wrapper {
+        border-color: var(--tm-#{$theme});
+      }
     }
   }
 }

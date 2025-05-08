@@ -1,5 +1,5 @@
 import React from "react";
-import { themeToLabel, themeToProjectColor } from "./helpers/utils";
+import { themeToLabel } from "./helpers/utils";
 
 export default function FilterByThematic({
   filterByTheme,
@@ -12,7 +12,7 @@ export default function FilterByThematic({
   // The themes are different depending on the period.
   // The `themes` are associated to the projects, the `period` to the programmes
   const themes = selectedPeriod === 'interreg-next' ?
-  ["environment-2025", "p2p-2025", "smart-grow-2025", "border-2025", "governance-2025"]
+  ["environment-2025", "p2p-2025", "smart-growth-2025", "border-2025", "governance-2025"]
   :
   ["environment", "p2p", "economic", "infrastructure"]
 
@@ -23,7 +23,7 @@ export default function FilterByThematic({
         (theme) => {
           const numberProjects = projects.filter((projectID) => {
             const projInfo = allProjects.find((pro) => projectID === pro.ID);
-            return projInfo.color === themeToProjectColor(theme);
+            return projInfo.color === theme;
           }).length;
           return (
             <li

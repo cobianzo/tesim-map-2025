@@ -22,7 +22,7 @@ export function themeToLabel(theme) {
       return "People to People Cooperation";
     case "economic":
       return "Economic Development";
-    case "smart-grow-2025":
+    case "smart-growth-2025":
       return "Smart growth";
     case "infrastructure":
       return "Infrastructure";
@@ -35,22 +35,27 @@ export function themeToLabel(theme) {
   }
 }
 
-export function themeToProjectColor(theme) {
-  switch (theme) {
-    case "environment":
-      return "environment";
-    case "p2p":
-      return "p2p";
-    case "economic":
-      return "economical";
-    case "infrastructure":
-      return "infrastructures";
-    case "governance":
-      return "governance";
-    default:
-      break;
-  }
-}
+
+// TODELETE: we shouldnt need this anymore, after
+// updating economical into economic.
+// export function themeToProjectColor(theme) {
+//   switch (theme) {
+//     case "environment":
+//       return "environment";
+//     case "p2p":
+//       return "p2p";
+//     case "economic":
+//       return "economical";
+//     case "infrastructure":
+//       return "infrastructures";
+
+
+//     case "governance":
+//       return "governance";
+//     default:
+//       return theme;
+//   }
+// }
 
 export function removeHighlightForCountriesHighlightedBySelectedProgramme(mapRef) {
   const c = mapRef.current.querySelectorAll(
