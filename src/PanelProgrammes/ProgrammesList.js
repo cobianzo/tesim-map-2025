@@ -52,7 +52,7 @@ export default function ProgrammesList({
                       }
                       onMouseEnter={(e) => setHoveredProgramme(code)}
                       onMouseLeave={(e) => setHoveredProgramme(null)}
-                      key={code}
+                      key={period+code}
                       className={` ${selectedProgramme === code && "selected"}`}
                     >
                       <p>{allProgrammes[code].post_title}</p>

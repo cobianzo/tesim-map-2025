@@ -1,0 +1,18 @@
+// When screen is below 1300px, the map cant be shown easily,
+// So we redistribute the layout to hide the map and show only the left panel,
+// which becomes 100% with
+
+@media screen and (max-width: 1300px) {
+  #svg-map-container {
+    display: none;
+  }
+
+  .TM_left-panel {
+    right: 0;
+  }
+
+  .togglepill-wrapper {
+    top: 3lh !important;
+    right: 100px !important;
+  }
+}

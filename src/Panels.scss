@@ -109,6 +109,7 @@ ul.TM_List-of-programmes {
     display: none; // if the programme is selected, the list of programmes is hidden
   }
 
+  justify-content: space-between;
   list-style: none;
   padding: 0;
   display: grid;
@@ -173,7 +174,7 @@ div.TM_list-of-projects > ul {
     background-color: var(--tm-gray);
     box-shadow: 2px 3px 3px rgb(0 0 0 / 50%);
     .tm_img-wrapper {
-      border: 2px solid salmon;
+      border: 4px solid salmon;
       height: 68px;
       overflow: hidden;
       img {
@@ -201,8 +202,9 @@ div.TM_list-of-projects > ul {
     }
 
     // particularities of olours depending on the thematic
-    $themes: environment, p2p, infrastructures, economical, environment-2025,
-      p2p-2025, smart-growth-2025, border-2025, governance-2025;
+    $themes: environment, p2p, infrastructure, infrastructures, economic,
+      economical, environment-2025, p2p-2025, smart-growth-2025, border-2025,
+      governance-2025;
 
     @each $theme in $themes {
       &.project-#{$theme} .tm_img-wrapper {

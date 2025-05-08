@@ -2,6 +2,7 @@ import React from "react";
 import Map from "./Map";
 // import './SimulationTesimStyles.scss'; // TODELETE: Remove this in the final deploy! For development only.
 import "./App.scss";
+import "./App-small-screen.scss";
 import { getBaseUrl } from "./helpers/utils";
 
 /**

@@ -2,7 +2,7 @@ import React from "react";
 import Europe from "./SVGEurope";
 
 import useKeyPress from "./helpers/useKeyPress";
-import { getBaseUrl, removeHighlightForCountriesHighlightedBySelectedProgramme } from "./helpers/utils";
+import { getBaseUrl, removeHighlightForCountriesHighlightedBySelectedProgramme, updatePlaceHolderCountryDropdown, updatePlaceHolderProgrammeDropdown } from "./helpers/utils";
 
 import "./Map.scss";
 import "./Panels.scss";
@@ -45,13 +45,36 @@ export default function Map({
 
   // **** ON MOUNT *****
   React.useEffect(() => {
-    setFilterByTheme(null);
-    // adjustMapResolution();
+    if (selectedPeriod) {
+      setFilterByTheme(null);
+      setSelectedProgramme(null);
+    }
   }, [selectedPeriod]);
 
   React.useEffect(() => {
-    setSelectedProgramme(null);
-  }, [countrySelected]);
+    if (countrySelected) {
+      // update the placeholder of the dropdown.
+      const countryName = allCountriesInfo[countrySelected]?.title;
+      updatePlaceHolderCountryDropdown(countryName);
+
+      // if a country is selected, reset the selected programme
+      setSelectedProgramme(null);
+    } else {
+      updatePlaceHolderCountryDropdown('Select a country');
+    }
+  }, [countrySelected]); // WATCH:countrySelected
+
+  React.useEffect(()=>{
+    if (selectedProgramme) {
+      setCountrySelected('');
+      const programmeName = allProgrammes[selectedProgramme]?.post_title;
+      updatePlaceHolderProgrammeDropdown(programmeName);
+    }
+    else {
+      updatePlaceHolderProgrammeDropdown('Select a Programme');
+    }
+  }, [selectedProgramme, setCountrySelected]); //WATCH:selectedProgramme in the dropdown
+
 
 
 
@@ -133,26 +156,6 @@ export default function Map({
 
     // shabby solution accesing to DOM eleemnts.
 
-
-    // shabby slution
-    var PHProgramme = document.querySelector(
-      '.search-by-programme div[class*="placeholder"]'
-    );
-    if (!PHProgramme)
-      PHProgramme = document.querySelector(
-        '.search-by-programme div[class*="singleValue"]'
-      ); // if there was a value on it already.
-
-    // when we come back grom the selected Programme
-    if ( ! selectedProgramme ) {
-      removeHighlightForCountriesHighlightedBySelectedProgramme(refContainer);
-      PHProgramme.textContent = 'Lookup by programme';
-    } else {
-      const programmeName = allProgrammes[selectedProgramme]?.post_title;
-      PHProgramme.textContent = programmeName;
-    }
-
-
     var PHCountry = document.querySelector(
       '.search-by-country div[class*="placeholder"]'
     );
@@ -194,7 +197,7 @@ export default function Map({
 
       PHCountry.textContent = "Select a country";
     }
-  }, [countrySelected, selectedProgramme]); //WATCH (click on a country or selected from dropdown)
+  }, [countrySelected]); //WATCH (click on a country or selected from dropdown)
 
   // Programme hovered, when the 15 programmes are listed.
   React.useEffect(() => {
@@ -219,9 +222,10 @@ export default function Map({
   }, [hoveredProgramme]); //WATCH
 
   // Programme selected watch, when the 15 programmes are listed.
+  // highlight the countries in the map
   React.useEffect(() => {
     if (!refContainer.current || !allProgrammes) return;
-    // CLEANUP - if we have finished a hover. (this could be in the return)
+    // 1. CLEANUP - if we have finished a hover. (this could be in the return)
     const c = refContainer.current.querySelectorAll(
       ".programme-with-country-selected"
     );
@@ -231,7 +235,7 @@ export default function Map({
     if (!allProgrammes[selectedProgramme]) {
       return;
     }
-    // select the countries for that programme
+    // 2. highlight the countries for that programme
     const countriesArray =
       allProgrammes[selectedProgramme].countries.split(",");
     countriesArray.forEach((code) => {
@@ -244,9 +248,29 @@ export default function Map({
 
     // setCountrySelected(null);
 
+    // Now the dropdown, update placeholder
+    // shabby slution
+    var PHProgramme = document.querySelector(
+      '.search-by-programme div[class*="placeholder"]'
+    );
+    if (!PHProgramme)
+      PHProgramme = document.querySelector(
+        '.search-by-programme div[class*="singleValue"]'
+      ); // if there was a value on it already.
+
+    // when we come back grom the selected Programme
+    if ( ! selectedProgramme ) {
+      removeHighlightForCountriesHighlightedBySelectedProgramme(refContainer);
+      if (PHProgramme)
+        PHProgramme.textContent = 'Lookup by programme';
+    } else {
+      const programmeName = allProgrammes[selectedProgramme]?.post_title;
+      if (PHProgramme)
+        PHProgramme.textContent = programmeName;
+    }
 
 
-  }, [selectedProgramme]); //WATCH
+  }, [selectedProgramme, allProgrammes]); //WATCH selectedProgramme to highlight the country
 
   // when looking up by programme, if a country weas selected, we deselected it.
   React.useEffect(() => {

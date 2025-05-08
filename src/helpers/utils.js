@@ -63,3 +63,23 @@ export function removeHighlightForCountriesHighlightedBySelectedProgramme(mapRef
   );
   c.forEach((cc) => cc.classList.remove("programme-with-country-selected", "programme-with-country-hovered"));
 }
+
+// shabby way to iupdate placeholder.
+export function updatePlaceHolderCountryDropdown(testInPH) {
+  let PHCountry = document.querySelector('.search-by-country div[class*="placeholder"]');
+  if (!PHCountry) {
+    PHCountry = document.querySelector('.search-by-country div[class*="singleValue"]');
+  }
+  if (PHCountry) {
+    PHCountry.innerHTML = testInPH;
+  }
+}
+export function updatePlaceHolderProgrammeDropdown(testInPH) {
+  let PHProgrammeDropdown = document.querySelector('.search-by-programme div[class*="placeholder"]');
+  if (!PHProgrammeDropdown) {
+    PHProgrammeDropdown = document.querySelector('.search-by-programme div[class*="singleValue"]');
+  }
+  if (PHProgrammeDropdown) {
+    PHProgrammeDropdown.innerHTML = testInPH;
+  }
+}

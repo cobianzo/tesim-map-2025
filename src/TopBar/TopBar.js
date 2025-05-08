@@ -99,12 +99,15 @@ export default function TopBar( {   regionsToProgrammes,
         const allProgrammesArray = [];
         Object.keys(allProgrammes).forEach(programmeId => {
             const label = allProgrammes[programmeId].post_title;
-            allProgrammesArray.push({ label, value: programmeId}); //
+            const period = allProgrammes[programmeId].period;
+            const add= ( selectedPeriod && period === selectedPeriod ) ?? false;
+            if (add)
+                allProgrammesArray.push({ label, value: programmeId}); //
         })
         setOptionsProgrammes(allProgrammesArray);
     }, [selectedPeriod, allProgrammes]);
 
-    // Initialize the dropdown values for All proyects
+    // Initialize the dropdown values for All projects
     React.useEffect( () => {
         if (!allProjects || !allProjects.length ) return;
         if (!allProgrammes || !Object.keys(allProgrammes).length) return;
@@ -150,10 +153,11 @@ export default function TopBar( {   regionsToProgrammes,
     }, [allProjects, allProgrammes, selectedPeriod]);
 
     // on mount when countries info is ready
+    // ===========
 
     React.useEffect(()=>{
         if (!placeholderCountryRef) return;
-        if (!allCountriesInfo[countryHovered]) { // if the country exists
+        if (!allCountriesInfo[countryHovered]) { // if the country exists updates the placeholder
             if (countrySelected) {
                 placeholderCountryRef.textContent = allCountriesInfo[countrySelected].title;
                 return;
@@ -170,7 +174,7 @@ export default function TopBar( {   regionsToProgrammes,
             return;
         }
         placeholderCountryRef.textContent = allCountriesInfo[countrySelected].title;
-    }, [countrySelected, allCountriesInfo, placeholderCountryRef]);
+    }, [countrySelected, allCountriesInfo, placeholderCountryRef]); // WATCH:countrySelected
 
     React.useEffect(()=>{
         var PHProjectDropdown = document.querySelector('.search-by-project div[class*="placeholder"]')
@@ -203,11 +207,15 @@ export default function TopBar( {   regionsToProgrammes,
                 selectedProgramme={selectedProgramme}
                 /> */}
         <div className='tm_nav-item search-by-programme TM_col-6 TM_col-md-3'>
+            {/* { ! countrySelected && */}
             <Select options={optionsProgrammes}
                     placeholder="Lookup by Programme"
                     defaultValue={''} // I didnt find a way to change the value automatically.
                     // onInputChange={ handleSelectRegion }
-                    onChange={e => setSelectedProgramme(e.value) }/>
+                    onChange={e => {
+                        setSelectedProgramme(e.value);
+                        } }/>
+            {/* } */}
         </div>
         <div className='tm_nav-item search-by-country TM_col-6 TM_col-md-3'>
             <Select options={optionsCountry}
