@@ -152,17 +152,21 @@ ul.TM_List-of-programmes {
   grid-template-rows: auto auto auto;
 }
 
-div.TM_list-of-projects,
-ul.TM_list-of-projects {
+div.TM_list-of-projects {
+  justify-content: center;
   overflow-y: scroll;
   height: calc(100%);
   padding-bottom: 50px;
 }
 
-ul.TM_list-of-projects,
 div.TM_list-of-projects > ul {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
   grid-gap: 1px;
   list-style: none;
   padding: 0;

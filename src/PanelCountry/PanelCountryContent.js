@@ -61,13 +61,16 @@ function PanelCountryContent({
       {/********** BODY **********/}
       <div className="TM_card-body">
         {/* a country is hovered (body) */}
-        {countryHovered && !countrySelected && (
+        {countryHovered && !countrySelected && (<>
+          <h2 className="TM_h2">
+            { allCountriesInfo[countryHovered] && allCountriesInfo[countryHovered].title }
+          </h2>
           <p className="TM_text-secondary">
             {(projectsForSelectedCountry?.length > 0) ?
                 `Click on the country for more information`
               : <span>No projects for this country {selectedPeriod? ` for the period ${selectedPeriod.replace(/-/g, " ").toUpperCase()}` : `` }</span>}
           </p>
-        )}
+        </>)}
 
         {/* a country is selected (body) */}
         {(countrySelected && projectsForSelectedCountry) ? (

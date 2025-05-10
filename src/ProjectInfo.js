@@ -43,7 +43,10 @@ export default function ProjectInfo({
 
   return (
     <li
-      onClick={(e) => setProjectInModal(projectInfo.ID)}
+      onClick={(e) => {
+        window.open(projectInfo?.permalink, '_blank');
+        // setProjectInModal(projectInfo.ID);
+      }}
       className={`project-${projectInfo?.color}`}
     >
       <div className="tm_img-wrapper">

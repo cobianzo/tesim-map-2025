@@ -46,3 +46,18 @@
 /**
 Positioning the toggler pill.
 */
+
+// MOBILE:
+@media only screen and (max-width: 1300px) {
+  .togglepill-wrapper {
+    position: relative;
+    display: flex;
+    left: auto;
+    right: auto !important;
+    justify-content: center;
+    top: 0 !important;
+  }
+  .toggle-pill__option {
+    padding: 1rem;
+  }
+}

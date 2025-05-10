@@ -49,14 +49,12 @@ $color-norway-selectable: #444444;
   margin-top: 0;
   scale: 1;
   transition: scale 0.5s ease-in-out, margin 0.5s ease-in-out;
-  border: 3px solid pink;
-  background: pink;
+  // border: 3px solid pink;
+  // background: pink;
   .TM_container.period-interreg-next & {
     scale: 1.5;
     margin-left: 100px;
     margin-top: -150px;
-    border: 3px solid orange;
-    background: orange;
   }
 }
 

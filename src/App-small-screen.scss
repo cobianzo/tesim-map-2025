@@ -2,6 +2,11 @@
 // So we redistribute the layout to hide the map and show only the left panel,
 // which becomes 100% with
 
+@media screen and (max-width: 550px) {
+  .TM_App {
+    min-height: 700px;
+  }
+}
 @media screen and (max-width: 1300px) {
   #svg-map-container {
     display: none;
@@ -12,7 +17,8 @@
   }
 
   .togglepill-wrapper {
-    top: 3lh !important;
-    right: 100px !important;
+    top: 0 !important;
+    left: auto !important;
+    right: auto !important;
   }
 }
