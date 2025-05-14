@@ -62,9 +62,6 @@ function PanelCountryContent({
       <div className="TM_card-body">
         {/* a country is hovered (body) */}
         {countryHovered && !countrySelected && (<>
-          <h2 className="TM_h2">
-            { allCountriesInfo[countryHovered] && allCountriesInfo[countryHovered].title }
-          </h2>
           <p className="TM_text-secondary">
             {(projectsForSelectedCountry?.length > 0) ?
                 `Click on the country for more information`

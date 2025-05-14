@@ -197,7 +197,7 @@ export default function Map({
 
       PHCountry.textContent = "Select a country";
     }
-  }, [countrySelected]); //WATCH (click on a country or selected from dropdown)
+  }, [countrySelected, allCountriesInfo, appOptions, regionsToProgrammes, setAppOptions]); //WATCH countrySelected (click on a country or selected from dropdown)
 
   // Programme hovered, when the 15 programmes are listed.
   React.useEffect(() => {
@@ -219,7 +219,7 @@ export default function Map({
         if (path) path.classList.add("programme-with-country-hovered");
       }
     });
-  }, [hoveredProgramme]); //WATCH
+  }, [hoveredProgramme, allProgrammes]); //WATCH hoveredProgramme
 
   // Programme selected watch, when the 15 programmes are listed.
   // highlight the countries in the map

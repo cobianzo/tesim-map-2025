@@ -170,7 +170,7 @@ export default function TopBar( {   regionsToProgrammes,
 
     React.useEffect(()=>{
         if (!placeholderCountryRef || !countrySelected) {
-            if (placeholderCountryRef) placeholderCountryRef.textContent = '';
+            if (placeholderCountryRef) placeholderCountryRef.textContent = 'Select a country';
             return;
         }
         placeholderCountryRef.textContent = allCountriesInfo[countrySelected].title;
