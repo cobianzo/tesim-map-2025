@@ -89,7 +89,6 @@
   > div {
     h3 {
       text-align: center;
-      border-bottom: 1px solid $secondary;
     }
   }
   &.selected-period {
@@ -119,12 +118,14 @@ ul.TM_List-of-programmes {
     text-align: center;
     align-items: start;
     display: grid;
-    border-bottom: 1px solid $secondary;
     padding: 5px 10px;
     margin-bottom: 10px;
     grid-template-columns: auto; // 1 col
+    border: 1px solid transparent;
+    transition: border 0.3s, border-radius 1s;
     &:hover {
-      background-color: $info;
+      border: 1px solid $secondary;
+      border-radius: 10px;
     }
     &.selected {
       background-color: $info;
@@ -207,8 +208,8 @@ div.TM_list-of-projects > ul {
 
     // particularities of olours depending on the thematic
     $themes: environment, p2p, infrastructure, infrastructures, economic,
-      economical, environment-2025, p2p-2025, smart-growth-2025, border-2025,
-      governance-2025;
+      economical, environment-2025, social-inclusion-2025, smart-growth-2025,
+      border-2025, governance-2025;
 
     @each $theme in $themes {
       &.project-#{$theme} .tm_img-wrapper {

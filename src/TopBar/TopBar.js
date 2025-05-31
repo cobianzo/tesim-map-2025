@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select'
 import ListOfProgrammesButton from './ListOfProgrammesButton';
+import { sanitizePeriodName } from '../helpers/utils';
 
 /**
  * DROPDOWN for the countries (also regions, but it was removed).
@@ -182,7 +183,7 @@ export default function TopBar( {   regionsToProgrammes,
         if (!projectInModal) {
             // remove dropdown
             if (PHProjectDropdown) {
-                const selectedPeriodText = selectedPeriod.replace(/-/g, ' ').toUpperCase();
+                const selectedPeriodText = sanitizePeriodName(selectedPeriod);
                 PHProjectDropdown.textContent = `Look for a project${selectedPeriodText? ` in ${selectedPeriodText} period` : ''}`;
             }
         }

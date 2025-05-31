@@ -1,6 +1,7 @@
 import React from "react";
 import DebugShowAllProgrammes from "./DebugShowAllProgrammes";
 import TogglePill from "../TogglePill";
+import { sanitizePeriodName } from "../helpers/utils";
 
 
 
@@ -38,7 +39,7 @@ export default function ProgrammesList({
         {Array.from(periods).length > 1 &&
           Array.from(periods).map((period) => (
             <div className={`${selectedPeriod === period ? "active" : ""}`}>
-              <h3>{period.toUpperCase().replace(/-/g, " ")}</h3>
+              <h3>{sanitizePeriodName(period)}</h3>
               <ul className={`TM_List-of-programmes`}>
               {programmesIdsAlphabetical
                 .filter((code) => allProgrammes[code].period === period)

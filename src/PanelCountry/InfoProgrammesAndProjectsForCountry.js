@@ -1,4 +1,5 @@
 import React from "react";
+import { sanitizePeriodName } from "../helpers/utils";
 
 function InfoProgrammesAndProjectsForCountry({
   theCountry,
@@ -14,9 +15,7 @@ function InfoProgrammesAndProjectsForCountry({
           {`Participating in ${programmesForSelectedCountry.length} `}
           {`Programme${programmesForSelectedCountry.length > 1 ? "s" : ""}`}
           {selectedPeriod
-            ? ` for the period ${selectedPeriod
-                .replace(/-/g, " ")
-                .toUpperCase()} `
+            ? ` for the period ${ sanitizePeriodName(selectedPeriod) }`
             : ``}
           :
           {programmesForSelectedCountry.length > 0 &&
@@ -42,9 +41,7 @@ function InfoProgrammesAndProjectsForCountry({
               )}
               &nbsp; shown in this exhibition{" "}
               {selectedPeriod
-                ? ` for the period ${selectedPeriod
-                    .replace(/-/g, " ")
-                    .toUpperCase()} `
+                ? ` for the period ${sanitizePeriodName(selectedPeriod)}`
                 : ``}
             </span>
           ) : (

@@ -1,6 +1,6 @@
 import React from "react";
 import ProjectInfo from "../ProjectInfo";
-import { themeToLabel } from "../helpers/utils";
+import { sanitizePeriodName, themeToLabel } from "../helpers/utils";
 import FilterByThematic from "../FilterByThematic";
 import useFilteredProgrammesForCountry from "./useFilteredProgrammesForCountry";
 import useFilteredProjectsForCountry from "./useFilteredProjectsForCountry";
@@ -65,7 +65,7 @@ function PanelCountryContent({
           <p className="TM_text-secondary">
             {(projectsForSelectedCountry?.length > 0) ?
                 `Click on the country for more information`
-              : <span>No projects for this country {selectedPeriod? ` for the period ${selectedPeriod.replace(/-/g, " ").toUpperCase()}` : `` }</span>}
+              : <span>No projects for this country {selectedPeriod? ` for the period ${sanitizePeriodName(selectedPeriod)}` : `` }</span>}
           </p>
         </>)}
 

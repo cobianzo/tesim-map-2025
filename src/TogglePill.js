@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import "./TogglePill.scss";
+import { sanitizePeriodName } from "./helpers/utils";
 
 export default function TogglePill({ optionA, optionB, optionALabel, optionBLabel, selected, onToggle }) {
 
@@ -14,6 +15,10 @@ export default function TogglePill({ optionA, optionB, optionALabel, optionBLabe
     onToggle?.(sel);
   };
 
+
+  const computedOptionALabel = sanitizePeriodName(optionALabel);
+  const computedOptionBLabel = sanitizePeriodName(optionBLabel);
+
   return (
     <button
       onClick={toggle}
@@ -25,14 +30,14 @@ export default function TogglePill({ optionA, optionB, optionALabel, optionBLabe
           selected === optionA ? "active" : "inactive"
         }`}
       >
-        {optionALabel}
+        {computedOptionALabel}
       </span>
       <span
         className={`toggle-pill__option ${
           selected === optionB ? "active" : "inactive"
         }`}
       >
-        {optionBLabel}
+        {computedOptionBLabel}
       </span>
     </button>
   );

@@ -79,6 +79,16 @@
         "pin": "hidden nofill",
         "zoom": 3
     },
+    "cr": {
+        "id": "cr",
+        "title": "Crimea",
+        "description": "",
+        "x": "0.8451",
+        "y": "0.5692",
+        "category": "non-eu-but-involved",
+        "pin": "hidden nofill",
+        "zoom": 2
+    },
     "cy": {
         "id": "cy",
         "title": "Cyprus",
@@ -561,7 +571,7 @@
     },
     "tr": {
         "id": "tr",
-        "title": "Turkey",
+        "title": "Türkiye",
         "description": "<p>T\u00dcRKIYE<\/p>",
         "x": "0.8652",
         "y": "0.8097",

@@ -18,8 +18,8 @@ export function themeToLabel(theme) {
       return "Environment";
     case "p2p":
       return "People to People";
-      case "p2p-2025":
-      return "People to People Cooperation";
+    case "social-inclusion-2025":
+      return "Social Inclusion";
     case "economic":
       return "Economic Development";
     case "smart-growth-2025":
@@ -35,6 +35,14 @@ export function themeToLabel(theme) {
   }
 }
 
+
+export function sanitizePeriodName(period) {
+  let newPeriod = period.replace(/-/g, ' ');
+  newPeriod = newPeriod.charAt(0).toUpperCase() + newPeriod.slice(1);
+  newPeriod = newPeriod.replace('Next', 'NEXT').replace('next', 'NEXT');
+  newPeriod = newPeriod.replace('Eni cbc', 'ENI CBC');
+  return newPeriod;
+}
 
 // TODELETE: we shouldnt need this anymore, after
 // updating economical into economic.
