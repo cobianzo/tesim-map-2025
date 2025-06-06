@@ -59,7 +59,8 @@ export function applyClassToRegions( mapRef, className, regionsArray ) {
   regionsArray.forEach((code) => {
       if (code.trim().length) {
         // and apply the class
-        const path = mapRef.current.querySelector("#" + code); // path#es0
+        const path = mapRef.current ? mapRef.current.querySelector("#" + code) : null; // path#es0
+        if (!path) return;
         if (path) path.classList.add(className);
       }
   });
@@ -89,7 +90,7 @@ export function applyClassToRegions( mapRef, className, regionsArray ) {
 
 export function removeHighlightForCountriesHighlightedBySelectedProgramme(mapRef) {
   cleanupClassRegions(mapRef, "programme-with-country-selected");
-  cleanupClassRegions(mapRef, "programme-with-country-hovered");
+  cleanupClassRegions(mapRef, "country-beloging-to-with-programme-hovered");
 }
 
 // shabby way to iupdate placeholder.

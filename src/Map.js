@@ -205,20 +205,14 @@ export default function Map({
     // CLEANUP - if we have finished a hover. (this could be in the return)
 
     cleanupClassRegions(refContainer, "region-with-programme-hovered" );
-    cleanupClassRegions(refContainer, "programme-with-country-hovered" );
+    cleanupClassRegions(refContainer, "country-beloging-to-with-programme-hovered" );
 
     if (!allProgrammes[hoveredProgramme]) {
       return;
     }
     // select the countries for that programme
-    const countriesArray = allProgrammes[hoveredProgramme].countries.split(",");
-    countriesArray.forEach((code) => {
-      if (code.trim().length) {
-        // and apply the class
-        const path = refContainer.current.querySelector("#" + code + "0"); // path#es0
-        if (path) path.classList.add("programme-with-country-hovered");
-      }
-    });
+    const countriesArray = allProgrammes[hoveredProgramme].countries.split(",").filter(c=> c.length).map(c=> c.trim() + '0' );
+    applyClassToRegions( refContainer, "country-beloging-to-with-programme-hovered", countriesArray );
 
     // Now apply class to regions, not to countries. Cleanup with cleanupHighlightedRegionsByProgrammeHovered
     if (hoveredProgramme && allProgrammes[hoveredProgramme]) {

@@ -59,9 +59,13 @@ $color-norway-selectable: #444444;
 }
 
 // class set up by react
+.TM_map-wrapper {
+  background-color: #a0d3e1;
+}
 #svg-map-container {
   #sea {
     stroke: none;
+    fill: #a0d3e1;
   }
 
   .period-eni-cbc.selectable {
@@ -156,6 +160,20 @@ $color-norway-selectable: #444444;
     }
   }
 
+  // #landmarks-eu-non-involved-in-next
+  #ru-relleno,
+  #landmarks-ru path,
+  #landmarks-ly path,
+  #landmarks-sy path,
+  #landmarks-az path,
+  #kz path,
+  #countries-non-interactive path,
+  #countries-non-interactive polygon,
+  #landmarks-sy polygon,
+  #landmarks-ma path {
+    fill: #eee;
+  }
+
   #landmarks-non-eu-but-partners {
     fill: $color-partners-non-selectable;
     .period-eni-cbc.selectable {
@@ -239,7 +257,7 @@ $color-norway-selectable: #444444;
       }
     }
   }
-  .programme-with-country-hovered {
+  .country-beloging-to-with-programme-hovered {
     animation: country-stroke-animation-red 1s infinite;
     stroke-width: 5px !important;
   }
@@ -258,6 +276,15 @@ $color-norway-selectable: #444444;
   }
 }
 
+// kosovo, uncontinous line
+.cls-22 {
+  stroke: #000;
+  stroke-width: 0.75px;
+  stroke-dasharray: 1, 2;
+  stroke-linecap: round;
+  stroke-linejoin: bevel;
+  fill: none;
+}
 .cls-2 {
   stroke: #a8a8a8;
   // fill:           $primary;
