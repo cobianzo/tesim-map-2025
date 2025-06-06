@@ -26,7 +26,7 @@ function PanelProgrammesContent({
 
       <div className="TM_card-header">
         { selectedProgramme && (
-          <h2 class="TM_h2 tm_mt-0"><b>{
+          <h2 className="TM_h2 tm_mt-0"><b>{
             allProgrammes[selectedProgramme] ? allProgrammes[selectedProgramme].post_title : '--'
           }</b></h2>
         )}

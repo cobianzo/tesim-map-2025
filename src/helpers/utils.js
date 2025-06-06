@@ -35,7 +35,11 @@ export function themeToLabel(theme) {
   }
 }
 
-
+/**
+ * Given 'Interreg Next', converts it into 'Interreg NEXT', and more like that.
+ * @param {*} period
+ * @returns
+ */
 export function sanitizePeriodName(period) {
   let newPeriod = period.replace(/-/g, ' ');
   newPeriod = newPeriod.charAt(0).toUpperCase() + newPeriod.slice(1);
@@ -43,6 +47,24 @@ export function sanitizePeriodName(period) {
   newPeriod = newPeriod.replace('Eni cbc', 'ENI CBC');
   return newPeriod;
 }
+
+export function cleanupClassRegions( mapRef, className ) {
+  if (!mapRef || !mapRef.current) return;
+  if (!className) return;
+  const c = mapRef.current.querySelectorAll("." + className);
+  c.forEach((cc) => cc.classList.remove(className));
+}
+
+export function applyClassToRegions( mapRef, className, regionsArray ) {
+  regionsArray.forEach((code) => {
+      if (code.trim().length) {
+        // and apply the class
+        const path = mapRef.current.querySelector("#" + code); // path#es0
+        if (path) path.classList.add(className);
+      }
+  });
+}
+
 
 // TODELETE: we shouldnt need this anymore, after
 // updating economical into economic.
@@ -66,10 +88,8 @@ export function sanitizePeriodName(period) {
 // }
 
 export function removeHighlightForCountriesHighlightedBySelectedProgramme(mapRef) {
-  const c = mapRef.current.querySelectorAll(
-    ".programme-with-country-selected"
-  );
-  c.forEach((cc) => cc.classList.remove("programme-with-country-selected", "programme-with-country-hovered"));
+  cleanupClassRegions(mapRef, "programme-with-country-selected");
+  cleanupClassRegions(mapRef, "programme-with-country-hovered");
 }
 
 // shabby way to iupdate placeholder.

@@ -84,7 +84,7 @@ $color-norway-selectable: #444444;
   }
   // when trasitioning from eni to next (or viceversa) the new selctable regions animate when changing colour.
   .selectable {
-    transition: fill 5s ease-in-out;
+    transition: fill 1s ease-in-out;
   }
   #landmarks-eu {
     fill: $color-eu-non-selectable;
@@ -246,6 +246,15 @@ $color-norway-selectable: #444444;
   .programme-with-country-selected {
     animation: country-stroke-animation 3s infinite;
     stroke-width: 5px !important;
+  }
+
+  // Ultimate feature: show regions highlighted when hovering over a programme
+  .region-with-programme-hovered {
+    fill: $info !important;
+  }
+  .region-with-programme-selected {
+    fill: darken($info, 10%) !important;
+    animation: country-fill-animation 1s infinite;
   }
 }
 

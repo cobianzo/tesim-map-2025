@@ -2,7 +2,7 @@ import React from "react";
 import Europe from "./SVGEurope";
 
 import useKeyPress from "./helpers/useKeyPress";
-import { getBaseUrl, removeHighlightForCountriesHighlightedBySelectedProgramme, updatePlaceHolderCountryDropdown, updatePlaceHolderProgrammeDropdown } from "./helpers/utils";
+import { applyClassToRegions, cleanupClassRegions, getBaseUrl, removeHighlightForCountriesHighlightedBySelectedProgramme, updatePlaceHolderCountryDropdown, updatePlaceHolderProgrammeDropdown } from "./helpers/utils";
 
 import "./Map.scss";
 import "./Panels.scss";
@@ -102,7 +102,7 @@ export default function Map({
         if (path) path.classList.add(`period-${period}`);
       });
     });
-  }, [regionsToProgrammes, regionsToProgrammes.nuts3]);
+  }, [regionsToProgrammes, regionsToProgrammes.nuts3, allProgrammes]); // WATCH regionsToProgrammes.nuts3 (on load actually)
 
   // Calculate the periods. It will come out with ['eni-cbc', 'interreg-next'].
   React.useEffect(() => {
@@ -199,14 +199,14 @@ export default function Map({
     }
   }, [countrySelected, allCountriesInfo, appOptions, regionsToProgrammes, setAppOptions]); //WATCH countrySelected (click on a country or selected from dropdown)
 
-  // Programme hovered, when the 15 programmes are listed.
+  // Programme hovered in left panel, when the 15 programmes are listed.
   React.useEffect(() => {
     if (!refContainer.current || !allProgrammes) return;
     // CLEANUP - if we have finished a hover. (this could be in the return)
-    const c = refContainer.current.querySelectorAll(
-      ".programme-with-country-hovered"
-    );
-    c.forEach((cc) => cc.classList.remove("programme-with-country-hovered"));
+
+    cleanupClassRegions(refContainer, "region-with-programme-hovered" );
+    cleanupClassRegions(refContainer, "programme-with-country-hovered" );
+
     if (!allProgrammes[hoveredProgramme]) {
       return;
     }
@@ -219,6 +219,13 @@ export default function Map({
         if (path) path.classList.add("programme-with-country-hovered");
       }
     });
+
+    // Now apply class to regions, not to countries. Cleanup with cleanupHighlightedRegionsByProgrammeHovered
+    if (hoveredProgramme && allProgrammes[hoveredProgramme]) {
+      const regionsArray = allProgrammes[hoveredProgramme].nuts3.split(",");
+      applyClassToRegions( refContainer, "region-with-programme-hovered", regionsArray );
+    }
+
   }, [hoveredProgramme, allProgrammes]); //WATCH hoveredProgramme
 
   // Programme selected watch, when the 15 programmes are listed.
@@ -226,47 +233,44 @@ export default function Map({
   React.useEffect(() => {
     if (!refContainer.current || !allProgrammes) return;
     // 1. CLEANUP - if we have finished a hover. (this could be in the return)
-    const c = refContainer.current.querySelectorAll(
-      ".programme-with-country-selected"
-    );
-    c.forEach((cc) => cc.classList.remove("programme-with-country-selected"));
-    const d = refContainer.current.querySelectorAll(".country-selected");
-    d.forEach((cc) => cc.classList.remove("country-selected"));
+    cleanupClassRegions(refContainer, "programme-with-country-selected" );
+    cleanupClassRegions(refContainer, "country-selected" );
+    // cleanup classes for regions and start over
+    cleanupClassRegions(refContainer, "region-with-programme-hovered" );
+    cleanupClassRegions(refContainer, "region-with-programme-selected" );
+
     if (!allProgrammes[selectedProgramme]) {
       return;
     }
+
     // 2. highlight the countries for that programme
-    const countriesArray =
-      allProgrammes[selectedProgramme].countries.split(",");
-    countriesArray.forEach((code) => {
-      if (code.trim().length) {
-        // and apply the class
-        const path = refContainer.current.querySelector("#" + code + "0"); // path#es0
-        if (path) path.classList.add("programme-with-country-selected");
-      }
-    });
+    const countriesArray = allProgrammes[selectedProgramme].countries.split(",");
+    applyClassToRegions( refContainer, "programme-with-country-selected", countriesArray );
 
     // setCountrySelected(null);
 
     // Now the dropdown, update placeholder
     // shabby slution
-    var PHProgramme = document.querySelector(
-      '.search-by-programme div[class*="placeholder"]'
-    );
+    var PHProgramme = document.querySelector('.search-by-programme div[class*="placeholder"]');
     if (!PHProgramme)
-      PHProgramme = document.querySelector(
-        '.search-by-programme div[class*="singleValue"]'
-      ); // if there was a value on it already.
+      PHProgramme = document.querySelector('.search-by-programme div[class*="singleValue"]'); // if there was a value on it already.
 
     // when we come back grom the selected Programme
     if ( ! selectedProgramme ) {
       removeHighlightForCountriesHighlightedBySelectedProgramme(refContainer);
+
       if (PHProgramme)
         PHProgramme.textContent = 'Lookup by programme';
     } else {
       const programmeName = allProgrammes[selectedProgramme]?.post_title;
       if (PHProgramme)
         PHProgramme.textContent = programmeName;
+    }
+
+    if (selectedProgramme && allProgrammes[selectedProgramme]) {
+      // 3. highlight the regions for that programme
+      const regionsArray = allProgrammes[selectedProgramme].nuts3.split(",");
+      applyClassToRegions( refContainer, "region-with-programme-selected", regionsArray );
     }
 
 

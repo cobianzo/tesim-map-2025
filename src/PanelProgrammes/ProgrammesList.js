@@ -37,8 +37,8 @@ export default function ProgrammesList({
       {/* Show all programmes by period (eni-cbc and interreg-next periods */}
       <div className={`TM_Programmes-list-by-period ${selectedPeriod? "selected-period" : '' } ${selectedPeriod}`}>
         {Array.from(periods).length > 1 &&
-          Array.from(periods).map((period) => (
-            <div className={`${selectedPeriod === period ? "active" : ""}`}>
+          Array.from(periods).map((period, i) => (
+            <div className={`${selectedPeriod === period ? "active" : ""}`} key={`${period}-${i}`}>
               <h3>{sanitizePeriodName(period)}</h3>
               <ul className={`TM_List-of-programmes`}>
               {programmesIdsAlphabetical
@@ -56,7 +56,7 @@ export default function ProgrammesList({
                       key={period+code}
                       className={` ${selectedProgramme === code && "selected"}`}
                     >
-                      <p>{allProgrammes[code].post_title}</p>
+                      <p>{allProgrammes[code].post_title.replace('Interreg NEXT', '')}</p>
                       <img
                         className="logo-programme"
                         src={allProgrammes[code].logo}

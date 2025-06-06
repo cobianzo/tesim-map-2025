@@ -7,7 +7,7 @@ function PanelIntroENICBC() {
       {/********** HEAD of PANEL **********/}
       <div className="TM_card-header TM_card-header--with-logo">
         <h2 className="TM_h2">ENI-CBC Period</h2>
-        <div class="interreg-next-logo">
+        <div className="interreg-next-logo">
           {/* <img
             src={getBaseUrl() + "eni-cbc.png"}
             alt="ENI-CBC logo"

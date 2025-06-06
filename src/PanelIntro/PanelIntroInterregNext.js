@@ -6,7 +6,7 @@ function PanelIntroInterregNext() {
     <div className="interreg-next-period-info">
       <div className="TM_card-header TM_card-header--with-logo">
         <h2 className="TM_h2">Interreg NEXT Period</h2>
-        <div class="interreg-next-logo">
+        <div className="interreg-next-logo">
           <img
             src={getBaseUrl() + "interreg-next.png"}
             alt="Interreg NEXT logo"
@@ -23,7 +23,7 @@ function PanelIntroInterregNext() {
           improving the living conditions of regional communities, by finding
           common solutions to common challenges.
         </p>
-        <div class="w-100">
+        <div className="w-100">
           <h3 style={{ padding: 0 }}>INTERREG Next</h3>
           <ul>
             <li>
