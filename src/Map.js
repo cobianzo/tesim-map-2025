@@ -2,7 +2,14 @@ import React from "react";
 import Europe from "./SVGEurope";
 
 import useKeyPress from "./helpers/useKeyPress";
-import { applyClassToRegions, cleanupClassRegions, getBaseUrl, removeHighlightForCountriesHighlightedBySelectedProgramme, updatePlaceHolderCountryDropdown, updatePlaceHolderProgrammeDropdown } from "./helpers/utils";
+import {
+  applyClassToRegions,
+  cleanupClassRegions,
+  getBaseUrl,
+  removeHighlightForCountriesHighlightedBySelectedProgramme,
+  updatePlaceHolderCountryDropdown,
+  updatePlaceHolderProgrammeDropdown,
+} from "./helpers/utils";
 
 import "./Map.scss";
 import "./Panels.scss";
@@ -15,6 +22,7 @@ import BackPanelButton from "./BackPanelButton";
 import PanelIntroInterregNext from "./PanelIntro/PanelIntroInterregNext";
 import PanelIntroDefault from "./PanelIntro/PanelIntroDefault";
 import PanelIntroENICBC from "./PanelIntro/PanelIntroENICBC";
+import Debug from "./helpers/Debug";
 
 export default function Map({
   allProgrammes,
@@ -25,6 +33,7 @@ export default function Map({
   countriesToProjects,
   appOptions,
   setAppOptions,
+  isDebug,
 }) {
   const classSelectablePath = "cls-2";
 
@@ -60,23 +69,19 @@ export default function Map({
       // if a country is selected, reset the selected programme
       setSelectedProgramme(null);
     } else {
-      updatePlaceHolderCountryDropdown('Select a country');
+      updatePlaceHolderCountryDropdown("Select a country");
     }
   }, [countrySelected]); // WATCH:countrySelected
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     if (selectedProgramme) {
-      setCountrySelected('');
+      setCountrySelected("");
       const programmeName = allProgrammes[selectedProgramme]?.post_title;
       updatePlaceHolderProgrammeDropdown(programmeName);
-    }
-    else {
-      updatePlaceHolderProgrammeDropdown('Select a Programme');
+    } else {
+      updatePlaceHolderProgrammeDropdown("Select a Programme");
     }
   }, [selectedProgramme, setCountrySelected]); //WATCH:selectedProgramme in the dropdown
-
-
-
 
   // window.addEventListener("resize", adjustMapResolution);
   React.useEffect(() => {
@@ -103,6 +108,17 @@ export default function Map({
       });
     });
   }, [regionsToProgrammes, regionsToProgrammes.nuts3, allProgrammes]); // WATCH regionsToProgrammes.nuts3 (on load actually)
+
+  // Disable transition on all .selectable elements inside #svg-map-container
+  React.useEffect(() => {
+    const container = document.getElementById("svg-map-container");
+    if (container) {
+      const selectables = container.querySelectorAll(".selectable");
+      selectables.forEach((el) => {
+        el.style.transition = "none";
+      });
+    }
+  }, [regionsToProgrammes, allProgrammes]);
 
   // Calculate the periods. It will come out with ['eni-cbc', 'interreg-next'].
   React.useEffect(() => {
@@ -153,7 +169,6 @@ export default function Map({
 
   // watch selection of country in dropdown.
   React.useEffect(() => {
-
     // shabby solution accesing to DOM eleemnts.
 
     var PHCountry = document.querySelector(
@@ -197,29 +212,48 @@ export default function Map({
 
       PHCountry.textContent = "Select a country";
     }
-  }, [countrySelected, allCountriesInfo, appOptions, regionsToProgrammes, setAppOptions]); //WATCH countrySelected (click on a country or selected from dropdown)
+  }, [
+    countrySelected,
+    allCountriesInfo,
+    appOptions,
+    regionsToProgrammes,
+    setAppOptions,
+  ]); //WATCH countrySelected (click on a country or selected from dropdown)
 
   // Programme hovered in left panel, when the 15 programmes are listed.
   React.useEffect(() => {
     if (!refContainer.current || !allProgrammes) return;
     // CLEANUP - if we have finished a hover. (this could be in the return)
 
-    cleanupClassRegions(refContainer, "region-with-programme-hovered" );
-    cleanupClassRegions(refContainer, "country-beloging-to-with-programme-hovered" );
+    cleanupClassRegions(refContainer, "region-with-programme-hovered");
+    cleanupClassRegions(
+      refContainer,
+      "country-beloging-to-with-programme-hovered"
+    );
 
     if (!allProgrammes[hoveredProgramme]) {
       return;
     }
     // select the countries for that programme
-    const countriesArray = allProgrammes[hoveredProgramme].countries.split(",").filter(c=> c.length).map(c=> c.trim() + '0' );
-    applyClassToRegions( refContainer, "country-beloging-to-with-programme-hovered", countriesArray );
+    const countriesArray = allProgrammes[hoveredProgramme].countries
+      .split(",")
+      .filter((c) => c.length)
+      .map((c) => c.trim() + "0");
+    applyClassToRegions(
+      refContainer,
+      "country-beloging-to-with-programme-hovered",
+      countriesArray
+    );
 
     // Now apply class to regions, not to countries. Cleanup with cleanupHighlightedRegionsByProgrammeHovered
     if (hoveredProgramme && allProgrammes[hoveredProgramme]) {
       const regionsArray = allProgrammes[hoveredProgramme].nuts3.split(",");
-      applyClassToRegions( refContainer, "region-with-programme-hovered", regionsArray );
+      applyClassToRegions(
+        refContainer,
+        "region-with-programme-hovered",
+        regionsArray
+      );
     }
-
   }, [hoveredProgramme, allProgrammes]); //WATCH hoveredProgramme
 
   // Programme selected watch, when the 15 programmes are listed.
@@ -227,47 +261,56 @@ export default function Map({
   React.useEffect(() => {
     if (!refContainer.current || !allProgrammes) return;
     // 1. CLEANUP - if we have finished a hover. (this could be in the return)
-    cleanupClassRegions(refContainer, "programme-with-country-selected" );
-    cleanupClassRegions(refContainer, "country-selected" );
+    cleanupClassRegions(refContainer, "programme-with-country-selected");
+    cleanupClassRegions(refContainer, "country-selected");
     // cleanup classes for regions and start over
-    cleanupClassRegions(refContainer, "region-with-programme-hovered" );
-    cleanupClassRegions(refContainer, "region-with-programme-selected" );
+    cleanupClassRegions(refContainer, "region-with-programme-hovered");
+    cleanupClassRegions(refContainer, "region-with-programme-selected");
 
     if (!allProgrammes[selectedProgramme]) {
       return;
     }
 
     // 2. highlight the countries for that programme
-    const countriesArray = allProgrammes[selectedProgramme].countries.split(",");
-    applyClassToRegions( refContainer, "programme-with-country-selected", countriesArray );
+    const countriesArray =
+      allProgrammes[selectedProgramme].countries.split(",");
+    applyClassToRegions(
+      refContainer,
+      "programme-with-country-selected",
+      countriesArray
+    );
 
     // setCountrySelected(null);
 
     // Now the dropdown, update placeholder
     // shabby slution
-    var PHProgramme = document.querySelector('.search-by-programme div[class*="placeholder"]');
+    var PHProgramme = document.querySelector(
+      '.search-by-programme div[class*="placeholder"]'
+    );
     if (!PHProgramme)
-      PHProgramme = document.querySelector('.search-by-programme div[class*="singleValue"]'); // if there was a value on it already.
+      PHProgramme = document.querySelector(
+        '.search-by-programme div[class*="singleValue"]'
+      ); // if there was a value on it already.
 
     // when we come back grom the selected Programme
-    if ( ! selectedProgramme ) {
+    if (!selectedProgramme) {
       removeHighlightForCountriesHighlightedBySelectedProgramme(refContainer);
 
-      if (PHProgramme)
-        PHProgramme.textContent = 'Lookup by programme';
+      if (PHProgramme) PHProgramme.textContent = "Lookup by programme";
     } else {
       const programmeName = allProgrammes[selectedProgramme]?.post_title;
-      if (PHProgramme)
-        PHProgramme.textContent = programmeName;
+      if (PHProgramme) PHProgramme.textContent = programmeName;
     }
 
     if (selectedProgramme && allProgrammes[selectedProgramme]) {
       // 3. highlight the regions for that programme
       const regionsArray = allProgrammes[selectedProgramme].nuts3.split(",");
-      applyClassToRegions( refContainer, "region-with-programme-selected", regionsArray );
+      applyClassToRegions(
+        refContainer,
+        "region-with-programme-selected",
+        regionsArray
+      );
     }
-
-
   }, [selectedProgramme, allProgrammes]); //WATCH selectedProgramme to highlight the country
 
   // when looking up by programme, if a country weas selected, we deselected it.
@@ -281,7 +324,11 @@ export default function Map({
 
   // COMPPUTED - flag to show or not the Programmes panel
   const showProgrammesPanel = React.useMemo(() => {
-    return appOptions.showProjectsType === "all-programmes" && !countryHovered && !countrySelected;
+    return (
+      appOptions.showProjectsType === "all-programmes" &&
+      !countryHovered &&
+      !countrySelected
+    );
   }, [appOptions.showProjectsType, countryHovered, countrySelected]);
 
   const showCoutriesContent = React.useMemo(() => {
@@ -302,6 +349,8 @@ export default function Map({
     } else setHovered(null);
   };
   const handleClick = (e) => {
+    // selecting country slows down everything in debug mode.
+    if (isDebug) return;
     if (countryHovered) setCountrySelected(countryHovered);
   };
   // key escape listener: close the modal window with the project info
@@ -370,10 +419,18 @@ export default function Map({
       }`}
       ref={refContainer}
     >
+      {Object.keys(allCountriesInfo).length > 0 && isDebug && (
+        <Debug
+          allCountriesInfo={allCountriesInfo}
+          countrySelected={countrySelected}
+        />
+      )}
+
       <div id="TM_topbar" className="TM_row">
         <TopBar
           allProgrammes={allProgrammes}
-          selectedProgramme={selectedProgramme} setSelectedProgramme={setSelectedProgramme}
+          selectedProgramme={selectedProgramme}
+          setSelectedProgramme={setSelectedProgramme}
           allProjects={allProjects}
           regionsToProgrammes={regionsToProgrammes}
           allRegionsInfo={allRegionsInfo}
@@ -458,7 +515,6 @@ export default function Map({
 
       {/* <!-- end left panel --> */}
 
-
       {/* The MAP */}
       <div className="TM_map-wrapper TM_col-12 tm_border TM_overflow-hidden">
         <div className="togglepill-wrapper">
@@ -498,7 +554,10 @@ export default function Map({
           onClick={(e) => setProjectInModal(null)}
         >
           <div className="tm_tesim-modal__inner">
-            <BackPanelButton onClickHandle={() => setProjectInModal(null)} color="info" />
+            <BackPanelButton
+              onClickHandle={() => setProjectInModal(null)}
+              color="info"
+            />
 
             <iframe
               src={

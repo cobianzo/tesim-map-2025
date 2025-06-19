@@ -1,0 +1,28 @@
+.debug-top {
+  word-wrap: break-word;
+}
+.debug-centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background: white;
+  padding: 5px;
+  box-shadow: 5px 5px 5px;
+  z-index: 9;
+}
+
+#svg-map-container .region-debug-selected {
+  fill: hsl(60, 100%, 50%) !important;
+}
+
+.debug-it #svg-map-container {
+  scale: 4 !important;
+  margin-left: 1250px !important;
+  margin-top: -1000px !important;
+}
+
+.debug-es #svg-map-container {
+  scale: 4 !important;
+  margin-left: 1450px !important;
+  margin-top: -1000px !important;
+}

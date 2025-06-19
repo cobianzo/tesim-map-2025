@@ -27,9 +27,16 @@ When clicking on the play icon inside 1728x932px
 ## EXTERNAL DATA
 
 - List of programmes and their projects: in a json with format at
-  - `projects-and-programmes.json` . We get this one from 'interreg' project with a php fn called `get_all_eni_projects()`. (the interreg.eu project has been replaced in 2025, so this is not valid anymore)  We can also retrieve from API, but it's not tested live
+  - `projects-and-programmes.json` . 
+  ~~OBSOLETE since interreg.eu is over. We get this one from 'interreg' project with a php fn called `get_all_eni_projects()`. (the interreg.eu project has been replaced in 2025, so this is not valid anymore)  We can also retrieve from API, but it's not tested live~~
+  Currently I can use the local one at 
+  /Users/alvaroblancocobian/LocalSites/tesimnew/app/public/wp-content/themes/understrap-child-master/inc/react-map/projects-and-programmes.json
+  ot the live one at
+  https://interregtesimnext.eu/wp-content/themes/understrap-child-master/inc/react-map/projects-and-programmes.json
+  
+
   - Nowadays that `projects-and-programmes.json` is overwritten by interregtesimnext.eu, which holds this map in production, on `save_post`.
-    - We need to make sure that the permissions are ok for this file with `chown www-data:www-data projects-and-programmes.json`
+    - We need to make sure that the permissions are ok for this file with `chown www-data:www-data projects-and-programmes.json`. In dev it would be ` chown www-data:www-data /home/jails/cobianzo-dev/home/cobianzo-dev/public/wp-content/themes/understrap-child-master/inc/react-map/projects-and-programmes.json`
   - .projects
   - .programmes
 - List of nuts3 and their projects
@@ -56,6 +63,13 @@ App.js > Map.js (all html) > SVGEurope.js , created from nuts3-eni.svg
 and `https://svg2jsx.com/`
 we need to remove the <def> tag to make it parseable
 and remove the parent width=1000 height=600. It will be calculated according to the parent div size.
+
+# Debugging mode
+
+use `?debug=1` to hover the regions and know the name. Click on several regions to see the list with the ids.
+It will also show the name of all projects, to help you see the full list.
+Use `?debug-it` to zoom the map focusing on Italy.
+Edit `<Debug>` to add more features when developing.
 
 # Getting Started with Create React App
 

@@ -9,7 +9,7 @@ $color-candidates-non-selectable: #a76ea4; // turkey ...
 $color-candidates-selectable: $primary;
 $color-partners-non-selectable: lightgray; // turkey ...
 $color-partners-selectable: darkgray;
-$color-non-eu-non-selectable: #a76ea4; // light purple. Russia ...
+$color-non-eu-non-selectable: #a76ea4; // light purple. Russia ... (in interreg NEXT period Russia is white by hand)
 $color-non-eu-selectable: $primary; // deep purple. Nuts3 of Russia with programmes.
 
 $color-norway: gray;
@@ -46,7 +46,7 @@ $color-norway-selectable: #444444;
 
 #svg-map-container {
   margin-left: 550px;
-  margin-top: -80px;
+  margin-top: -50px; // just to cut off subsaharan marocco
   scale: 1.3;
   transition: scale 0.5s ease-in-out, margin 0.5s ease-in-out;
   // border: 3px solid pink;
@@ -54,7 +54,7 @@ $color-norway-selectable: #444444;
   .TM_container.period-interreg-next & {
     scale: 1.5;
     margin-left: 550px;
-    margin-top: -150px;
+    margin-top: -100px; // just to cut off subsaharan marocco
   }
 }
 
@@ -160,9 +160,10 @@ $color-norway-selectable: #444444;
     }
   }
 
-  // #landmarks-eu-non-involved-in-next
+  // #landmarks-eu-non-involved in-next period
   #ru-relleno,
   #landmarks-ru path,
+  #landmarks-by path,
   #landmarks-ly path,
   #landmarks-sy path,
   #landmarks-az path,

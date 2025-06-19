@@ -25,14 +25,17 @@ function App() {
   const [appOptions, setAppOptions] = React.useState({
     showProjectsType: "all-programmes",
   }); // programmes|map (by default)
+  const [isDebug, setIsDebug] = React.useState(false);
 
   // **** ON MOUNT init the state vars *****
   React.useEffect(() => {
-    console.log('Starting Interactive map. BaseURL at' , getBaseUrl());
+    console.log("Starting Interactive map. BaseURL at", getBaseUrl());
     // setAppOptions({ showProjectsType: "map" });
     setAppOptions({ showProjectsType: "all-programmes" });
     fetchProgrammesProjects();
     fetchAllRegionsNames();
+
+    setIsDebug(new URLSearchParams(window.location.search).get('debug') || null);
   }, []);
 
   // **** WATCH allProgrammes *****
@@ -46,12 +49,7 @@ function App() {
     //            when finish get all projects and fetch into from api > update state projects.
     //            and prepare array for regions > update state
     const endpoint = `${getBaseUrl()}projects-and-programmes.json?v=1`; // created by interreg project with php fn:  get_all_eni_projects()
-    console.log(
-      "openENDPOINT PDSoPro:--- ",
-      endpoint,
-      "%%%",
-      getBaseUrl()
-    );
+    console.log("openENDPOINT PDSoPro:--- ", endpoint, "%%%", getBaseUrl());
     const res = await fetch(endpoint);
     res
       .json()
@@ -108,7 +106,6 @@ function App() {
           nuts3: nuts3ToProg,
           countries: countryToProg,
         });
-
       })
       .catch((err) => {
         console.error("Propro res error: ", err);
@@ -146,7 +143,7 @@ function App() {
   // *** T E M P L A T E ******    JSX    *******************************
   /**********************************************************************/
   return (
-    <div className="TM_App">
+    <div className={`TM_App ${isDebug ? 'debug-' + isDebug : '' }`}>
       <Map
         allProgrammes={allProgrammes}
         allProjects={allProjects}
@@ -156,6 +153,7 @@ function App() {
         appOptions={appOptions}
         setAppOptions={setAppOptions}
         countriesToProjects={countriesToProjects}
+        isDebug={isDebug}
       />
     </div>
   );
