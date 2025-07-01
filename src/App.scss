@@ -144,11 +144,22 @@ $tm-colors: (
   }
 
   .tm_bg-#{$color-name}-light {
-    background-color: color-mix(
-      in hsl,
-      var(--tm-#{$color-name}) 50%,
-      #ffffff 100%
-    );
+    background-color: var(--tm-#{$color-name});
+    // background-color: color-mix(
+    //   in hsl,
+    //   var(--tm-#{$color-name}) 50%,
+    //   #ffffff 100%
+    // );
+  }
+  .tm_bg-#{$color-name}-button {
+    color: var(--tm-#{$color-name});
+    background-color: white;
+    border: 3px solid var(--tm-#{$color-name});
+    box-shadow: 3px 3px 0px var(--tm-#{$color-name});
+    &:hover {
+      background-color: var(--tm-#{$color-name});
+      color: white;
+    }
   }
 }
 

@@ -44,8 +44,8 @@ export default function ProjectInfo({
   return (
     <li
       onClick={(e) => {
-        window.open(projectInfo?.permalink, '_blank');
-        // setProjectInModal(projectInfo.ID);
+        // window.open(projectInfo?.permalink, '_blank');
+        setProjectInModal(projectInfo.ID);
       }}
       className={`project-${projectInfo?.color}`}
     >

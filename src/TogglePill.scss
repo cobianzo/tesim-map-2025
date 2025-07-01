@@ -15,38 +15,45 @@
 
 .toggle-pill {
   display: inline-flex;
-  border: 10px solid var(--tm-primary);
+  border: 5px solid #273989;
   border-radius: 9999px;
   overflow: hidden;
   font-family: sans-serif;
-  font-size: 25px;
+  font-size: 20px;
   cursor: pointer;
   padding: 0;
   transition: border-color 0.3s;
-  background-color: #fff;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
+  background-color: #273989ee; // same as the inactive pill (var(--tm-secondary))
+  transition: background-color 0.3s, box-shadow 0.3s;
+  color: white;
+  font-family: "Century Gothic", sans-serif;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2),
+    inset 0 0 16px rgba(0, 0, 0, 0.4);
+  &:hover {
+    background-color: var(--tm-secondary); // same as the inactive pill
+  }
 }
 
 .toggle-pill__option {
   padding: 2rem;
-  transition: background-color 0.3s, color 0.3s;
   white-space: nowrap;
   opacity: 0.7;
-  transition: color 0.3s, opacity 0.3s, background-color 1s ease-in-out;
-  &:hover {
-    opacity: 1;
-  }
+  transition: color 0.3s, opacity 0.3s;
 }
 
 .toggle-pill__option.active {
   opacity: 1;
-  background-color: var(--tm-primary);
-  color: white;
+  background-color: white;
+  color: var(--tm-secondary);
+  border-radius: 99999px;
 }
 
 .toggle-pill__option.inactive {
-  background-color: #f8f9fa;
-  color: #333;
+  color: white;
+  &:hover {
+    opacity: 1;
+    color: white;
+  }
 }
 
 /**

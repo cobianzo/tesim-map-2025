@@ -52,6 +52,8 @@
 
 // TOP BAR with search btns and dropdowns
 #TM_topbar {
+  gap: 2rem;
+
   .tm_nav-item {
     flex-grow: 1; // in mobile take all width
     margin: 5px 5px;

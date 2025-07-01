@@ -36,7 +36,10 @@ When clicking on the play icon inside 1728x932px
   
 
   - Nowadays that `projects-and-programmes.json` is overwritten by interregtesimnext.eu, which holds this map in production, on `save_post`.
-    - We need to make sure that the permissions are ok for this file with `chown www-data:www-data projects-and-programmes.json`. In dev it would be ` chown www-data:www-data /home/jails/cobianzo-dev/home/cobianzo-dev/public/wp-content/themes/understrap-child-master/inc/react-map/projects-and-programmes.json`
+    - We need to make sure that the permissions are ok for this file with `chown www-data:www-data projects-and-programmes.json`. In dev it would be 
+    
+    ` chown www-data:www-data /home/jails/cobianzo-dev/home/cobianzo-dev/public/wp-content/themes/understrap-child-master/inc/react-map/projects-and-programmes.json`
+    
   - .projects
   - .programmes
 - List of nuts3 and their projects

@@ -279,7 +279,6 @@ div.TM_list-of-projects > ul {
     text-align: center;
     line-height: 1;
     border-radius: 5px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     align-items: center;
     display: flex;
 
@@ -290,7 +289,7 @@ div.TM_list-of-projects > ul {
     }
 
     &:hover {
-      background-color: var(--tm-info);
+      // background-color: var(--tm-info);
     }
     &.active {
       background-color: var(--tm-primary);

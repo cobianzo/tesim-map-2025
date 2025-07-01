@@ -140,7 +140,7 @@ export default function TopBar( {   regionsToProgrammes,
                 groupIndex = groupedOptions.length - 1;
             }
             groupedOptions[groupIndex].options.push({
-                label: `${proj.post_title} - ${period}`,
+                label: `${proj.post_title}`,
                 value: proj.ID
             });
         })

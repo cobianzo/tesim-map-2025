@@ -12,7 +12,7 @@ export default function FilterByThematic({
   // The themes are different depending on the period.
   // The `themes` are associated to the projects, the `period` to the programmes
   const themes = selectedPeriod === 'interreg-next' ?
-  ["environment-2025", "social-inclusion-2025", "smart-growth-2025", "border-2025", "governance-2025"]
+  ["smart-growth-2025", "environment-2025", "social-inclusion-2025", "governance-2025", "border-2025"]
   :
   ["environment", "p2p", "economic", "infrastructure"]
 
@@ -33,7 +33,7 @@ export default function FilterByThematic({
               key={theme}
               className={
                 (theme === filterByTheme ? "active " : "") +
-                `tm_bg-${theme}-light`
+                `tm_bg-${theme}-button`
               }
               data-count={numberProjects}
             >

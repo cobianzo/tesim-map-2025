@@ -57,6 +57,19 @@ export default function Map({
     if (selectedPeriod) {
       setFilterByTheme(null);
       setSelectedProgramme(null);
+
+      // by hand:  we deactivate russian and belrus in Interreg Next period
+      if (selectedPeriod === "interreg-next") {
+        // remove the countries from the map
+        const countriesToRemove = ["ru", "by"];
+        countriesToRemove.forEach((countryCode) => {
+          const path = refSVG.current.getElementById(`${countryCode}0`);
+          if (path) {
+            path.classList.remove("selectable");
+            path.classList.add("not-selectable");
+          }
+        });
+      }
     }
   }, [selectedPeriod]);
 
@@ -147,8 +160,21 @@ export default function Map({
     if (
       regionsToProgrammes.countries &&
       regionsToProgrammes.countries[countryCode]
-    )
-      setCountryHovered(countryCode);
+    ) {
+
+      // We check that at least one of the programmes of the country is in the selected period.
+      const programmesForCountry = regionsToProgrammes.countries[countryCode];
+      const isInSelectedPeriod = programmesForCountry.some(
+        (programmeID) =>
+          allProgrammes[programmeID] &&
+          allProgrammes[programmeID].period === selectedPeriod
+      );
+
+
+      if (isInSelectedPeriod) {
+        setCountryHovered(countryCode);
+      }
+    }
   }, [hovered]); //WATCH. hovered is a region ID
 
   // watch country hovered: add class to highlight
