@@ -54,7 +54,7 @@ export default function ProgrammesList({
                       onMouseEnter={(e) => setHoveredProgramme(code)}
                       onMouseLeave={(e) => setHoveredProgramme(null)}
                       key={period+code}
-                      className={` ${selectedProgramme === code && "selected"}`}
+                      className={` ${selectedProgramme === code ? "selected" : "not-selected"} TM_programme-item-${code}`}
                     >
                       <p>{allProgrammes[code].post_title.replace('Interreg NEXT', '')}</p>
                       <img

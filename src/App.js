@@ -57,7 +57,8 @@ function App() {
         console.log("all Programmes and projects dio: ", res);
         setAllProjects(res.projects);
 
-        // before saving the programmes, we add the field of projects, so we have both ways info
+        // before saving the programmes,
+        // we add the field of projects, so we have both ways info
         const countToProj = {};
         res.projects.forEach((projectObj) => {
           // set the programme's projects

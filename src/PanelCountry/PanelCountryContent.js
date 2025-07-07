@@ -20,6 +20,7 @@ function PanelCountryContent({
   countryHovered,
   countrySelected,
   setCountrySelected,
+  selectedProgramme,
   filterByTheme,
   setFilterByTheme,
   setProjectInModal,
@@ -41,6 +42,14 @@ function PanelCountryContent({
     <div className="TM_card">
       {/********** HEAD **********/}
       <div className="TM_card-header">
+        {/* a country is hovered (head)  */}
+        {countryHovered && selectedProgramme && (
+          <h2 className="TM_h2 tm_mt-0">
+            <span>
+            {allCountriesInfo[countryHovered]?.title ?? "Country"} <br />
+            </span>
+          </h2>)}
+
         {/* a country is selected  */}
         {countrySelected || countryHovered ? (
           <InfoProgrammesAndProjectsForCountry
@@ -61,13 +70,12 @@ function PanelCountryContent({
       {/********** BODY **********/}
       <div className="TM_card-body">
         {/* a country is hovered (body) */}
-        {countryHovered && !countrySelected && (<>
+        {countryHovered && !countrySelected && (
           <p className="TM_text-secondary">
             {(projectsForSelectedCountry?.length > 0) ?
                 `Click on the country for more information`
-              : <span>No projects for this country {selectedPeriod? ` for the period ${sanitizePeriodName(selectedPeriod)}` : `` }</span>}
-          </p>
-        </>)}
+              : <span>No projects for this country are shown yet in this exhibition for the period  {selectedPeriod? ` for the period ${sanitizePeriodName(selectedPeriod)}` : `` }</span>}
+          </p>)}
 
         {/* a country is selected (body) */}
         {(countrySelected && projectsForSelectedCountry) ? (
@@ -81,11 +89,17 @@ function PanelCountryContent({
               selectedPeriod={selectedPeriod}
             />
             <footer className="TM_text-secondary">
-              {countrySelected && projectsForSelectedCountry && (
-                <>
-                  <small>Click on the icon to open the full description</small>
-                </>
+              {countrySelected && (
+
+                  <small>
+                    { projectsForSelectedCountry.length ?
+                       `Click on the thumbnail to open the full description`
+                        :
+                        `No projects for this country are shown yet in this exhibition for the period ${sanitizePeriodName(selectedPeriod)}`
+                    }
+                  </small>
               )}
+
             </footer>
             <BackPanelButton onClickHandle={ () => { setCountrySelected(); setFilterByTheme(); } } color="gray" />
 

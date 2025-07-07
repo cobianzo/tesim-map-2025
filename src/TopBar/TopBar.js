@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select'
 import ListOfProgrammesButton from './ListOfProgrammesButton';
-import { sanitizePeriodName } from '../helpers/utils';
+import { sanitizePeriodName, themeToLabel } from '../helpers/utils';
 
 /**
  * DROPDOWN for the countries (also regions, but it was removed).
@@ -132,7 +132,7 @@ export default function TopBar( {   regionsToProgrammes,
             else if (thematic.toLowerCase() === 'infrastructures') thematic = 'Cross-border infrastructure';
             let subthematic = proj.subthematic.replace(/well functioning /ig, '');
             subthematic = subthematic.replace('&amp;', '&');
-            const groupLabel = `${thematic}` + (subthematic? ' - ' + subthematic : '' );
+            const groupLabel = themeToLabel(`${thematic}`) + (subthematic? ' - ' + subthematic : '' );
             var groupIndex = groupedOptions.findIndex( gr => gr.label === groupLabel );
             // if (groupIndex === -1) groupIndex = groupedOptions.findIndex( gr => gr.label === proj.color );
             if (groupIndex === -1) { // not found -> create the group

@@ -510,6 +510,7 @@ export default function Map({
               countryHovered={countryHovered}
               countrySelected={countrySelected}
               setCountrySelected={setCountrySelected}
+              selectedProgramme={selectedProgramme}
               filterByTheme={filterByTheme}
               setFilterByTheme={setFilterByTheme}
               setProjectInModal={setProjectInModal}

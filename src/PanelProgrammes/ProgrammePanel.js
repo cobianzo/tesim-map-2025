@@ -1,7 +1,7 @@
 import React from "react";
 import ProjectInfo from "../ProjectInfo";
 import FilterByThematic from "../FilterByThematic";
-import { themeToLabel } from "../helpers/utils";
+import { sanitizePeriodName, themeToLabel } from "../helpers/utils";
 import useAlphabeticProjects from "../useAlphabeticProjects";
 
 /**
@@ -40,7 +40,13 @@ export default function ProgrammePanel({
       />
 
       <span className="badge badge-secondary d-block">
-        {allProgrammes[programmeId].projects?.length} projects
+        {
+        allProgrammes[programmeId].projects ? (
+          `${allProgrammes[programmeId].projects?.length} projects`
+          )
+          :
+          <p>No projects for this country are shown yet in this exhibition for the period {sanitizePeriodName(selectedPeriod)}</p>
+        }
       </span>
 
       <div className="TM_list-of-projects" data-theme={themeToLabel(filterByTheme)}>
@@ -62,9 +68,7 @@ export default function ProgrammePanel({
                 />
               ) : null;
             })
-          ) : (
-            <pre> No projects found :(</pre>
-          )}
+          ) : null}
         </ul>
       </div>
     </>
